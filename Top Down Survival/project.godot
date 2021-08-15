@@ -11,12 +11,13 @@ config_version=4
 [application]
 
 config/name="Top Down Survival"
-run/main_scene="res://src/scenes/Lobby.tscn"
+run/main_scene="res://src/scenes/ui_scenes/Lobby.tscn"
 config/icon="res://icon.png"
 
 [autoload]
 
-NetworkClient="*res://src/autoload_scripts/network_client.gd"
+Save="*res://src/autoload_scripts/save.gd"
+Network="*res://src/autoload_scripts/network.gd"
 
 [physics]
 

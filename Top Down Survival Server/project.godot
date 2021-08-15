@@ -11,7 +11,7 @@ config_version=4
 [application]
 
 config/name="Top Down Survival Server"
-run/main_scene="res://src/scenes/Server.tscn"
+run/main_scene="res://src/scenes/Network.tscn"
 config/icon="res://icon.png"
 
 [physics]

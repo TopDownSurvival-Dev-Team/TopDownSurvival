@@ -1,0 +1,110 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://src/scripts/ui_scripts/Lobby.gd" type="Script" id=1]
+[ext_resource path="res://src/scenes/ui_scenes/WaitingRoom.tscn" type="PackedScene" id=2]
+
+[node name="Lobby" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.0431373, 0.431373, 0.101961, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+margin_left = 362.0
+margin_top = 228.0
+margin_right = 662.0
+margin_bottom = 372.0
+grow_horizontal = 2
+grow_vertical = 2
+rect_min_size = Vector2( 300, 0 )
+custom_constants/separation = 15
+alignment = 1
+
+[node name="LobbyTitle" type="Label" parent="CenterContainer/VBoxContainer"]
+margin_right = 300.0
+margin_bottom = 14.0
+text = "Lobby"
+align = 1
+valign = 1
+uppercase = true
+
+[node name="Fields" type="GridContainer" parent="CenterContainer/VBoxContainer"]
+margin_top = 29.0
+margin_right = 300.0
+margin_bottom = 109.0
+columns = 2
+
+[node name="NameLabel" type="Label" parent="CenterContainer/VBoxContainer/Fields"]
+margin_top = 5.0
+margin_right = 100.0
+margin_bottom = 19.0
+text = "Name:"
+valign = 1
+
+[node name="NameField" type="LineEdit" parent="CenterContainer/VBoxContainer/Fields"]
+margin_left = 104.0
+margin_right = 300.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+placeholder_text = "This is the tale of..."
+
+[node name="AddressLabel" type="Label" parent="CenterContainer/VBoxContainer/Fields"]
+margin_top = 33.0
+margin_right = 100.0
+margin_bottom = 47.0
+text = "Server Address:"
+valign = 1
+
+[node name="AddressField" type="LineEdit" parent="CenterContainer/VBoxContainer/Fields"]
+margin_left = 104.0
+margin_top = 28.0
+margin_right = 300.0
+margin_bottom = 52.0
+size_flags_horizontal = 3
+placeholder_text = "Eg: 127.0.0.1, google.com"
+
+[node name="PortLabel" type="Label" parent="CenterContainer/VBoxContainer/Fields"]
+margin_top = 61.0
+margin_right = 100.0
+margin_bottom = 75.0
+text = "Server Port:"
+valign = 1
+
+[node name="PortField" type="LineEdit" parent="CenterContainer/VBoxContainer/Fields"]
+margin_left = 104.0
+margin_top = 56.0
+margin_right = 300.0
+margin_bottom = 80.0
+size_flags_horizontal = 3
+placeholder_text = "Eg: 8000, 6969"
+
+[node name="JoinButton" type="Button" parent="CenterContainer/VBoxContainer"]
+margin_top = 124.0
+margin_right = 300.0
+margin_bottom = 144.0
+text = "Join Game"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="WaitingRoom" parent="." instance=ExtResource( 2 )]
+
+[connection signal="text_changed" from="CenterContainer/VBoxContainer/Fields/NameField" to="." method="_on_NameField_text_changed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/JoinButton" to="." method="_on_JoinButton_pressed"]

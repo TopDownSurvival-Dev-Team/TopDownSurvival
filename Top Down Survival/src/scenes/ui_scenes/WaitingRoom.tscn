@@ -1,0 +1,62 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://src/scripts/ui_scripts/WaitingRoom.gd" type="Script" id=1]
+
+[node name="WaitingRoom" type="Popup" groups=[
+"WaitingRoom",
+]]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.211765, 0.211765, 0.211765, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+margin_left = 412.0
+margin_top = 191.0
+margin_right = 612.0
+margin_bottom = 408.0
+rect_min_size = Vector2( 200, 0 )
+custom_constants/separation = 15
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer"]
+margin_right = 200.0
+margin_bottom = 14.0
+text = "Waiting Room"
+align = 1
+uppercase = true
+
+[node name="ItemList" type="ItemList" parent="CenterContainer/VBoxContainer"]
+margin_top = 29.0
+margin_right = 200.0
+margin_bottom = 182.0
+custom_constants/vseparation = 10
+items = [ "Player 1", null, false, "Player 2", null, false, "Player 3", null, false, "Player 4", null, false ]
+auto_height = true
+same_column_width = true
+fixed_column_width = 200
+icon_mode = 0
+
+[node name="ReadyButton" type="Button" parent="CenterContainer/VBoxContainer"]
+margin_top = 197.0
+margin_right = 200.0
+margin_bottom = 217.0
+text = "Ready Up!"
+
+[connection signal="pressed" from="CenterContainer/VBoxContainer/ReadyButton" to="." method="_on_ReadyButton_pressed"]
