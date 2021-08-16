@@ -1,0 +1,17 @@
+[gd_scene format=2]
+
+[node name="World" type="Node2D"]
+
+[node name="Players" type="Node" parent="."]
+
+[node name="Label" type="Label" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 470.754
+margin_top = 244.246
+margin_right = 609.754
+margin_bottom = 258.246
+text = "welcome to the game"
+__meta__ = {
+"_edit_use_anchors_": false
+}

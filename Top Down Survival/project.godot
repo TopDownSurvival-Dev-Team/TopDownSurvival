@@ -19,6 +19,11 @@ config/icon="res://icon.png"
 Save="*res://src/autoload_scripts/save.gd"
 Network="*res://src/autoload_scripts/network.gd"
 
+[display]
+
+window/stretch/mode="2d"
+window/stretch/aspect="keep"
+
 [physics]
 
 common/enable_pause_aware_picking=true

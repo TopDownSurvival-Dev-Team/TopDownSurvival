@@ -21,4 +21,5 @@ func show_popup():
 
 
 func _on_ReadyButton_pressed():
+	Network.ready_up()
 	ready_button.disabled = true
