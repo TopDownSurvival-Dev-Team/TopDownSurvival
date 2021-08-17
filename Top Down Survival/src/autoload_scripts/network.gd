@@ -41,8 +41,11 @@ func _connection_successful():
 	register_player()
 	rpc_id(1, "send_player_info", local_player_id, player_data)
 	
-	# Show waiting room popup if connection was successful
-	get_tree().call_group("WaitingRoom", "show_popup")
+	# Start game
+	print("Starting game")
+	var world_scene = preload("res://src/scenes/game_scenes/World.tscn").instance()
+	get_tree().get_root().add_child(world_scene)
+	get_tree().get_root().get_node("Lobby").queue_free()
 
 
 func _connection_failed():
@@ -58,22 +61,3 @@ func register_player():
 	local_player_id = get_tree().get_network_unique_id()
 	player_data = Save.save_data
 	players[local_player_id] = player_data
-	
-	
-# "sync" keyword on function means the function will be called on all network
-# peers using "rpc" function
-sync func update_waiting_room():
-	print("Updating waiting room")
-	get_tree().call_group("WaitingRoom", "refresh_players", players)
-	
-	
-func ready_up():
-	rpc_id(1, "ready_player", local_player_id)
-	
-	
-sync func start_game():
-	print("Starting game")
-	var world_scene = preload("res://src/scenes/game_scenes/World.tscn").instance()
-	
-	get_tree().get_root().add_child(world_scene)
-	get_tree().get_root().get_node("Lobby").queue_free()

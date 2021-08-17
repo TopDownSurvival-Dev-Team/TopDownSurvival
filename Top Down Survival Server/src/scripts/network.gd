@@ -19,6 +19,10 @@ func start_server():
 	get_tree().set_network_peer(network)
 	print("Server started!")
 	
+	var world = preload("res://src/scenes/World.tscn").instance()
+	get_tree().get_root().call_deferred("add_child", world)
+	print("Game world started!")
+	
 	
 func _player_connected(id):
 	print("Player " + str(id) + " has connected")
@@ -31,21 +35,3 @@ func _player_disconnected(id):
 remote func send_player_info(id, player_data):
 	players[id] = player_data
 	rset("players", players)
-	rpc("update_waiting_room")
-	
-	
-remote func ready_player(id):
-	# Ignore if player has already readied up
-	if id in ready_players:
-		return
-		
-	ready_players.append(id)
-	print("Player " + str(id) + " is ready")
-	var ready_count = len(ready_players)
-	
-	if ready_count != 0 and ready_count == len(players):
-		print("All players are ready")
-		rpc("start_game")
-		
-		var world = preload("res://src/scenes/World.tscn").instance()
-		get_tree().get_root().add_child(world)

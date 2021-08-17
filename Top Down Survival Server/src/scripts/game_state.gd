@@ -6,6 +6,7 @@ onready var players = $Players
 
 
 remote func spawn_player_s(id):
+	print("Spawning player " + str(id))
 	var new_player = PLAYER_SCENE.instance()
 	new_player.name = str(id)
 	players.add_child(new_player)
