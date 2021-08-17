@@ -31,3 +31,6 @@ func _player_disconnected(id):
 remote func send_player_info(id, player_data):
 	players[id] = player_data
 	rset("players", players)
+	
+	# Send existing players to new client
+	get_tree().call_group("World", "send_existing_players_to", id)
