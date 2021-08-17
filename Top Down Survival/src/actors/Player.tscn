@@ -1,0 +1,41 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://src/sprite_frames/Player.tres" type="SpriteFrames" id=1]
+[ext_resource path="res://src/scripts/game_scripts/Player.gd" type="Script" id=2]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 27.0
+
+[node name="Player" type="KinematicBody2D"]
+script = ExtResource( 2 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+rotation = 1.5708
+frames = ExtResource( 1 )
+animation = "idle"
+
+[node name="Label" type="Label" parent="."]
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -60.0
+margin_top = -52.0
+margin_right = 60.0
+margin_bottom = -32.0
+grow_horizontal = 2
+grow_vertical = 2
+rect_min_size = Vector2( 120, 20 )
+rect_pivot_offset = Vector2( 60, 20 )
+text = "Player Name"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( -6, 0 )
+shape = SubResource( 1 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+smoothing_enabled = true

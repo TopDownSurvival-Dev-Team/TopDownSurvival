@@ -106,5 +106,4 @@ __meta__ = {
 
 [node name="WaitingRoom" parent="." instance=ExtResource( 2 )]
 
-[connection signal="text_changed" from="CenterContainer/VBoxContainer/Fields/NameField" to="." method="_on_NameField_text_changed"]
 [connection signal="pressed" from="CenterContainer/VBoxContainer/JoinButton" to="." method="_on_JoinButton_pressed"]

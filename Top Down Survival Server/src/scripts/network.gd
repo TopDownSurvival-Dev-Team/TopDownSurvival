@@ -40,6 +40,7 @@ remote func ready_player(id):
 		return
 		
 	ready_players.append(id)
+	print("Player " + str(id) + " is ready")
 	var ready_count = len(ready_players)
 	
 	if ready_count != 0 and ready_count == len(players):
