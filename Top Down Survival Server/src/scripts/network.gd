@@ -19,10 +19,6 @@ func start_server():
 	get_tree().set_network_peer(network)
 	print("Server started!")
 	
-	var world = preload("res://src/scenes/World.tscn").instance()
-	get_tree().get_root().call_deferred("add_child", world)
-	print("Game world started!")
-	
 	
 func _player_connected(id):
 	print("Player " + str(id) + " has connected")
