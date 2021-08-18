@@ -36,13 +36,15 @@ func _physics_process(delta):
 		look_at(get_global_mouse_position())
 		update_label_position()
 		
-		rpc_unreliable_id(1, "update_player", global_transform)
+		rpc_unreliable_id(1, "update_player", global_transform, animated_sprite.animation)
 		
 
-remote func remote_update(transform):
+remote func remote_update(transform: Transform2D, current_animation: String):
 	if not is_network_master():
 		global_transform = transform
 		update_label_position()
+		
+		animated_sprite.play(current_animation)
 
 func get_velocity(current_velocity: Vector2):
 	var new_velocity = current_velocity
