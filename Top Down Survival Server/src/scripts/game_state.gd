@@ -17,7 +17,7 @@ func send_existing_players_to(id):
 			rpc_id(id, "spawn_player", player_id)
 		
 		
-remote func spawn_player_s(id):
+remote func spawn_player(id):
 	print("Spawning player " + str(id))
 	var new_player = PLAYER_SCENE.instance()
 	new_player.name = str(id)

@@ -7,7 +7,7 @@ onready var players = $Players
 
 
 func _ready():
-	rpc_id(1, "spawn_player_s", Network.local_player_id)
+	rpc_id(1, "spawn_player", Network.local_player_id)
 	
 	
 remote func spawn_player(id):
