@@ -26,6 +26,9 @@ func _player_connected(id):
 	
 func _player_disconnected(id):
 	print("Player " + str(id) + " has disconnected")
+	players.erase(id)
+	rset("players", players)
+	get_tree().call_group("World", "despawn_player_s", id)
 	
 	
 remote func send_player_info(id, player_data):
