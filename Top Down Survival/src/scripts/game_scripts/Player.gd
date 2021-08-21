@@ -48,10 +48,11 @@ remote func remote_update(transform: Transform2D, current_animation: String):
 
 func get_velocity(current_velocity: Vector2):
 	var new_velocity = current_velocity
-	var accel = Vector2(
+	var input_vector = Vector2(
 		Input.get_action_strength("move_right") - Input.get_action_strength("move_left"),
 		Input.get_action_strength("move_down") - Input.get_action_strength("move_up")
-	) * ACCELERATION * get_physics_process_delta_time()
+	).normalized()
+	var accel = input_vector * ACCELERATION * get_physics_process_delta_time()
 	
 	# Accelerate
 	new_velocity += accel
