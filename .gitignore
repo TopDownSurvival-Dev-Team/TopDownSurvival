@@ -10,5 +10,8 @@ export_presets.cfg
 .mono/
 data_*/
 
+# Godot Exports
+exports/
+
 # MacOS Stuff
 .DS_Store
