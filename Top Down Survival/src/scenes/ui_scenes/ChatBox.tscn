@@ -1,0 +1,60 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://src/scripts/ui_scripts/ChatBox.gd" type="Script" id=1]
+
+[node name="ChatBoxLayer" type="CanvasLayer"]
+
+[node name="ChatBox" type="Control" parent="."]
+anchor_top = 0.745
+anchor_right = 0.362
+anchor_bottom = 1.0
+margin_top = -3.05176e-05
+margin_right = 0.311981
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ChatBox"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RichTextLabel" type="RichTextLabel" parent="ChatBox/VBoxContainer"]
+margin_right = 371.0
+margin_bottom = 125.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+bbcode_enabled = true
+bbcode_text = "[color=#F7E65E][Server] Welcome to Top Down Survival![/color]"
+text = "[Server] Welcome to Top Down Survival!"
+scroll_following = true
+
+[node name="InputContainer" type="HBoxContainer" parent="ChatBox/VBoxContainer"]
+margin_top = 129.0
+margin_right = 371.0
+margin_bottom = 153.0
+
+[node name="LineEdit" type="LineEdit" parent="ChatBox/VBoxContainer/InputContainer"]
+margin_right = 324.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+placeholder_text = "Message"
+caret_blink = true
+caret_blink_speed = 0.5
+
+[node name="SendButton" type="Button" parent="ChatBox/VBoxContainer/InputContainer"]
+margin_left = 328.0
+margin_right = 371.0
+margin_bottom = 24.0
+grow_vertical = 2
+size_flags_horizontal = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.0
+text = "Send"
+
+[connection signal="text_entered" from="ChatBox/VBoxContainer/InputContainer/LineEdit" to="ChatBox" method="_on_LineEdit_text_entered"]
+[connection signal="pressed" from="ChatBox/VBoxContainer/InputContainer/SendButton" to="ChatBox" method="_on_SendButton_pressed"]
