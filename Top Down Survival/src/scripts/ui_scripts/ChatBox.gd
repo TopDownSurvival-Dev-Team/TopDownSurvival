@@ -1,11 +1,10 @@
-extends Control
+extends CanvasLayer
 
-onready var chat_log = $VBoxContainer/RichTextLabel
-onready var input_field = $VBoxContainer/InputContainer/LineEdit
+onready var chat_log = $ChatBoxUI/VBoxContainer/RichTextLabel
+onready var input_field = $ChatBoxUI/VBoxContainer/InputContainer/LineEdit
 
 #var groups = [
-#	{"name": "Server", "color": "#F7E65E"},
-#	{"name": "Player", "color": "#FFFFFF"}
+#	{"name": "Server", "color": "#F7E65E"}
 #]
 
 
@@ -24,10 +23,11 @@ func send_message():
 	if not message_text.empty():
 		print("Sending chat message: " + message_text)
 		
-		rpc_id(1, "send_message", message_text)
+		rpc_id(1, "send_message_s", message_text)
 #		add_message(message_text, "Player", "FFFFFF")
 		
 		input_field.text = ""
+		input_field.release_focus()
 	
 	
 remote func add_message(message, sender, color):
