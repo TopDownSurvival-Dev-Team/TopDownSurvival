@@ -7,3 +7,13 @@ remote func send_message_s(message_text: String):
 	
 	if not message_text_formatted.empty():
 		rpc("add_message", message_text_formatted, sender, "FFFFFF")
+		
+		
+func send_join_message(player_name):
+	var message_text = player_name + " has joined the game!"
+	rpc("add_message", message_text, "Server", "F7E65E")
+		
+		
+func send_leave_message(player_name):
+	var message_text = player_name + " disconnected from the game!"
+	rpc("add_message", message_text, "Server", "F7E65E")

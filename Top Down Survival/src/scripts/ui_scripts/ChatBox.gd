@@ -3,10 +3,6 @@ extends CanvasLayer
 onready var chat_log = $ChatBoxUI/VBoxContainer/RichTextLabel
 onready var input_field = $ChatBoxUI/VBoxContainer/InputContainer/LineEdit
 
-#var groups = [
-#	{"name": "Server", "color": "#F7E65E"}
-#]
-
 
 func _input(event):
 	if event is InputEventKey:
