@@ -11,7 +11,6 @@ var ready_players = []
 func _ready():
 	network.connect("peer_connected", self, "_player_connected")
 	network.connect("peer_disconnected", self, "_player_disconnected")
-	start_server()
 	
 	
 func start_server():
@@ -35,10 +34,11 @@ func _player_disconnected(id):
 		rset("players", players)
 	
 	
-remote func send_player_info(id, player_data):
+remote func send_player_info(player_data):
+	var id = get_tree().get_rpc_sender_id()
 	players[id] = player_data
 	rset("players", players)
 	
 	# Send existing players to new client
-	get_tree().call_group("World", "send_existing_players_to", id)
+	get_tree().call_group("World", "send_world_to", id)
 	get_tree().call_group("Chat Box", "send_join_message", players[id]["player_name"])

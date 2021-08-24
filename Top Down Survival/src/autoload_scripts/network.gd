@@ -39,7 +39,7 @@ func _connection_successful():
 	print("Successfully connected to server")
 	
 	register_player()
-	rpc_id(1, "send_player_info", local_player_id, player_data)
+	rpc_id(1, "send_player_info", player_data)
 	
 	# Start game
 	print("Starting game")

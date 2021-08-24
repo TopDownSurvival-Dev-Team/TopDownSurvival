@@ -17,5 +17,7 @@ tile_data = PoolIntArray( -1900584, 0, 0, -1900583, 0, 0, -1900582, 0, 0, -19005
 
 [node name="Players" type="Node" parent="."]
 
+[node name="Trees" type="Node" parent="."]
+
 [node name="PlayerSpawn" type="Position2D" parent="."]
 position = Vector2( 240.153, 294.051 )
