@@ -82,8 +82,8 @@ use={
 [layer_names]
 
 2d_physics/layer_1="Player"
-2d_physics/layer_2="Structures"
-2d_physics/layer_3="Projectiles"
+2d_physics/layer_2="Projectiles"
+2d_physics/layer_3="Structures"
 
 [physics]
 
