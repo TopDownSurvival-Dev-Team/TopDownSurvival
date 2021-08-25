@@ -18,9 +18,6 @@ remote func damage(damage_amount: int):
 	# TODO: Add damage animation
 	health -= damage_amount
 	
-	if health <= 0:
-		rpc_id(1, "break_tree_s")
-	
 	health_bar.value = health
 	health_bar.visible = true
 	health_bar_show_timer.start()
