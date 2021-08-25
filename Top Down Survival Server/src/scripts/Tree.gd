@@ -1,5 +1,11 @@
 extends Node2D
 
-remote func break_tree():
-	# TODO: tell all other players that this tree is broken
-	pass
+
+remote func damage_s(damage_amount: int):
+	rpc("damage", damage_amount)
+
+
+remote func break_tree_s():
+	rpc("break_tree")
+	get_parent().remove_child(self)
+	queue_free()

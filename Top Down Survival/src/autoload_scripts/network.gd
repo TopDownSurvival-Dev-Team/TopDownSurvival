@@ -57,7 +57,7 @@ func _server_disconnected():
 	
 	
 func register_player():
-	# TODO: Save player data on server side in the future
+	# TODO: Save player data on server side
 	local_player_id = get_tree().get_network_unique_id()
 	player_data = Save.save_data
 	players[local_player_id] = player_data
