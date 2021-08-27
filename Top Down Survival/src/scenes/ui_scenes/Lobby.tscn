@@ -1,8 +1,28 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://src/scripts/ui_scripts/Lobby.gd" type="Script" id=1]
 
-[node name="Lobby" type="Control"]
+[sub_resource type="Animation" id=1]
+resource_name = "Connecting Animation"
+length = 4.0
+loop = true
+step = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("CenterContainer/VBoxContainer/StatusLabel:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 2, 3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ "Connecting", "Connecting.", "Connecting..", "Connecting..." ]
+}
+
+[node name="Lobby" type="Control" groups=[
+"Lobby",
+]]
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 1 )
@@ -102,5 +122,17 @@ text = "Join Game"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="StatusLabel" type="Label" parent="CenterContainer/VBoxContainer"]
+visible = false
+margin_top = 159.0
+margin_right = 300.0
+margin_bottom = 173.0
+text = "Status"
+align = 1
+valign = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+"anims/Connecting Animation" = SubResource( 1 )
 
 [connection signal="pressed" from="CenterContainer/VBoxContainer/JoinButton" to="." method="_on_JoinButton_pressed"]

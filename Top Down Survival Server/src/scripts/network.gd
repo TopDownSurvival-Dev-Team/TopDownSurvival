@@ -9,6 +9,9 @@ var ready_players = []
 
 
 func _ready():
+	# Compression Mode
+	network.set_compression_mode(NetworkedMultiplayerENet.COMPRESS_ZSTD)
+	
 	network.connect("peer_connected", self, "_player_connected")
 	network.connect("peer_disconnected", self, "_player_disconnected")
 	
