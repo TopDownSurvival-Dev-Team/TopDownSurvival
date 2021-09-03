@@ -1,7 +1,7 @@
-extends CanvasLayer
+extends Control
 
-onready var chat_log = $ChatBoxUI/VBoxContainer/RichTextLabel
-onready var input_field = $ChatBoxUI/VBoxContainer/InputContainer/LineEdit
+onready var chat_log = $VBoxContainer/RichTextLabel
+onready var input_field = $VBoxContainer/InputContainer/LineEdit
 
 
 func _input(event):

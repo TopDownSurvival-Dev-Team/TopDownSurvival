@@ -8,7 +8,9 @@
 ]]
 script = ExtResource( 1 )
 
-[node name="ChatBox" type="Node" parent="." groups=[
+[node name="HUD" type="Node" parent="."]
+
+[node name="ChatBox" type="Node" parent="HUD" groups=[
 "Chat Box",
 ]]
 script = ExtResource( 2 )
