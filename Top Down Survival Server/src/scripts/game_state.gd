@@ -31,7 +31,7 @@ func load_world():
 	
 	print("Loading natural structures")
 	
-	for i in range(MAX_TREE_COUNT):
+	for _i in range(MAX_TREE_COUNT):
 		var tree_id = randi() % MAX_TREE_COUNT
 		
 		# Make sure tree_id is unique
@@ -63,6 +63,7 @@ func send_world_to(id):
 		
 	print("Sending items to " + str(id))
 	for item in items.get_children():
+		# Get item info
 		var item_info = item.name.split("-", false, 1)
 		var item_type = str(item_info[0])
 		var item_id = int(item_info[1])
@@ -107,8 +108,17 @@ func despawn_tree_s(tree_id: int):
 		
 func spawn_item_s(item_type: String, item_position: Vector2):
 	# Limit number of items currently existing
-#	if items.get_child_count() >= MAX_ITEM_COUNT:
-#		items.get_child(0)
+	if items.get_child_count() >= MAX_ITEM_COUNT:
+		var remove_item = items.get_child(0)
+		
+		# Get item info
+		var item_info = remove_item.name.split("-", false, 1)
+		var r_item_type = str(item_info[0])
+		var r_item_id = int(item_info[1])
+		
+		rpc("despawn_item", r_item_type, r_item_id)
+		items.remove_child(remove_item)
+		remove_item.queue_free()
 	
 	var new_item = Node2D.new()
 	var item_id = randi() % MAX_ITEM_COUNT
