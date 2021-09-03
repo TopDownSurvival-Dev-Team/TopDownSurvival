@@ -18,3 +18,5 @@ script = ExtResource( 2 )
 [node name="Players" type="Node" parent="."]
 
 [node name="Trees" type="Node" parent="."]
+
+[node name="Items" type="Node" parent="."]

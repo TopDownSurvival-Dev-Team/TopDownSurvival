@@ -6,8 +6,11 @@ const TREE_SCENE = preload("res://src/scenes/Tree.tscn")
 const MAX_TREE_COUNT = 100
 const TREE_POS_RANGE = Vector2(5000, 5000)
 
+const MAX_ITEM_COUNT = 999
+
 onready var players = $Players
 onready var trees = $Trees
+onready var items = $Items
 
 
 func _ready():
@@ -52,10 +55,19 @@ func send_world_to(id):
 		if player_id != id:
 			rpc_id(id, "spawn_player", player_id)
 			
+			
 	print("Sending natural structures to " + str(id))
-	
 	for tree in trees.get_children():
 		rpc_id(id, "spawn_tree", int(tree.name), tree.global_position)
+		
+		
+	print("Sending items to " + str(id))
+	for item in items.get_children():
+		var item_info = item.name.split("-", false, 1)
+		var item_type = str(item_info[0])
+		var item_id = int(item_info[1])
+		
+		rpc_id(id, "spawn_item", item_type, item_id, item.global_position)
 		
 		
 		
@@ -89,3 +101,36 @@ func despawn_tree_s(tree_id: int):
 		rpc("despawn_tree", tree_id)
 		trees.remove_child(tree)
 		tree.queue_free()
+		
+		
+		
+		
+func spawn_item_s(item_type: String, item_position: Vector2):
+	# Limit number of items currently existing
+#	if items.get_child_count() >= MAX_ITEM_COUNT:
+#		items.get_child(0)
+	
+	var new_item = Node2D.new()
+	var item_id = randi() % MAX_ITEM_COUNT
+	var item_name = str(item_type) + "-" + str(item_id)
+	
+	# Make sure item_name is unique
+	while items.get_node(item_name) != null:
+		item_id = randi() % MAX_ITEM_COUNT
+		item_name = str(item_type) + "-" + str(item_id)
+	
+	new_item.name = item_name
+	items.add_child(new_item, true)
+	new_item.global_position = item_position
+	
+	rpc("spawn_item", item_type, item_id, item_position)
+	
+
+func despawn_item_s(item_type: String, item_id: int):
+	var item_name = str(item_type) + "-" + str(item_id)
+	var item = items.get_node(item_name)
+	
+	if item:
+		rpc("despawn_item", item_type, item_id)
+		items.remove_child(item)
+		item.queue_free()

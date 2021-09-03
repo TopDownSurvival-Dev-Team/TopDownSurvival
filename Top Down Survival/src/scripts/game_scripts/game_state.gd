@@ -62,17 +62,24 @@ remote func despawn_tree(tree_id: int):
 	
 	
 	
-remote func spawn_item(item_type: String, item_id: String, item_position: Vector2):
-	var new_item = ITEM_SCENES[item_type].instance()
+remote func spawn_item(item_type: String, item_id: int, item_position: Vector2):
+	var new_item_scene = ITEM_SCENES[item_type]
 	
-	new_item.name = str(item_id)  # Just in case item_id is NOT a string
-	items.add_child(new_item, true)
+	if new_item_scene:
+		var new_item = new_item_scene.instance()
+		
+		new_item.name = str(item_type) + "-" + str(item_id)
+		items.add_child(new_item, true)
+		
+		new_item.global_position = item_position
 	
-	new_item.global_position = item_position
+	else:
+		print("Item of type '" + str(item_type) + "' not found")
 	
 	
-remote func despawn_item(item_id: String):
-	var item = items.get_node(str(item_id))  # Just in case item_id is NOT a string
+remote func despawn_item(item_type: String, item_id: int):
+	var item_name = str(item_type) + "-" + str(item_id)
+	var item = items.get_node(item_name)
 	
 	if item:
 		items.remove_child(item)

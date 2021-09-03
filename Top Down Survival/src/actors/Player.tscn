@@ -11,6 +11,7 @@ extents = Vector2( 8, 29 )
 
 [node name="Player" type="KinematicBody2D"]
 light_mask = 0
+z_index = 1
 collision_mask = 4
 script = ExtResource( 2 )
 
