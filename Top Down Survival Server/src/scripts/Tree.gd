@@ -9,10 +9,4 @@ remote func damage_s(damage_amount: int):
 	if health > 0:
 		rpc("damage", damage_amount)
 	else:
-		break_tree_s()
-
-
-func break_tree_s():
-	rpc("break_tree")
-	get_parent().remove_child(self)
-	queue_free()
+		get_tree().call_group("World", "despawn_tree_s", int(name))

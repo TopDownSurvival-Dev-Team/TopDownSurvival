@@ -58,6 +58,8 @@ func send_world_to(id):
 		rpc_id(id, "spawn_tree", int(tree.name), tree.global_position)
 		
 		
+		
+		
 remote func spawn_player_s(id):
 	print("Spawning player " + str(id))
 	
@@ -76,3 +78,14 @@ func despawn_player_s(id):
 	player.queue_free()
 	
 	rpc("despawn_player", id)
+	
+	
+	
+	
+func despawn_tree_s(tree_id: int):
+	var tree = trees.get_node(str(tree_id))
+	
+	if tree:
+		rpc("despawn_tree", tree_id)
+		trees.remove_child(tree)
+		tree.queue_free()

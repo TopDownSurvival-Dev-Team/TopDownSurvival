@@ -3,16 +3,25 @@ extends Node2D
 const PLAYER_SCENE = preload("res://src/actors/Player.tscn")
 const TREE_SCENE  = preload("res://src/actors/Tree.tscn")
 
-onready var player_spawn = $PlayerSpawn
+#TODO: Move this to a json file in the future
+const ITEM_SCENES = {
+	"wood": preload("res://src/actors/items/Wood.tscn")
+}
+
 onready var players = $Players
 onready var trees = $Trees
+onready var items = $Items
+
+onready var player_spawn = $PlayerSpawn
 
 
 func _ready():
 	rpc_id(1, "spawn_player_s", Network.local_player_id)
 	
 	
-remote func spawn_player(player_id):
+	
+	
+remote func spawn_player(player_id: int):
 	print("Spawning player " + str(player_id))
 	
 	var new_player = PLAYER_SCENE.instance()
@@ -23,17 +32,48 @@ remote func spawn_player(player_id):
 	new_player.position = player_spawn.position
 	
 
-remote func despawn_player(player_id):
+remote func despawn_player(player_id: int):
 	print("Despawning player " + str(player_id))
 	var player = players.get_node(str(player_id))
-	players.remove_child(player)
-	player.queue_free()
+	
+	if player:
+		players.remove_child(player)
+		player.queue_free()
 	
 	
-remote func spawn_tree(tree_id, tree_position):
+	
+	
+remote func spawn_tree(tree_id: int, tree_position: Vector2):
 	var new_tree = TREE_SCENE.instance()
 	
 	new_tree.name = str(tree_id)
 	trees.add_child(new_tree, true)
 	
 	new_tree.global_position = tree_position
+	
+	
+remote func despawn_tree(tree_id: int):
+	var tree = trees.get_node(str(tree_id))
+	
+	if tree:
+		trees.remove_child(tree)
+		tree.queue_free()
+	
+	
+	
+	
+remote func spawn_item(item_type: String, item_id: String, item_position: Vector2):
+	var new_item = ITEM_SCENES[item_type].instance()
+	
+	new_item.name = str(item_id)  # Just in case item_id is NOT a string
+	items.add_child(new_item, true)
+	
+	new_item.global_position = item_position
+	
+	
+remote func despawn_item(item_id: String):
+	var item = items.get_node(str(item_id))  # Just in case item_id is NOT a string
+	
+	if item:
+		items.remove_child(item)
+		item.queue_free()

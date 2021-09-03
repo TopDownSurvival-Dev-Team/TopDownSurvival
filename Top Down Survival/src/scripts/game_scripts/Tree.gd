@@ -23,10 +23,5 @@ remote func damage(damage_amount: int):
 	health_bar_show_timer.start()
 
 
-remote func break_tree():
-	get_parent().remove_child(self)
-	queue_free()
-
-
 func _on_HealthBarShowTimer_timeout():
 	health_bar.visible = false
