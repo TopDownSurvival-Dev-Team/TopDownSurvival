@@ -13,6 +13,9 @@ onready var trees = $Trees
 func _ready():
 	print("Game world started!")
 	
+	# Randomize RNG seed
+	randomize()
+	
 	# Load world before letting players connect
 	load_world()
 	Network.start_server()
@@ -20,7 +23,7 @@ func _ready():
 	
 func load_world():
 	# In the future this will load the game world from a save file
-	# For now, it just randomly spawns natural structure
+	# For now, it just randomly spawns natural structures
 	print("Loading world")
 	
 	print("Loading natural structures")
@@ -49,7 +52,7 @@ func send_world_to(id):
 		if player_id != id:
 			rpc_id(id, "spawn_player", player_id)
 			
-	print("Sending natural structure to " + str(id))
+	print("Sending natural structures to " + str(id))
 	
 	for tree in trees.get_children():
 		rpc_id(id, "spawn_tree", int(tree.name), tree.global_position)
