@@ -1,0 +1,72 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://src/dynamic_fonts/Pixellari_32.tres" type="DynamicFont" id=1]
+
+[node name="Inventory" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 292.0
+margin_top = 60.0
+margin_right = -292.0
+margin_bottom = -60.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.164706, 0.117647, 0.0666667, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="M" type="MarginContainer" parent="ColorRect"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 10.0
+margin_top = 10.0
+margin_right = -10.0
+margin_bottom = -10.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="V" type="VBoxContainer" parent="ColorRect/M"]
+margin_right = 420.0
+margin_bottom = 460.0
+
+[node name="Header" type="HBoxContainer" parent="ColorRect/M/V"]
+margin_right = 420.0
+margin_bottom = 60.0
+rect_min_size = Vector2( 0, 60 )
+
+[node name="ColorRect" type="ColorRect" parent="ColorRect/M/V/Header"]
+margin_right = 420.0
+margin_bottom = 60.0
+size_flags_horizontal = 3
+color = Color( 0.278431, 0.219608, 0.12549, 1 )
+
+[node name="Label" type="Label" parent="ColorRect/M/V/Header/ColorRect"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = ExtResource( 1 )
+text = "Inventory"
+align = 1
+valign = 1
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ScrollContainer" type="ScrollContainer" parent="ColorRect/M/V"]
+margin_top = 64.0
+margin_right = 420.0
+margin_bottom = 460.0
+size_flags_vertical = 3
+
+[node name="GridContainer" type="GridContainer" parent="ColorRect/M/V/ScrollContainer"]
+margin_right = 420.0
+margin_bottom = 396.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
