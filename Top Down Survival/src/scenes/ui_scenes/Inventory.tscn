@@ -38,18 +38,25 @@ margin_bottom = 460.0
 
 [node name="Header" type="HBoxContainer" parent="ColorRect/M/V"]
 margin_right = 420.0
-margin_bottom = 60.0
-rect_min_size = Vector2( 0, 60 )
+margin_bottom = 50.0
+rect_min_size = Vector2( 0, 50 )
 
-[node name="ColorRect" type="ColorRect" parent="ColorRect/M/V/Header"]
-margin_right = 420.0
-margin_bottom = 60.0
+[node name="Control" type="Control" parent="ColorRect/M/V/Header"]
+margin_right = 106.0
+margin_bottom = 50.0
 size_flags_horizontal = 3
+
+[node name="Background" type="ColorRect" parent="ColorRect/M/V/Header"]
+margin_left = 110.0
+margin_right = 310.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 200, 50 )
 color = Color( 0.278431, 0.219608, 0.12549, 1 )
 
-[node name="Label" type="Label" parent="ColorRect/M/V/Header/ColorRect"]
+[node name="Label" type="Label" parent="ColorRect/M/V/Header/Background"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
 custom_fonts/font = ExtResource( 1 )
 text = "Inventory"
 align = 1
@@ -59,14 +66,20 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Control2" type="Control" parent="ColorRect/M/V/Header"]
+margin_left = 314.0
+margin_right = 420.0
+margin_bottom = 50.0
+size_flags_horizontal = 3
+
 [node name="ScrollContainer" type="ScrollContainer" parent="ColorRect/M/V"]
-margin_top = 64.0
+margin_top = 54.0
 margin_right = 420.0
 margin_bottom = 460.0
 size_flags_vertical = 3
 
 [node name="GridContainer" type="GridContainer" parent="ColorRect/M/V/ScrollContainer"]
 margin_right = 420.0
-margin_bottom = 396.0
+margin_bottom = 406.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
