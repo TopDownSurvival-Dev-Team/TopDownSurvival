@@ -6,11 +6,11 @@ then
 fi
 
 # MacOS Release
-butler push exports/Top\ Down\ Survival\ MacOS.zip mysterycoder456/top-down-survival:macos-beta --userversion $1
+butler push exports/MacOS.zip mysterycoder456/top-down-survival:macos-beta --userversion $1
 
 # Windows Release
-butler push exports/Top\ Down\ Survival\ Windows.exe mysterycoder456/top-down-survival:windows-beta --userversion $1
+butler push exports/Windows.zip mysterycoder456/top-down-survival:windows-beta --userversion $1
 
 # Linux Release
-butler push exports/Top\ Down\ Survival\ Linux.x86_64 mysterycoder456/top-down-survival:linux-beta --userversion $1
+butler push exports/Linux.zip mysterycoder456/top-down-survival:linux-beta --userversion $1
 
