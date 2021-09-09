@@ -1,34 +1,30 @@
 [gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://src/dynamic_fonts/Pixellari_32.tres" type="DynamicFont" id=1]
-[ext_resource path="res://assets/wood/wood.png" type="Texture" id=2]
+[ext_resource path="res://assets/items/wood/wood.png" type="Texture" id=2]
 
 [node name="Inventory" type="Control"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 292.0
-margin_top = 60.0
-margin_right = -292.0
-margin_bottom = -60.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="ColorRect" type="ColorRect" parent="."]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = -225.0
-margin_top = -240.0
+margin_top = -245.0
 margin_right = 225.0
-margin_bottom = 240.0
+margin_bottom = 245.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Background" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
 color = Color( 0.164706, 0.117647, 0.0666667, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="M" type="MarginContainer" parent="ColorRect"]
+[node name="M" type="MarginContainer" parent="Background"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 10.0
@@ -39,29 +35,29 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="V" type="VBoxContainer" parent="ColorRect/M"]
+[node name="V" type="VBoxContainer" parent="Background/M"]
 margin_right = 430.0
-margin_bottom = 460.0
+margin_bottom = 470.0
 custom_constants/separation = 10
 
-[node name="Header" type="HBoxContainer" parent="ColorRect/M/V"]
+[node name="Header" type="HBoxContainer" parent="Background/M/V"]
 margin_right = 430.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 0, 50 )
 
-[node name="Control" type="Control" parent="ColorRect/M/V/Header"]
+[node name="Control" type="Control" parent="Background/M/V/Header"]
 margin_right = 111.0
 margin_bottom = 50.0
 size_flags_horizontal = 3
 
-[node name="Background" type="ColorRect" parent="ColorRect/M/V/Header"]
+[node name="Background" type="ColorRect" parent="Background/M/V/Header"]
 margin_left = 115.0
 margin_right = 315.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 200, 50 )
 color = Color( 0.278431, 0.219608, 0.12549, 1 )
 
-[node name="Label" type="Label" parent="ColorRect/M/V/Header/Background"]
+[node name="Label" type="Label" parent="Background/M/V/Header/Background"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = 5.0
@@ -75,17 +71,20 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Exit" type="Control" parent="ColorRect/M/V/Header"]
+[node name="Exit" type="Control" parent="Background/M/V/Header"]
 margin_left = 319.0
 margin_right = 430.0
 margin_bottom = 50.0
 size_flags_horizontal = 3
 
-[node name="Button" type="Button" parent="ColorRect/M/V/Header/Exit"]
+[node name="Button" type="Button" parent="Background/M/V/Header/Exit"]
 anchor_left = 1.0
+anchor_top = 0.5
 anchor_right = 1.0
+anchor_bottom = 0.5
 margin_left = -32.0
-margin_bottom = 38.0
+margin_top = -19.0
+margin_bottom = 19.0
 grow_horizontal = 0
 custom_fonts/font = ExtResource( 1 )
 text = "X"
@@ -94,120 +93,676 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ScrollContainer" type="ScrollContainer" parent="ColorRect/M/V"]
+[node name="ScrollContainer" type="ScrollContainer" parent="Background/M/V"]
 margin_top = 60.0
 margin_right = 430.0
-margin_bottom = 460.0
+margin_bottom = 470.0
 size_flags_vertical = 3
 
-[node name="GridContainer" type="GridContainer" parent="ColorRect/M/V/ScrollContainer"]
+[node name="GridContainer" type="GridContainer" parent="Background/M/V/ScrollContainer"]
 margin_right = 430.0
-margin_bottom = 400.0
+margin_bottom = 410.0
+grow_horizontal = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-columns = 12
+columns = 8
 
-[node name="Inv1" type="TextureRect" parent="ColorRect/M/V/ScrollContainer/GridContainer"]
-margin_right = 32.0
-margin_bottom = 32.0
+[node name="Inv1" type="ColorRect" parent="Background/M/V/ScrollContainer/GridContainer"]
+margin_right = 50.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 50, 50 )
+color = Color( 0.222656, 0.165039, 0.10262, 1 )
+
+[node name="Icon" type="TextureRect" parent="Background/M/V/ScrollContainer/GridContainer/Inv1"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 2.0
+margin_top = 2.0
+margin_right = -2.0
+margin_bottom = -2.0
 texture = ExtResource( 2 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="Inv2" type="TextureRect" parent="ColorRect/M/V/ScrollContainer/GridContainer"]
-margin_left = 36.0
-margin_right = 68.0
-margin_bottom = 32.0
-texture = ExtResource( 2 )
-
-[node name="Inv3" type="TextureRect" parent="ColorRect/M/V/ScrollContainer/GridContainer"]
-margin_left = 72.0
+[node name="Inv2" type="ColorRect" parent="Background/M/V/ScrollContainer/GridContainer"]
+margin_left = 54.0
 margin_right = 104.0
-margin_bottom = 32.0
-texture = ExtResource( 2 )
+margin_bottom = 50.0
+rect_min_size = Vector2( 50, 50 )
+color = Color( 0.222656, 0.165039, 0.10262, 1 )
 
-[node name="Inv4" type="TextureRect" parent="ColorRect/M/V/ScrollContainer/GridContainer"]
+[node name="Icon" type="TextureRect" parent="Background/M/V/ScrollContainer/GridContainer/Inv2"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 2.0
+margin_top = 2.0
+margin_right = -2.0
+margin_bottom = -2.0
+texture = ExtResource( 2 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Inv3" type="ColorRect" parent="Background/M/V/ScrollContainer/GridContainer"]
 margin_left = 108.0
-margin_right = 140.0
-margin_bottom = 32.0
-texture = ExtResource( 2 )
+margin_right = 158.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 50, 50 )
+color = Color( 0.222656, 0.165039, 0.10262, 1 )
 
-[node name="Inv5" type="TextureRect" parent="ColorRect/M/V/ScrollContainer/GridContainer"]
-margin_left = 144.0
-margin_right = 176.0
-margin_bottom = 32.0
+[node name="Icon" type="TextureRect" parent="Background/M/V/ScrollContainer/GridContainer/Inv3"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 2.0
+margin_top = 2.0
+margin_right = -2.0
+margin_bottom = -2.0
 texture = ExtResource( 2 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="Inv6" type="TextureRect" parent="ColorRect/M/V/ScrollContainer/GridContainer"]
-margin_left = 180.0
+[node name="Inv4" type="ColorRect" parent="Background/M/V/ScrollContainer/GridContainer"]
+margin_left = 162.0
 margin_right = 212.0
-margin_bottom = 32.0
-texture = ExtResource( 2 )
+margin_bottom = 50.0
+rect_min_size = Vector2( 50, 50 )
+color = Color( 0.222656, 0.165039, 0.10262, 1 )
 
-[node name="Inv7" type="TextureRect" parent="ColorRect/M/V/ScrollContainer/GridContainer"]
+[node name="Icon" type="TextureRect" parent="Background/M/V/ScrollContainer/GridContainer/Inv4"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 2.0
+margin_top = 2.0
+margin_right = -2.0
+margin_bottom = -2.0
+texture = ExtResource( 2 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Inv5" type="ColorRect" parent="Background/M/V/ScrollContainer/GridContainer"]
 margin_left = 216.0
-margin_right = 248.0
-margin_bottom = 32.0
-texture = ExtResource( 2 )
+margin_right = 266.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 50, 50 )
+color = Color( 0.222656, 0.165039, 0.10262, 1 )
 
-[node name="Inv8" type="TextureRect" parent="ColorRect/M/V/ScrollContainer/GridContainer"]
-margin_left = 252.0
-margin_right = 284.0
-margin_bottom = 32.0
+[node name="Icon" type="TextureRect" parent="Background/M/V/ScrollContainer/GridContainer/Inv5"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 2.0
+margin_top = 2.0
+margin_right = -2.0
+margin_bottom = -2.0
 texture = ExtResource( 2 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="Inv9" type="TextureRect" parent="ColorRect/M/V/ScrollContainer/GridContainer"]
-margin_left = 288.0
+[node name="Inv6" type="ColorRect" parent="Background/M/V/ScrollContainer/GridContainer"]
+margin_left = 270.0
 margin_right = 320.0
-margin_bottom = 32.0
-texture = ExtResource( 2 )
+margin_bottom = 50.0
+rect_min_size = Vector2( 50, 50 )
+color = Color( 0.222656, 0.165039, 0.10262, 1 )
 
-[node name="Inv10" type="TextureRect" parent="ColorRect/M/V/ScrollContainer/GridContainer"]
+[node name="Icon" type="TextureRect" parent="Background/M/V/ScrollContainer/GridContainer/Inv6"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 2.0
+margin_top = 2.0
+margin_right = -2.0
+margin_bottom = -2.0
+texture = ExtResource( 2 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Inv7" type="ColorRect" parent="Background/M/V/ScrollContainer/GridContainer"]
 margin_left = 324.0
-margin_right = 356.0
-margin_bottom = 32.0
-texture = ExtResource( 2 )
+margin_right = 374.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 50, 50 )
+color = Color( 0.222656, 0.165039, 0.10262, 1 )
 
-[node name="Inv11" type="TextureRect" parent="ColorRect/M/V/ScrollContainer/GridContainer"]
-margin_left = 360.0
-margin_right = 392.0
-margin_bottom = 32.0
+[node name="Icon" type="TextureRect" parent="Background/M/V/ScrollContainer/GridContainer/Inv7"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 2.0
+margin_top = 2.0
+margin_right = -2.0
+margin_bottom = -2.0
 texture = ExtResource( 2 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="Inv12" type="TextureRect" parent="ColorRect/M/V/ScrollContainer/GridContainer"]
-margin_left = 396.0
+[node name="Inv8" type="ColorRect" parent="Background/M/V/ScrollContainer/GridContainer"]
+margin_left = 378.0
 margin_right = 428.0
-margin_bottom = 32.0
-texture = ExtResource( 2 )
+margin_bottom = 50.0
+rect_min_size = Vector2( 50, 50 )
+color = Color( 0.222656, 0.165039, 0.10262, 1 )
 
-[node name="Inv13" type="TextureRect" parent="ColorRect/M/V/ScrollContainer/GridContainer"]
-margin_top = 36.0
-margin_right = 32.0
-margin_bottom = 68.0
+[node name="Icon" type="TextureRect" parent="Background/M/V/ScrollContainer/GridContainer/Inv8"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 2.0
+margin_top = 2.0
+margin_right = -2.0
+margin_bottom = -2.0
 texture = ExtResource( 2 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="Inv14" type="TextureRect" parent="ColorRect/M/V/ScrollContainer/GridContainer"]
-margin_left = 36.0
-margin_top = 36.0
-margin_right = 68.0
-margin_bottom = 68.0
+[node name="Inv9" type="ColorRect" parent="Background/M/V/ScrollContainer/GridContainer"]
+margin_top = 54.0
+margin_right = 50.0
+margin_bottom = 104.0
+rect_min_size = Vector2( 50, 50 )
+color = Color( 0.222656, 0.165039, 0.10262, 1 )
+
+[node name="Icon" type="TextureRect" parent="Background/M/V/ScrollContainer/GridContainer/Inv9"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 2.0
+margin_top = 2.0
+margin_right = -2.0
+margin_bottom = -2.0
 texture = ExtResource( 2 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="Inv15" type="TextureRect" parent="ColorRect/M/V/ScrollContainer/GridContainer"]
-margin_left = 72.0
-margin_top = 36.0
+[node name="Inv10" type="ColorRect" parent="Background/M/V/ScrollContainer/GridContainer"]
+margin_left = 54.0
+margin_top = 54.0
 margin_right = 104.0
-margin_bottom = 68.0
-texture = ExtResource( 2 )
+margin_bottom = 104.0
+rect_min_size = Vector2( 50, 50 )
+color = Color( 0.222656, 0.165039, 0.10262, 1 )
 
-[node name="Inv16" type="TextureRect" parent="ColorRect/M/V/ScrollContainer/GridContainer"]
+[node name="Icon" type="TextureRect" parent="Background/M/V/ScrollContainer/GridContainer/Inv10"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 2.0
+margin_top = 2.0
+margin_right = -2.0
+margin_bottom = -2.0
+texture = ExtResource( 2 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Inv11" type="ColorRect" parent="Background/M/V/ScrollContainer/GridContainer"]
 margin_left = 108.0
-margin_top = 36.0
-margin_right = 140.0
-margin_bottom = 68.0
-texture = ExtResource( 2 )
+margin_top = 54.0
+margin_right = 158.0
+margin_bottom = 104.0
+rect_min_size = Vector2( 50, 50 )
+color = Color( 0.222656, 0.165039, 0.10262, 1 )
 
-[node name="Inv17" type="TextureRect" parent="ColorRect/M/V/ScrollContainer/GridContainer"]
-margin_left = 144.0
-margin_top = 36.0
-margin_right = 176.0
-margin_bottom = 68.0
+[node name="Icon" type="TextureRect" parent="Background/M/V/ScrollContainer/GridContainer/Inv11"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 2.0
+margin_top = 2.0
+margin_right = -2.0
+margin_bottom = -2.0
 texture = ExtResource( 2 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Inv12" type="ColorRect" parent="Background/M/V/ScrollContainer/GridContainer"]
+margin_left = 162.0
+margin_top = 54.0
+margin_right = 212.0
+margin_bottom = 104.0
+rect_min_size = Vector2( 50, 50 )
+color = Color( 0.222656, 0.165039, 0.10262, 1 )
+
+[node name="Icon" type="TextureRect" parent="Background/M/V/ScrollContainer/GridContainer/Inv12"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 2.0
+margin_top = 2.0
+margin_right = -2.0
+margin_bottom = -2.0
+texture = ExtResource( 2 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Inv13" type="ColorRect" parent="Background/M/V/ScrollContainer/GridContainer"]
+margin_left = 216.0
+margin_top = 54.0
+margin_right = 266.0
+margin_bottom = 104.0
+rect_min_size = Vector2( 50, 50 )
+color = Color( 0.222656, 0.165039, 0.10262, 1 )
+
+[node name="Icon" type="TextureRect" parent="Background/M/V/ScrollContainer/GridContainer/Inv13"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 2.0
+margin_top = 2.0
+margin_right = -2.0
+margin_bottom = -2.0
+texture = ExtResource( 2 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Inv14" type="ColorRect" parent="Background/M/V/ScrollContainer/GridContainer"]
+margin_left = 270.0
+margin_top = 54.0
+margin_right = 320.0
+margin_bottom = 104.0
+rect_min_size = Vector2( 50, 50 )
+color = Color( 0.222656, 0.165039, 0.10262, 1 )
+
+[node name="Icon" type="TextureRect" parent="Background/M/V/ScrollContainer/GridContainer/Inv14"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 2.0
+margin_top = 2.0
+margin_right = -2.0
+margin_bottom = -2.0
+texture = ExtResource( 2 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Inv15" type="ColorRect" parent="Background/M/V/ScrollContainer/GridContainer"]
+margin_left = 324.0
+margin_top = 54.0
+margin_right = 374.0
+margin_bottom = 104.0
+rect_min_size = Vector2( 50, 50 )
+color = Color( 0.222656, 0.165039, 0.10262, 1 )
+
+[node name="Icon" type="TextureRect" parent="Background/M/V/ScrollContainer/GridContainer/Inv15"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 2.0
+margin_top = 2.0
+margin_right = -2.0
+margin_bottom = -2.0
+texture = ExtResource( 2 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Inv16" type="ColorRect" parent="Background/M/V/ScrollContainer/GridContainer"]
+margin_left = 378.0
+margin_top = 54.0
+margin_right = 428.0
+margin_bottom = 104.0
+rect_min_size = Vector2( 50, 50 )
+color = Color( 0.222656, 0.165039, 0.10262, 1 )
+
+[node name="Icon" type="TextureRect" parent="Background/M/V/ScrollContainer/GridContainer/Inv16"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 2.0
+margin_top = 2.0
+margin_right = -2.0
+margin_bottom = -2.0
+texture = ExtResource( 2 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Inv17" type="ColorRect" parent="Background/M/V/ScrollContainer/GridContainer"]
+margin_top = 108.0
+margin_right = 50.0
+margin_bottom = 158.0
+rect_min_size = Vector2( 50, 50 )
+color = Color( 0.222656, 0.165039, 0.10262, 1 )
+
+[node name="Icon" type="TextureRect" parent="Background/M/V/ScrollContainer/GridContainer/Inv17"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 2.0
+margin_top = 2.0
+margin_right = -2.0
+margin_bottom = -2.0
+texture = ExtResource( 2 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Inv18" type="ColorRect" parent="Background/M/V/ScrollContainer/GridContainer"]
+margin_left = 54.0
+margin_top = 108.0
+margin_right = 104.0
+margin_bottom = 158.0
+rect_min_size = Vector2( 50, 50 )
+color = Color( 0.222656, 0.165039, 0.10262, 1 )
+
+[node name="Icon" type="TextureRect" parent="Background/M/V/ScrollContainer/GridContainer/Inv18"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 2.0
+margin_top = 2.0
+margin_right = -2.0
+margin_bottom = -2.0
+texture = ExtResource( 2 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Inv19" type="ColorRect" parent="Background/M/V/ScrollContainer/GridContainer"]
+margin_left = 108.0
+margin_top = 108.0
+margin_right = 158.0
+margin_bottom = 158.0
+rect_min_size = Vector2( 50, 50 )
+color = Color( 0.222656, 0.165039, 0.10262, 1 )
+
+[node name="Icon" type="TextureRect" parent="Background/M/V/ScrollContainer/GridContainer/Inv19"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 2.0
+margin_top = 2.0
+margin_right = -2.0
+margin_bottom = -2.0
+texture = ExtResource( 2 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Inv20" type="ColorRect" parent="Background/M/V/ScrollContainer/GridContainer"]
+margin_left = 162.0
+margin_top = 108.0
+margin_right = 212.0
+margin_bottom = 158.0
+rect_min_size = Vector2( 50, 50 )
+color = Color( 0.222656, 0.165039, 0.10262, 1 )
+
+[node name="Icon" type="TextureRect" parent="Background/M/V/ScrollContainer/GridContainer/Inv20"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 2.0
+margin_top = 2.0
+margin_right = -2.0
+margin_bottom = -2.0
+texture = ExtResource( 2 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Inv21" type="ColorRect" parent="Background/M/V/ScrollContainer/GridContainer"]
+margin_left = 216.0
+margin_top = 108.0
+margin_right = 266.0
+margin_bottom = 158.0
+rect_min_size = Vector2( 50, 50 )
+color = Color( 0.222656, 0.165039, 0.10262, 1 )
+
+[node name="Icon" type="TextureRect" parent="Background/M/V/ScrollContainer/GridContainer/Inv21"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 2.0
+margin_top = 2.0
+margin_right = -2.0
+margin_bottom = -2.0
+texture = ExtResource( 2 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Inv22" type="ColorRect" parent="Background/M/V/ScrollContainer/GridContainer"]
+margin_left = 270.0
+margin_top = 108.0
+margin_right = 320.0
+margin_bottom = 158.0
+rect_min_size = Vector2( 50, 50 )
+color = Color( 0.222656, 0.165039, 0.10262, 1 )
+
+[node name="Icon" type="TextureRect" parent="Background/M/V/ScrollContainer/GridContainer/Inv22"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 2.0
+margin_top = 2.0
+margin_right = -2.0
+margin_bottom = -2.0
+texture = ExtResource( 2 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Inv23" type="ColorRect" parent="Background/M/V/ScrollContainer/GridContainer"]
+margin_left = 324.0
+margin_top = 108.0
+margin_right = 374.0
+margin_bottom = 158.0
+rect_min_size = Vector2( 50, 50 )
+color = Color( 0.222656, 0.165039, 0.10262, 1 )
+
+[node name="Icon" type="TextureRect" parent="Background/M/V/ScrollContainer/GridContainer/Inv23"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 2.0
+margin_top = 2.0
+margin_right = -2.0
+margin_bottom = -2.0
+texture = ExtResource( 2 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Inv24" type="ColorRect" parent="Background/M/V/ScrollContainer/GridContainer"]
+margin_left = 378.0
+margin_top = 108.0
+margin_right = 428.0
+margin_bottom = 158.0
+rect_min_size = Vector2( 50, 50 )
+color = Color( 0.222656, 0.165039, 0.10262, 1 )
+
+[node name="Icon" type="TextureRect" parent="Background/M/V/ScrollContainer/GridContainer/Inv24"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 2.0
+margin_top = 2.0
+margin_right = -2.0
+margin_bottom = -2.0
+texture = ExtResource( 2 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Inv25" type="ColorRect" parent="Background/M/V/ScrollContainer/GridContainer"]
+margin_top = 162.0
+margin_right = 50.0
+margin_bottom = 212.0
+rect_min_size = Vector2( 50, 50 )
+color = Color( 0.222656, 0.165039, 0.10262, 1 )
+
+[node name="Icon" type="TextureRect" parent="Background/M/V/ScrollContainer/GridContainer/Inv25"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 2.0
+margin_top = 2.0
+margin_right = -2.0
+margin_bottom = -2.0
+texture = ExtResource( 2 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Inv26" type="ColorRect" parent="Background/M/V/ScrollContainer/GridContainer"]
+margin_left = 54.0
+margin_top = 162.0
+margin_right = 104.0
+margin_bottom = 212.0
+rect_min_size = Vector2( 50, 50 )
+color = Color( 0.222656, 0.165039, 0.10262, 1 )
+
+[node name="Icon" type="TextureRect" parent="Background/M/V/ScrollContainer/GridContainer/Inv26"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 2.0
+margin_top = 2.0
+margin_right = -2.0
+margin_bottom = -2.0
+texture = ExtResource( 2 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Inv27" type="ColorRect" parent="Background/M/V/ScrollContainer/GridContainer"]
+margin_left = 108.0
+margin_top = 162.0
+margin_right = 158.0
+margin_bottom = 212.0
+rect_min_size = Vector2( 50, 50 )
+color = Color( 0.222656, 0.165039, 0.10262, 1 )
+
+[node name="Icon" type="TextureRect" parent="Background/M/V/ScrollContainer/GridContainer/Inv27"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 2.0
+margin_top = 2.0
+margin_right = -2.0
+margin_bottom = -2.0
+texture = ExtResource( 2 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Inv28" type="ColorRect" parent="Background/M/V/ScrollContainer/GridContainer"]
+margin_left = 162.0
+margin_top = 162.0
+margin_right = 212.0
+margin_bottom = 212.0
+rect_min_size = Vector2( 50, 50 )
+color = Color( 0.222656, 0.165039, 0.10262, 1 )
+
+[node name="Icon" type="TextureRect" parent="Background/M/V/ScrollContainer/GridContainer/Inv28"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 2.0
+margin_top = 2.0
+margin_right = -2.0
+margin_bottom = -2.0
+texture = ExtResource( 2 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Inv29" type="ColorRect" parent="Background/M/V/ScrollContainer/GridContainer"]
+margin_left = 216.0
+margin_top = 162.0
+margin_right = 266.0
+margin_bottom = 212.0
+rect_min_size = Vector2( 50, 50 )
+color = Color( 0.222656, 0.165039, 0.10262, 1 )
+
+[node name="Icon" type="TextureRect" parent="Background/M/V/ScrollContainer/GridContainer/Inv29"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 2.0
+margin_top = 2.0
+margin_right = -2.0
+margin_bottom = -2.0
+texture = ExtResource( 2 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Inv30" type="ColorRect" parent="Background/M/V/ScrollContainer/GridContainer"]
+margin_left = 270.0
+margin_top = 162.0
+margin_right = 320.0
+margin_bottom = 212.0
+rect_min_size = Vector2( 50, 50 )
+color = Color( 0.222656, 0.165039, 0.10262, 1 )
+
+[node name="Icon" type="TextureRect" parent="Background/M/V/ScrollContainer/GridContainer/Inv30"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 2.0
+margin_top = 2.0
+margin_right = -2.0
+margin_bottom = -2.0
+texture = ExtResource( 2 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Inv31" type="ColorRect" parent="Background/M/V/ScrollContainer/GridContainer"]
+margin_left = 324.0
+margin_top = 162.0
+margin_right = 374.0
+margin_bottom = 212.0
+rect_min_size = Vector2( 50, 50 )
+color = Color( 0.222656, 0.165039, 0.10262, 1 )
+
+[node name="Icon" type="TextureRect" parent="Background/M/V/ScrollContainer/GridContainer/Inv31"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 2.0
+margin_top = 2.0
+margin_right = -2.0
+margin_bottom = -2.0
+texture = ExtResource( 2 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Inv32" type="ColorRect" parent="Background/M/V/ScrollContainer/GridContainer"]
+margin_left = 378.0
+margin_top = 162.0
+margin_right = 428.0
+margin_bottom = 212.0
+rect_min_size = Vector2( 50, 50 )
+color = Color( 0.222656, 0.165039, 0.10262, 1 )
+
+[node name="Icon" type="TextureRect" parent="Background/M/V/ScrollContainer/GridContainer/Inv32"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 2.0
+margin_top = 2.0
+margin_right = -2.0
+margin_bottom = -2.0
+texture = ExtResource( 2 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}

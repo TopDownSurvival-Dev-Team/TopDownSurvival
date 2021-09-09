@@ -9,7 +9,7 @@ var local_player_id = 0
 # "sync" keyword on variables allows the server to change the variable's value
 # for a network peer using "rset" function
 sync var players = {}
-sync var player_data = {}
+var player_data = {}
 
 
 func _ready():
@@ -22,7 +22,9 @@ func _ready():
 	get_tree().connect("server_disconnected", self, "_server_disconnected")
 
 
-func connect_to_server(address: String, port: int):
+func connect_to_server(address: String, port: int, username: String):
+	player_data["player_name"] = username
+	
 	network = NetworkedMultiplayerENet.new()
 	network.set_compression_mode(NetworkedMultiplayerENet.COMPRESS_ZSTD)
 	network.create_client(address, port)
@@ -78,5 +80,4 @@ func _server_disconnected():
 func register_player():
 	# TODO: Save player data on server side
 	local_player_id = get_tree().get_network_unique_id()
-	player_data = Save.save_data
 	players[local_player_id] = player_data

@@ -16,7 +16,6 @@ config/icon="res://icon.png"
 
 [autoload]
 
-Save="*res://src/autoload_scripts/save.gd"
 Network="*res://src/autoload_scripts/network.gd"
 
 [display]

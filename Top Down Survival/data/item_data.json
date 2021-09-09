@@ -1,0 +1,7 @@
+{
+    10001: {
+        "name": "Wood",
+        "category": "Resource",
+        "type": "Block"
+    }
+}

@@ -9,7 +9,6 @@ onready var status_label = $CenterContainer/VBoxContainer/StatusLabel
 onready var animation_player = $AnimationPlayer
 
 func _ready():
-	name_field.text = Save.save_data["player_name"]
 	address_field.text = Network.DEFAULT_IP
 	port_field.text = str(Network.DEFAULT_PORT)
 	status_label.visible = false
@@ -20,7 +19,7 @@ func attempt_to_connect():
 	status_label.visible = true
 	join_button.disabled = true
 	
-	Network.connect_to_server(address_field.text, int(port_field.text))
+	Network.connect_to_server(address_field.text, int(port_field.text), name_field.text)
 	
 	
 func failed_to_connect():
@@ -37,10 +36,6 @@ func disconnected_from_server():
 
 
 func _on_JoinButton_pressed():
-	# Cache the entered name for future use
-	Save.save_data["player_name"] = name_field.text
-	Save.save_game()
-	
-	# Make sure user has filled out a number in port field
-	if port_field.text.is_valid_integer():
+	# Make sure user has filled out the fields correctly
+	if not name_field.text.empty() and not address_field.text.empty() and port_field.text.is_valid_integer():
 		attempt_to_connect()
