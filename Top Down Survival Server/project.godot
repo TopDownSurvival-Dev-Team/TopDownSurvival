@@ -17,7 +17,7 @@ config/icon="res://icon.png"
 [autoload]
 
 Network="*res://src/scripts/network.gd"
-SQLite="*res://addons/godot-sqlite/bin/gdsqlite.gdns"
+Database="*res://src/scripts/Database.gd"
 
 [physics]
 

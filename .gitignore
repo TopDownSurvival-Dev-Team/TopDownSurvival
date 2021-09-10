@@ -13,5 +13,8 @@ data_*/
 # Godot Exports
 exports/
 
+# Databases
+database.db
+
 # MacOS Stuff
 .DS_Store
