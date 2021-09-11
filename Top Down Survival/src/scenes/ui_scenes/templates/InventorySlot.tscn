@@ -1,0 +1,22 @@
+[gd_scene format=2]
+
+[node name="InventorySlot" type="ColorRect"]
+margin_right = 50.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 50, 50 )
+color = Color( 0.222656, 0.165039, 0.10262, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Icon" type="TextureRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 2.0
+margin_top = 2.0
+margin_right = -2.0
+margin_bottom = -2.0
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}

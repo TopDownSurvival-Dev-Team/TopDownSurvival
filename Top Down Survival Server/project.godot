@@ -18,6 +18,7 @@ config/icon="res://icon.png"
 
 Network="*res://src/scripts/network.gd"
 Database="*res://src/scripts/Database.gd"
+GameData="*res://src/scripts/GameData.gd"
 
 [physics]
 

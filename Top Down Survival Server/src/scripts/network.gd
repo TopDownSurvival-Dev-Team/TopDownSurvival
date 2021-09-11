@@ -42,6 +42,9 @@ remote func send_player_info(player_data):
 	players[id] = player_data
 	rset("players", players)
 	
-	# Send existing players to new client
+	# Send game data to new player
+	GameData.send_game_data(id)
+	
+	# Send existing players to new player
 	get_tree().call_group("World", "send_world_to", id)
 	get_tree().call_group("Chat Box", "send_join_message", players[id]["player_name"])

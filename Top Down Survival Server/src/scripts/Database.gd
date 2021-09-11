@@ -1,8 +1,9 @@
 extends Node
 
 const SQLite = preload("res://addons/godot-sqlite/bin/gdsqlite.gdns")
+const DB_PATH = "res://data/database"
+
 var db = SQLite.new()
-var db_name = "res://database"
 
 
 func _ready():
@@ -11,7 +12,7 @@ func _ready():
 	
 	
 func init_db():
-	db.path = db_name
+	db.path = DB_PATH
 	db.open_db()
 	
 	
@@ -28,5 +29,5 @@ func create_tables():
 	
 	
 func get_inventory(player_id: int):
-	db.query("SELECT * FROM inventories WHERE player_id = %s" % player_id)
+	db.query("SELECT inventory_slot, item_id, quantity FROM inventories WHERE player_id = %s" % player_id)
 	return db.query_result
