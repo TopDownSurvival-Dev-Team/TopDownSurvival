@@ -43,7 +43,6 @@ func _player_disconnected(id):
 
 func _connection_successful():
 	print("Successfully connected to server")
-	
 	register_player()
 	
 	# Start game world
