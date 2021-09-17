@@ -6,5 +6,5 @@ remote func fetch_inventory_s(player_id: int):
 	var id = get_tree().get_rpc_sender_id()
 	
 	if id == player_id:
-		var inventory_data = Database.get_inventory(player_id)
+		var inventory_data = Database.get_inventory(id)
 		rpc_id(id, "fetch_inventory", inventory_data)
