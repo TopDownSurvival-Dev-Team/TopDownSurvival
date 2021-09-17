@@ -22,7 +22,7 @@ func create_tables():
 	CREATE TABLE IF NOT EXISTS inventories (
 		player_id	INTEGER NOT NULL,
 		inventory_slot	INTEGER NOT NULL,
-		item_id	INTEGER NOT NULL,
+		item_id	TEXT NOT NULL,
 		quantity	INTEGER NOT NULL DEFAULT 1
 	)
 	""")
