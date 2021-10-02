@@ -58,7 +58,7 @@ func _connection_successful():
 
 func _connection_failed():
 	print("Failed to connect to server")
-	get_tree().call_group("Lobby", "failed_to_connect")
+	get_tree().call_group("Lobby", "failed_to_connect_to_game")
 
 
 func _server_disconnected():

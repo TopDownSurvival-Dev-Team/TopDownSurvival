@@ -18,6 +18,7 @@ config/icon="res://icon.png"
 
 Network="*res://src/autoload_scripts/network.gd"
 GameData="*res://src/autoload_scripts/GameData.gd"
+Gateway="*res://src/autoload_scripts/Gateway.gd"
 
 [display]
 

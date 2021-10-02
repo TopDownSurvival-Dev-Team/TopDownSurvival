@@ -1,9 +1,26 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://src/scripts/ui_scripts/Lobby.gd" type="Script" id=1]
 
+[sub_resource type="Animation" id=3]
+resource_name = "Authenticating Animation"
+length = 4.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("CenterContainer/VBoxContainer/StatusLabel:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 2, 3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ "Authenticating", "Authenticating.", "Authenticating..", "Authenticating..." ]
+}
+
 [sub_resource type="Animation" id=1]
-resource_name = "Connecting Animation"
+resource_name = "Game Connecting Animation"
 length = 4.0
 loop = true
 step = 0.5
@@ -17,7 +34,24 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 1, 2, 3 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 1,
-"values": [ "Connecting", "Connecting.", "Connecting..", "Connecting..." ]
+"values": [ "Connecting to world", "Connecting to world.", "Connecting to world..", "Connecting to world..." ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "Gateway Connecting Animation"
+length = 4.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("CenterContainer/VBoxContainer/StatusLabel:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 2, 3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ "Connecting to Gateway", "Connecting to Gateway.", "Connecting to Gateway..", "Connecting to Gateway..." ]
 }
 
 [node name="Lobby" type="Control" groups=[
@@ -47,9 +81,9 @@ __meta__ = {
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
 margin_left = 362.0
-margin_top = 228.0
+margin_top = 214.0
 margin_right = 662.0
-margin_bottom = 372.0
+margin_bottom = 386.0
 grow_horizontal = 2
 grow_vertical = 2
 rect_min_size = Vector2( 300, 0 )
@@ -67,58 +101,74 @@ uppercase = true
 [node name="Fields" type="GridContainer" parent="CenterContainer/VBoxContainer"]
 margin_top = 29.0
 margin_right = 300.0
-margin_bottom = 109.0
+margin_bottom = 137.0
 columns = 2
 
-[node name="NameLabel" type="Label" parent="CenterContainer/VBoxContainer/Fields"]
+[node name="EmailLabel" type="Label" parent="CenterContainer/VBoxContainer/Fields"]
 margin_top = 5.0
 margin_right = 100.0
 margin_bottom = 19.0
 text = "Name:"
 valign = 1
 
-[node name="NameField" type="LineEdit" parent="CenterContainer/VBoxContainer/Fields"]
+[node name="EmailField" type="LineEdit" parent="CenterContainer/VBoxContainer/Fields"]
 margin_left = 104.0
 margin_right = 300.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
-placeholder_text = "This is the tale of..."
+placeholder_text = "example@mail.com"
 
-[node name="AddressLabel" type="Label" parent="CenterContainer/VBoxContainer/Fields"]
+[node name="PasswordLabel" type="Label" parent="CenterContainer/VBoxContainer/Fields"]
 margin_top = 33.0
 margin_right = 100.0
 margin_bottom = 47.0
-text = "Server Address:"
+text = "Password:"
 valign = 1
 
-[node name="AddressField" type="LineEdit" parent="CenterContainer/VBoxContainer/Fields"]
+[node name="PasswordField" type="LineEdit" parent="CenterContainer/VBoxContainer/Fields"]
 margin_left = 104.0
 margin_top = 28.0
 margin_right = 300.0
 margin_bottom = 52.0
 size_flags_horizontal = 3
-placeholder_text = "Eg: 127.0.0.1, google.com"
+secret = true
+placeholder_text = "p@$$w0rd"
 
-[node name="PortLabel" type="Label" parent="CenterContainer/VBoxContainer/Fields"]
+[node name="AddressLabel" type="Label" parent="CenterContainer/VBoxContainer/Fields"]
 margin_top = 61.0
 margin_right = 100.0
 margin_bottom = 75.0
-text = "Server Port:"
+text = "Server Address:"
 valign = 1
 
-[node name="PortField" type="LineEdit" parent="CenterContainer/VBoxContainer/Fields"]
+[node name="AddressField" type="LineEdit" parent="CenterContainer/VBoxContainer/Fields"]
 margin_left = 104.0
 margin_top = 56.0
 margin_right = 300.0
 margin_bottom = 80.0
 size_flags_horizontal = 3
-placeholder_text = "Eg: 8000, 6969"
+placeholder_text = "127.0.0.1"
 
-[node name="JoinButton" type="Button" parent="CenterContainer/VBoxContainer"]
-margin_top = 124.0
+[node name="PortLabel" type="Label" parent="CenterContainer/VBoxContainer/Fields"]
+margin_top = 89.0
+margin_right = 100.0
+margin_bottom = 103.0
+text = "Server Port:"
+valign = 1
+
+[node name="PortField" type="LineEdit" parent="CenterContainer/VBoxContainer/Fields"]
+margin_left = 104.0
+margin_top = 84.0
 margin_right = 300.0
-margin_bottom = 144.0
-text = "Join Game"
+margin_bottom = 108.0
+size_flags_horizontal = 3
+placeholder_text = "8000"
+
+[node name="LoginButton" type="Button" parent="CenterContainer/VBoxContainer"]
+margin_top = 152.0
+margin_right = 300.0
+margin_bottom = 172.0
+text = "Login"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -133,6 +183,8 @@ align = 1
 valign = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-"anims/Connecting Animation" = SubResource( 1 )
+"anims/Authenticating Animation" = SubResource( 3 )
+"anims/Game Connecting Animation" = SubResource( 1 )
+"anims/Gateway Connecting Animation" = SubResource( 2 )
 
-[connection signal="pressed" from="CenterContainer/VBoxContainer/JoinButton" to="." method="_on_JoinButton_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/LoginButton" to="." method="_on_LoginButton_pressed"]
