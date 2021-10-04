@@ -66,12 +66,12 @@ func _connection_failed():
 	
 remote func register_success():
 	# TODO
-	pass
+	print("Registered successfully")
 	
 	
 remote func register_failed(error_message: String):
 	# TODO
-	pass
+	print("Register failed")
 	
 	
 remote func login_success(player_uid: String, username: String):
@@ -80,6 +80,7 @@ remote func login_success(player_uid: String, username: String):
 	
 	
 remote func login_failed(error_message: String):
+	print("Log in failed")
 	get_tree().call_group("Lobby", "failed_to_login", error_message)
 	
 	

@@ -2,7 +2,7 @@
 
 [ext_resource path="res://src/scripts/ui_scripts/Lobby.gd" type="Script" id=1]
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=1]
 resource_name = "Authenticating Animation"
 length = 4.0
 loop = true
@@ -19,8 +19,7 @@ tracks/0/keys = {
 "values": [ "Authenticating", "Authenticating.", "Authenticating..", "Authenticating..." ]
 }
 
-[sub_resource type="Animation" id=1]
-resource_name = "Game Connecting Animation"
+[sub_resource type="Animation" id=2]
 length = 4.0
 loop = true
 step = 0.5
@@ -37,8 +36,7 @@ tracks/0/keys = {
 "values": [ "Connecting to world", "Connecting to world.", "Connecting to world..", "Connecting to world..." ]
 }
 
-[sub_resource type="Animation" id=2]
-resource_name = "Gateway Connecting Animation"
+[sub_resource type="Animation" id=3]
 length = 4.0
 loop = true
 tracks/0/type = "value"
@@ -183,8 +181,8 @@ align = 1
 valign = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-"anims/Authenticating Animation" = SubResource( 3 )
-"anims/Game Connecting Animation" = SubResource( 1 )
-"anims/Gateway Connecting Animation" = SubResource( 2 )
+"anims/Authenticating Animation" = SubResource( 1 )
+"anims/Game Connecting Animation" = SubResource( 2 )
+"anims/Gateway Connecting Animation" = SubResource( 3 )
 
 [connection signal="pressed" from="CenterContainer/VBoxContainer/LoginButton" to="." method="_on_LoginButton_pressed"]
