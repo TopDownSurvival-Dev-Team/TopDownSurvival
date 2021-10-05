@@ -5,6 +5,8 @@ const DEFAULT_PORT = 8000
 
 var network: NetworkedMultiplayerENet
 var local_player_id = 0
+var token: String
+var token_verified = false
 
 # "sync" keyword on variables allows the server to change the variable's value
 # for a network peer using "rset" function
@@ -21,14 +23,15 @@ func _ready():
 	get_tree().connect("server_disconnected", self, "_server_disconnected")
 
 
-func connect_to_server(address: String, port: int, token: String):
-	# TODO: verify token
+func connect_to_server(address: String, port: int, _token: String):
+	token = _token
+	
 	network = NetworkedMultiplayerENet.new()
 	network.set_compression_mode(NetworkedMultiplayerENet.COMPRESS_ZSTD)
 	network.create_client(address, port)
 	
 	get_tree().set_network_peer(network)
-	print("Connecting to server")
+	print("Connecting to game server")
 
 
 func _player_connected(id):
@@ -40,7 +43,36 @@ func _player_disconnected(id):
 
 
 func _connection_successful():
-	print("Successfully connected to server")
+	print("Successfully connected to game server")
+	rpc_id(1, "verify_token", token)
+
+
+func _connection_failed():
+	print("Failed to connect to server")
+	get_tree().call_group("Lobby", "failed_to_connect_to_game")
+	
+	
+func _server_disconnected():
+	# Go back to lobby
+	var lobby_scene = preload("res://src/scenes/ui_scenes/Lobby.tscn").instance()
+	get_tree().get_root().add_child(lobby_scene)
+		
+	if token_verified:
+		print("Disconnected from server")
+		lobby_scene.disconnected_from_server()
+	else:
+		print("Invalid auth token")
+		lobby_scene.invalid_token()
+		
+	# Remove game world
+	var world_scene = get_tree().get_root().get_node("World")
+	get_tree().get_root().remove_child(world_scene)
+	world_scene.queue_free()
+	
+	
+remote func token_verified_successfully():
+	print("Token verified")
+	token_verified = true
 	local_player_id = get_tree().get_network_unique_id()
 	
 	# Start game world
@@ -53,23 +85,4 @@ func _connection_successful():
 	get_tree().get_root().remove_child(lobby_scene)
 	lobby_scene.queue_free()
 	
-	rpc_id(1, "request_game_data")
-
-
-func _connection_failed():
-	print("Failed to connect to server")
-	get_tree().call_group("Lobby", "failed_to_connect_to_game")
-
-
-func _server_disconnected():
-	print("Disconnected from server")
-	
-	# Go back to lobby
-	var lobby_scene = preload("res://src/scenes/ui_scenes/Lobby.tscn").instance()
-	get_tree().get_root().add_child(lobby_scene)
-	lobby_scene.disconnected_from_server()
-	
-	# Remove game world
-	var world_scene = get_tree().get_root().get_node("World")
-	get_tree().get_root().remove_child(world_scene)
-	world_scene.queue_free()
+	rpc_id(1, "request_game_data", token)

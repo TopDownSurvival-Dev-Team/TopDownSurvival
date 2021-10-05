@@ -77,7 +77,7 @@ remote func register_failed(error_message: String):
 	print("Register failed")
 	
 	
-remote func login_success(player_uid: String, token: String):
+remote func login_success(token: String):
 	print("Logged in successfully")
 	get_tree().call_group("Lobby", "attempt_to_join_game", token)
 	

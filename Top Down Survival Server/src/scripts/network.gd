@@ -31,16 +31,26 @@ func _player_disconnected(id):
 	
 	if id in players.keys():
 		get_tree().call_group("World", "despawn_player_s", id)
-		get_tree().call_group("Chat Box", "send_leave_message", players[id]["player_name"])
+		get_tree().call_group("Chat Box", "send_leave_message", players[id]["username"])
 		
 		players.erase(id)
 		rset("players", players)
+		
+		
+remote func verify_token(token: String):
+	var sender_id = get_tree().get_rpc_sender_id()
+	
+	if GameServerHub.verify_token(token):
+		rpc_id(sender_id, "token_verified_successfully")
+	else:
+		# Kick out the player if they provide an invalid token
+		network.disconnect_peer(sender_id)
 	
 	
-remote func request_game_data():
+remote func request_game_data(token: String):
 	var id = get_tree().get_rpc_sender_id()
-	# TODO: get player data from information sent by gateway
-	players[id] = {"player_name": "gonna change soon this soon"}
+	var player_info = GameServerHub.get_user_info(token)
+	players[id] = player_info
 	rset("players", players)
 	
 	# Send game data to new player
@@ -48,7 +58,7 @@ remote func request_game_data():
 	
 	# Send existing players to new player
 	get_tree().call_group("World", "send_world_to", id)
-	get_tree().call_group("Chat Box", "send_join_message", players[id]["player_name"])
+	get_tree().call_group("Chat Box", "send_join_message", players[id]["username"])
 	
 	# Spawn the new player on all clients
 	get_tree().call_group("World", "spawn_player_s", id)

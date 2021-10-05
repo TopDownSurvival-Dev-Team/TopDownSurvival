@@ -66,8 +66,14 @@ func disconnected_from_server():
 	status_label.text = "Disconnected From Server"
 	status_label.visible = true
 	login_button.disabled = false
-
-
+	
+	
+func invalid_token():
+	status_label.text = "Unable to Verify Auth Token"
+	status_label.visible = true
+	login_button.disabled = false
+	
+	
 func _on_LoginButton_pressed():
 	# Make sure user has filled out the fields correctly
 	if not address_field.text.empty() and port_field.text.is_valid_integer():
