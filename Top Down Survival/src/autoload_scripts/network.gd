@@ -53,22 +53,22 @@ func _connection_failed():
 	
 	
 func _server_disconnected():
-	# Go back to lobby
-	var lobby_scene = preload("res://src/scenes/ui_scenes/Lobby.tscn").instance()
-	get_tree().get_root().add_child(lobby_scene)
-		
 	if token_verified:
 		print("Disconnected from server")
-		lobby_scene.disconnected_from_server()
 		
-		# Remove game world
+		# Go back to lobby
+		var lobby_scene = preload("res://src/scenes/ui_scenes/Lobby.tscn").instance()
+		get_tree().get_root().add_child(lobby_scene)
+		get_tree().call_group("Lobby", "disconnected_from_server")
+		
+		# Remove world scene
 		var world_scene = get_tree().get_root().get_node("World")
 		get_tree().get_root().remove_child(world_scene)
 		world_scene.queue_free()
 		
 	else:
 		print("Invalid auth token")
-		lobby_scene.invalid_token()
+		get_tree().call_group("Lobby", "invalid_token")
 	
 	
 remote func token_verified_successfully():
@@ -78,12 +78,6 @@ remote func token_verified_successfully():
 	
 	# Start game world
 	print("Starting game")
-	var world_scene = preload("res://src/scenes/game_scenes/World.tscn").instance()
-	get_tree().get_root().add_child(world_scene)
-	
-	# Remove lobby scene
-	var lobby_scene = get_tree().get_root().get_node("Lobby")
-	get_tree().get_root().remove_child(lobby_scene)
-	lobby_scene.queue_free()
+	get_tree().change_scene("res://src/scenes/game_scenes/World.tscn")
 	
 	rpc_id(1, "request_game_data", token)
