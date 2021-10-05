@@ -29,7 +29,7 @@ func attempt_to_login():
 	status_label.visible = true
 	login_button.disabled = true
 	
-	Gateway.login(email_field.text, password_field.text)
+	Gateway.login(address_field.text, email_field.text, password_field.text)
 	
 	
 func attempt_to_join_game(username: String):

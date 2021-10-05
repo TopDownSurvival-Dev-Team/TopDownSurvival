@@ -13,6 +13,7 @@ const GATEWAY_ADDRESS = "127.0.0.1"  # will be changed when gateway is deployed 
 const GATEWAY_PORT = 8001
 var connection_reason
 
+var game_server_address: String
 var username: String
 var email: String
 var password: String
@@ -45,12 +46,13 @@ func _connection_successful():
 	match connection_reason:
 		ConnectionReason.LOGIN:
 			print("Sending login request")
-			rpc_id(1, "login_request", email, password)
+			rpc_id(1, "login_request", game_server_address, email, password)
 		ConnectionReason.REGISTER:
 			print("Sending register request")
 			rpc_id(1, "register_request", username, email, password)
 			
 	get_tree().call_group("Lobby", "connected_to_gateway")
+	game_server_address = ""
 	username = ""
 	email = ""
 	password = ""
@@ -59,6 +61,7 @@ func _connection_successful():
 func _connection_failed():
 	print("Failed to connect to a gateway server")
 	get_tree().call_group("Lobby", "failed_to_connect_to_gateway")
+	game_server_address = ""
 	username = ""
 	email = ""
 	password = ""
@@ -93,7 +96,8 @@ func register(_username: String, _email: String, _password: String):
 	_connect_to_server()
 	
 	
-func login(_email: String, _password: String):
+func login(_address: String, _email: String, _password: String):
+	game_server_address = _address
 	email = _email
 	password = _password
 	
