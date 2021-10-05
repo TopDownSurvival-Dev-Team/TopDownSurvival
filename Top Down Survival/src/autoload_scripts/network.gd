@@ -60,14 +60,15 @@ func _server_disconnected():
 	if token_verified:
 		print("Disconnected from server")
 		lobby_scene.disconnected_from_server()
+		
+		# Remove game world
+		var world_scene = get_tree().get_root().get_node("World")
+		get_tree().get_root().remove_child(world_scene)
+		world_scene.queue_free()
+		
 	else:
 		print("Invalid auth token")
 		lobby_scene.invalid_token()
-		
-	# Remove game world
-	var world_scene = get_tree().get_root().get_node("World")
-	get_tree().get_root().remove_child(world_scene)
-	world_scene.queue_free()
 	
 	
 remote func token_verified_successfully():

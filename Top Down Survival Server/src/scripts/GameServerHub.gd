@@ -4,6 +4,7 @@ var network = NetworkedMultiplayerENet.new()
 var game_server_api = MultiplayerAPI.new()
 const HUB_ADDRESS = "127.0.0.1"  # Same as gateway address, will change when gateway is deployed
 const HUB_PORT = 8002
+const TOKEN_EXPIRE_TIME = 10
 
 var pending_tokens = {}
 var used_tokens = {}
@@ -43,8 +44,11 @@ func _connection_failed():
 func verify_token(token: String) -> bool:
 	if not token in pending_tokens:
 		return false
-		
-	# TODO: token time limit
+	
+	# Check whether the token has expired
+	var time_diff = OS.get_unix_time() - int(token.right(64))
+	if time_diff > TOKEN_EXPIRE_TIME:
+		return false
 	
 	# Invalidate the token if it's valid
 	used_tokens[token] = pending_tokens[token]
