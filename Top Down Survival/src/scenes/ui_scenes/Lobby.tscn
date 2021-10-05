@@ -1,6 +1,7 @@
 [gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://src/scripts/ui_scripts/Lobby.gd" type="Script" id=1]
+[ext_resource path="res://src/animations/Gateway Connecting Animation.tres" type="Animation" id=3]
 
 [sub_resource type="Animation" id=1]
 resource_name = "Authenticating Animation"
@@ -36,22 +37,6 @@ tracks/0/keys = {
 "values": [ "Connecting to world", "Connecting to world.", "Connecting to world..", "Connecting to world..." ]
 }
 
-[sub_resource type="Animation" id=3]
-length = 4.0
-loop = true
-tracks/0/type = "value"
-tracks/0/path = NodePath("CenterContainer/VBoxContainer/StatusLabel:text")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 1, 2, 3 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
-"update": 1,
-"values": [ "Connecting to Gateway", "Connecting to Gateway.", "Connecting to Gateway..", "Connecting to Gateway..." ]
-}
-
 [node name="Lobby" type="Control" groups=[
 "Lobby",
 ]]
@@ -62,7 +47,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="Background" type="ColorRect" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color( 0.0431373, 0.431373, 0.101961, 1 )
@@ -106,7 +91,7 @@ columns = 2
 margin_top = 5.0
 margin_right = 100.0
 margin_bottom = 19.0
-text = "Name:"
+text = "Email:"
 valign = 1
 
 [node name="EmailField" type="LineEdit" parent="CenterContainer/VBoxContainer/Fields"]
@@ -176,13 +161,13 @@ visible = false
 margin_top = 159.0
 margin_right = 300.0
 margin_bottom = 173.0
-text = "Status"
+text = "Authenticating"
 align = 1
 valign = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 "anims/Authenticating Animation" = SubResource( 1 )
 "anims/Game Connecting Animation" = SubResource( 2 )
-"anims/Gateway Connecting Animation" = SubResource( 3 )
+"anims/Gateway Connecting Animation" = ExtResource( 3 )
 
 [connection signal="pressed" from="CenterContainer/VBoxContainer/LoginButton" to="." method="_on_LoginButton_pressed"]

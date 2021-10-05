@@ -1,0 +1,122 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://src/scripts/ui_scripts/Register.gd" type="Script" id=1]
+[ext_resource path="res://src/animations/Gateway Connecting Animation.tres" type="Animation" id=2]
+
+[node name="Register" type="Control" groups=[
+"Register",
+]]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Background" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.0431373, 0.431373, 0.101961, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+margin_left = 362.0
+margin_top = 228.0
+margin_right = 662.0
+margin_bottom = 372.0
+grow_horizontal = 2
+grow_vertical = 2
+rect_min_size = Vector2( 300, 0 )
+custom_constants/separation = 15
+alignment = 1
+
+[node name="RegisterTitle" type="Label" parent="CenterContainer/VBoxContainer"]
+margin_right = 300.0
+margin_bottom = 14.0
+text = "Register"
+align = 1
+valign = 1
+uppercase = true
+
+[node name="Fields" type="GridContainer" parent="CenterContainer/VBoxContainer"]
+margin_top = 29.0
+margin_right = 300.0
+margin_bottom = 109.0
+columns = 2
+
+[node name="UsernameLabel" type="Label" parent="CenterContainer/VBoxContainer/Fields"]
+margin_top = 5.0
+margin_right = 70.0
+margin_bottom = 19.0
+text = "Username:"
+valign = 1
+
+[node name="UsernameField" type="LineEdit" parent="CenterContainer/VBoxContainer/Fields"]
+margin_left = 74.0
+margin_right = 300.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+placeholder_text = "gamer420"
+
+[node name="EmailLabel" type="Label" parent="CenterContainer/VBoxContainer/Fields"]
+margin_top = 33.0
+margin_right = 70.0
+margin_bottom = 47.0
+text = "Email:"
+valign = 1
+
+[node name="EmailField" type="LineEdit" parent="CenterContainer/VBoxContainer/Fields"]
+margin_left = 74.0
+margin_top = 28.0
+margin_right = 300.0
+margin_bottom = 52.0
+size_flags_horizontal = 3
+placeholder_text = "example@mail.com"
+
+[node name="PasswordLabel" type="Label" parent="CenterContainer/VBoxContainer/Fields"]
+margin_top = 61.0
+margin_right = 70.0
+margin_bottom = 75.0
+text = "Password:"
+valign = 1
+
+[node name="PasswordField" type="LineEdit" parent="CenterContainer/VBoxContainer/Fields"]
+margin_left = 74.0
+margin_top = 56.0
+margin_right = 300.0
+margin_bottom = 80.0
+size_flags_horizontal = 3
+secret = true
+placeholder_text = "p@$$w0rd"
+
+[node name="RegisterButton" type="Button" parent="CenterContainer/VBoxContainer"]
+margin_top = 124.0
+margin_right = 300.0
+margin_bottom = 144.0
+text = "Register"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="StatusLabel" type="Label" parent="CenterContainer/VBoxContainer"]
+visible = false
+margin_top = 159.0
+margin_right = 300.0
+margin_bottom = 173.0
+text = "Connecting to Gateway"
+align = 1
+valign = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+"anims/Gateway Connecting Animation" = ExtResource( 2 )
+
+[connection signal="pressed" from="CenterContainer/VBoxContainer/RegisterButton" to="." method="_on_RegisterButton_pressed"]

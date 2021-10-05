@@ -61,6 +61,8 @@ func _connection_successful():
 func _connection_failed():
 	print("Failed to connect to a gateway server")
 	get_tree().call_group("Lobby", "failed_to_connect_to_gateway")
+	get_tree().call_group("Register", "failed_to_connect_to_gateway")
+	
 	game_server_address = ""
 	username = ""
 	email = ""
@@ -68,13 +70,13 @@ func _connection_failed():
 	
 	
 remote func register_success():
-	# TODO
 	print("Registered successfully")
+	get_tree().call_group("Register", "registered_successfully")
 	
 	
 remote func register_failed(error_message: String):
-	# TODO
 	print("Register failed")
+	get_tree().call_group("Register", "failed_to_register", error_message)
 	
 	
 remote func login_success(token: String):
