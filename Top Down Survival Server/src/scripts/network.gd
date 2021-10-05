@@ -37,9 +37,10 @@ func _player_disconnected(id):
 		rset("players", players)
 	
 	
-remote func send_player_info(player_data):
+remote func request_game_data():
 	var id = get_tree().get_rpc_sender_id()
-	players[id] = player_data
+	# TODO: get player data from information sent by gateway
+	players[id] = {"player_name": "gonna change soon this soon"}
 	rset("players", players)
 	
 	# Send game data to new player
@@ -48,3 +49,6 @@ remote func send_player_info(player_data):
 	# Send existing players to new player
 	get_tree().call_group("World", "send_world_to", id)
 	get_tree().call_group("Chat Box", "send_join_message", players[id]["player_name"])
+	
+	# Spawn the new player on all clients
+	get_tree().call_group("World", "spawn_player_s", id)

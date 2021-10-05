@@ -13,10 +13,6 @@ onready var trees = $Trees
 onready var items = $Items
 
 onready var player_spawn = $PlayerSpawn
-
-
-func _ready():
-	rpc_id(1, "spawn_player_s", Network.local_player_id)
 	
 	
 	

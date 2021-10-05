@@ -32,9 +32,9 @@ func attempt_to_login():
 	Gateway.login(address_field.text, email_field.text, password_field.text)
 	
 	
-func attempt_to_join_game(username: String):
+func attempt_to_join_game(token: String):
 	animation_player.play("Game Connecting Animation")
-	Network.connect_to_server(address_field.text, int(port_field.text), username)
+	Network.connect_to_server(address_field.text, int(port_field.text), token)
 	
 	
 func connected_to_gateway():

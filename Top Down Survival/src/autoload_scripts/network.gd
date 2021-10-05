@@ -9,7 +9,6 @@ var local_player_id = 0
 # "sync" keyword on variables allows the server to change the variable's value
 # for a network peer using "rset" function
 sync var players = {}
-var player_data = {}
 
 
 func _ready():
@@ -22,9 +21,8 @@ func _ready():
 	get_tree().connect("server_disconnected", self, "_server_disconnected")
 
 
-func connect_to_server(address: String, port: int, username: String):
-	player_data["player_name"] = username
-	
+func connect_to_server(address: String, port: int, token: String):
+	# TODO: verify token
 	network = NetworkedMultiplayerENet.new()
 	network.set_compression_mode(NetworkedMultiplayerENet.COMPRESS_ZSTD)
 	network.create_client(address, port)
@@ -43,7 +41,7 @@ func _player_disconnected(id):
 
 func _connection_successful():
 	print("Successfully connected to server")
-	register_player()
+	local_player_id = get_tree().get_network_unique_id()
 	
 	# Start game world
 	print("Starting game")
@@ -54,6 +52,8 @@ func _connection_successful():
 	var lobby_scene = get_tree().get_root().get_node("Lobby")
 	get_tree().get_root().remove_child(lobby_scene)
 	lobby_scene.queue_free()
+	
+	rpc_id(1, "request_game_data")
 
 
 func _connection_failed():
@@ -73,9 +73,3 @@ func _server_disconnected():
 	var world_scene = get_tree().get_root().get_node("World")
 	get_tree().get_root().remove_child(world_scene)
 	world_scene.queue_free()
-	
-	
-func register_player():
-	local_player_id = get_tree().get_network_unique_id()
-	players[local_player_id] = player_data
-	rpc_id(1, "send_player_info", player_data)
