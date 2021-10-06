@@ -70,6 +70,7 @@ func disconnected_from_server():
 	
 func invalid_token():
 	animation_player.stop()
+	make_fields_editable(true)
 	status_label.text = "Unable to Verify Auth Token"
 	status_label.visible = true
 	login_button.disabled = false
