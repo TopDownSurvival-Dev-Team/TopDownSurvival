@@ -5,6 +5,7 @@ var game_server_api = MultiplayerAPI.new()
 const HUB_ADDRESS = "127.0.0.1"  # Same as gateway address, will change when gateway is deployed
 const HUB_PORT = 8002
 const TOKEN_EXPIRE_TIME = 10
+var cert = load("res://assets/certificates/TopDownSurvival-Gateway-Cert.crt")
 
 var pending_tokens = {}
 var used_tokens = {}
@@ -26,6 +27,12 @@ func _process(delta):
 	
 	
 func _connect_to_hub():
+	# Setup DTLS encryption
+	network.set_dtls_enabled(true)
+	network.set_dtls_verify_enabled(false)  # using self signed certs for now
+	network.set_dtls_certificate(cert)
+	
+	# Setup custom MultiplayerAPI
 	network.create_client(HUB_ADDRESS, HUB_PORT)
 	set_custom_multiplayer(game_server_api)
 	custom_multiplayer.set_root_node(self)

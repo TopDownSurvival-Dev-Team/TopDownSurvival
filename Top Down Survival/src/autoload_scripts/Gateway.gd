@@ -11,6 +11,7 @@ var network: NetworkedMultiplayerENet
 var gateway_api: MultiplayerAPI
 const GATEWAY_ADDRESS = "127.0.0.1"  # will be changed when gateway is deployed to production
 const GATEWAY_PORT = 8001
+var cert = load("res://assets/certificates/TopDownSurvival-Gateway-Cert.crt")
 var connection_reason
 
 var game_server_address: String
@@ -31,6 +32,12 @@ func _connect_to_server():
 	network = NetworkedMultiplayerENet.new()
 	gateway_api = MultiplayerAPI.new()
 	
+	# Setup DTLS encryption
+	network.set_dtls_enabled(true)
+	network.set_dtls_verify_enabled(false)  # using self signed certs for now
+	network.set_dtls_certificate(cert)
+	
+	# Setup custom MultiplayerAPI
 	network.create_client(GATEWAY_ADDRESS, GATEWAY_PORT)
 	set_custom_multiplayer(gateway_api)
 	custom_multiplayer.set_root_node(self)
