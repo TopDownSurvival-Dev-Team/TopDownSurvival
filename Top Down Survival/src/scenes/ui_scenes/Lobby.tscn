@@ -64,9 +64,9 @@ __meta__ = {
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
 margin_left = 362.0
-margin_top = 214.0
+margin_top = 196.0
 margin_right = 662.0
-margin_bottom = 386.0
+margin_bottom = 403.0
 grow_horizontal = 2
 grow_vertical = 2
 rect_min_size = Vector2( 300, 0 )
@@ -156,11 +156,18 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="RegisterSceneButton" type="Button" parent="CenterContainer/VBoxContainer"]
+margin_top = 187.0
+margin_right = 300.0
+margin_bottom = 207.0
+text = "Don't have an account?"
+flat = true
+
 [node name="StatusLabel" type="Label" parent="CenterContainer/VBoxContainer"]
 visible = false
-margin_top = 159.0
+margin_top = 222.0
 margin_right = 300.0
-margin_bottom = 173.0
+margin_bottom = 236.0
 text = "Authenticating"
 align = 1
 valign = 1
@@ -171,3 +178,4 @@ valign = 1
 "anims/Gateway Connecting Animation" = ExtResource( 3 )
 
 [connection signal="pressed" from="CenterContainer/VBoxContainer/LoginButton" to="." method="_on_LoginButton_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/RegisterSceneButton" to="." method="_on_RegisterSceneButton_pressed"]
