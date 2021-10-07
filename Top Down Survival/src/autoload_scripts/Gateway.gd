@@ -9,7 +9,7 @@ enum ConnectionReason {
 
 var network: NetworkedMultiplayerENet
 var gateway_api: MultiplayerAPI
-const GATEWAY_ADDRESS = "127.0.0.1"  # will be changed when gateway is deployed to production
+const GATEWAY_ADDRESS = "tds-gateway.ddns.net"
 const GATEWAY_PORT = 8001
 var cert = load("res://assets/certificates/TopDownSurvival-Gateway-Cert.crt")
 var connection_reason

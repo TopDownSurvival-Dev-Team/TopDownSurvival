@@ -2,7 +2,7 @@ extends Node
 
 var network = NetworkedMultiplayerENet.new()
 var game_server_api = MultiplayerAPI.new()
-const HUB_ADDRESS = "127.0.0.1"  # Same as gateway address, will change when gateway is deployed
+const HUB_ADDRESS = "tds-gateway.ddns.net"  # Same as gateway address
 const HUB_PORT = 8002
 const TOKEN_EXPIRE_TIME = 10
 var cert = load("res://assets/certificates/TopDownSurvival-Gateway-Cert.crt")
