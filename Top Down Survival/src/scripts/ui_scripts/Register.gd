@@ -55,3 +55,7 @@ func _on_RegisterButton_pressed():
 	# Make sure user has filled out the fields
 	if not username_field.text.empty() and not email_field.text.empty() and not password_field.text.empty():
 		attempt_to_register()
+
+
+func _on_LoginSceneButton_pressed():
+	get_tree().change_scene(LOGIN_SCENE)

@@ -1,5 +1,7 @@
 extends Control
 
+const REGISTER_SCENE = "res://src/scenes/ui_scenes/Register.tscn"
+
 onready var email_field = $CenterContainer/VBoxContainer/Fields/EmailField
 onready var password_field = $CenterContainer/VBoxContainer/Fields/PasswordField
 onready var address_field = $CenterContainer/VBoxContainer/Fields/AddressField
@@ -83,4 +85,4 @@ func _on_LoginButton_pressed():
 
 
 func _on_RegisterSceneButton_pressed():
-	get_tree().change_scene("res://src/scenes/ui_scenes/Register.tscn")
+	get_tree().change_scene(REGISTER_SCENE)

@@ -2,6 +2,8 @@ extends Node
 
 const DEFAULT_IP = "127.0.0.1"
 const DEFAULT_PORT = 8000
+const LOBBY_SCENE = "res://src/scenes/ui_scenes/Lobby.tscn"
+const WORLD_SCENE = "res://src/scenes/game_scenes/World.tscn"
 
 var network: NetworkedMultiplayerENet
 var local_player_id = 0
@@ -57,7 +59,7 @@ func _server_disconnected():
 		print("Disconnected from server")
 		
 		# Go back to lobby
-		var lobby_scene = preload("res://src/scenes/ui_scenes/Lobby.tscn").instance()
+		var lobby_scene = load(LOBBY_SCENE).instance()
 		get_tree().get_root().add_child(lobby_scene)
 		get_tree().call_group("Lobby", "disconnected_from_server")
 		
@@ -78,6 +80,6 @@ remote func token_verified_successfully():
 	
 	# Start game world
 	print("Starting game")
-	get_tree().change_scene("res://src/scenes/game_scenes/World.tscn")
+	get_tree().change_scene(WORLD_SCENE)
 	
 	rpc_id(1, "request_game_data", token)
