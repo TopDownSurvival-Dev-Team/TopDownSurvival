@@ -19,6 +19,10 @@ func _ready():
 	# Randomize RNG seed
 	randomize()
 	
+	# Wait till connected to game server hub
+	GameServerHub.connect_to_hub()
+	yield(GameServerHub.network, "connection_succeeded")
+	
 	# Load world before letting players connect
 	load_world()
 	Network.start_server()

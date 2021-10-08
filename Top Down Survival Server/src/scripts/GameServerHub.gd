@@ -15,9 +15,7 @@ func _ready():
 	network.connect("connection_succeeded", self, "_connection_successful")
 	network.connect("connection_failed", self, "_connection_failed")
 	
-	_connect_to_hub()
-
-
+	
 func _process(delta):
 	if get_custom_multiplayer() == null:
 		return
@@ -26,7 +24,7 @@ func _process(delta):
 	custom_multiplayer.poll()
 	
 	
-func _connect_to_hub():
+func connect_to_hub():
 	# Setup DTLS encryption
 	network.set_dtls_enabled(true)
 	network.set_dtls_verify_enabled(false)  # using self signed certs for now
