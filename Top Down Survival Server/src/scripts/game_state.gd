@@ -39,7 +39,7 @@ func load_world():
 		var tree_id = randi() % MAX_TREE_COUNT
 		
 		# Make sure tree_id is unique
-		while trees.get_node(str(tree_id)) != null:
+		while trees.get_node_or_null(str(tree_id)) != null:
 			tree_id = randi() % MAX_TREE_COUNT
 			
 		var new_tree = TREE_SCENE.instance()
@@ -129,7 +129,7 @@ func spawn_item_s(item_type: String, item_position: Vector2):
 	var item_name = str(item_type) + "-" + str(item_id)
 	
 	# Make sure item_name is unique
-	while items.get_node(item_name) != null:
+	while items.get_node_or_null(item_name) != null:
 		item_id = randi() % MAX_ITEM_COUNT
 		item_name = str(item_type) + "-" + str(item_id)
 	

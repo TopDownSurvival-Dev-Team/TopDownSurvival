@@ -14,6 +14,7 @@ var used_tokens = {}
 func _ready():
 	network.connect("connection_succeeded", self, "_connection_successful")
 	network.connect("connection_failed", self, "_connection_failed")
+	network.connect("server_disconnected", self, "_hub_disconnected")
 	
 	
 func _process(delta):
@@ -38,12 +39,17 @@ func connect_to_hub():
 	
 	
 func _connection_successful():
-	print("Successfully connected to Game Server Hub")
+	print("Successfully connected to Game Server Hub!")
 	
 	
 func _connection_failed():
 	print("Unable to connect to Game Server Hub, exiting...")
 	get_tree().quit()
+	
+	
+func _hub_disconnected():
+	print("Disconnected from Game Server Hub. New players can only join after server reboot.")
+	set_custom_multiplayer(null)
 	
 	
 func verify_token(token: String) -> bool:
