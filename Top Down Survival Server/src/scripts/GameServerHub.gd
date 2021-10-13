@@ -76,3 +76,8 @@ remote func receive_verification_info(token: String, player_info: Dictionary):
 	# Contains stuff like Firebase UID and player username
 	pending_tokens[token] = player_info
 	print("Received token: %s" % token)
+	
+	
+remote func duplicate_connection():
+	print("Duplicate connection! Exiting...")
+	get_tree().quit()
