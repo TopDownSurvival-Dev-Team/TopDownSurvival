@@ -19,6 +19,7 @@ config/icon="res://icon.png"
 Network="*res://src/autoload_scripts/network.gd"
 GameData="*res://src/autoload_scripts/GameData.gd"
 Gateway="*res://src/autoload_scripts/Gateway.gd"
+FullscreenHandler="*res://src/autoload_scripts/FullscreenHandler.gd"
 
 [display]
 
@@ -82,6 +83,11 @@ use={
 toggle_inventory={
 "deadzone": 0.5,
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":69,"unicode":0,"echo":false,"script":null)
+ ]
+}
+toggle_fullscreen={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":true,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":70,"unicode":0,"echo":false,"script":null)
  ]
 }
 
