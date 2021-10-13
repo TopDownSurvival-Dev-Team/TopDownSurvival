@@ -19,6 +19,10 @@ func _ready():
 	# Randomize RNG seed
 	randomize()
 	
+	# Wait till connected to game server hub
+	GameServerHub.connect_to_hub()
+	yield(GameServerHub.network, "connection_succeeded")
+	
 	# Load world before letting players connect
 	load_world()
 	Network.start_server()
@@ -35,7 +39,7 @@ func load_world():
 		var tree_id = randi() % MAX_TREE_COUNT
 		
 		# Make sure tree_id is unique
-		while trees.get_node(str(tree_id)) != null:
+		while trees.get_node_or_null(str(tree_id)) != null:
 			tree_id = randi() % MAX_TREE_COUNT
 			
 		var new_tree = TREE_SCENE.instance()
@@ -69,11 +73,11 @@ func send_world_to(id):
 		var item_id = int(item_info[1])
 		
 		rpc_id(id, "spawn_item", item_type, item_id, item.global_position)
-		
-		
-		
-		
-remote func spawn_player_s(id):
+	
+	
+	
+	
+func spawn_player_s(id):
 	print("Spawning player " + str(id))
 	
 	var new_player = PLAYER_SCENE.instance()
@@ -102,10 +106,10 @@ func despawn_tree_s(tree_id: int):
 		rpc("despawn_tree", tree_id)
 		trees.remove_child(tree)
 		tree.queue_free()
-		
-		
-		
-		
+	
+	
+	
+	
 func spawn_item_s(item_type: String, item_position: Vector2):
 	# Limit number of items currently existing
 	if items.get_child_count() >= MAX_ITEM_COUNT:
@@ -125,7 +129,7 @@ func spawn_item_s(item_type: String, item_position: Vector2):
 	var item_name = str(item_type) + "-" + str(item_id)
 	
 	# Make sure item_name is unique
-	while items.get_node(item_name) != null:
+	while items.get_node_or_null(item_name) != null:
 		item_id = randi() % MAX_ITEM_COUNT
 		item_name = str(item_type) + "-" + str(item_id)
 	
@@ -135,7 +139,7 @@ func spawn_item_s(item_type: String, item_position: Vector2):
 	
 	rpc("spawn_item", item_type, item_id, item_position)
 	
-
+	
 func despawn_item_s(item_type: String, item_id: int):
 	var item_name = str(item_type) + "-" + str(item_id)
 	var item = items.get_node(item_name)

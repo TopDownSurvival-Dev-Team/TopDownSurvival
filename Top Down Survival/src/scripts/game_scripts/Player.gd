@@ -79,7 +79,7 @@ func get_velocity(current_velocity: Vector2):
 	
 	
 func set_player_label():
-	player_label.text = Network.players[int(name)]["player_name"]
+	player_label.text = Network.players[int(name)]["username"]
 	
 	
 func update_label_position():

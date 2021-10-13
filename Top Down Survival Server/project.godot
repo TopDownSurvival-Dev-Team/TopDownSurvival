@@ -17,6 +17,9 @@ config/icon="res://icon.png"
 [autoload]
 
 Network="*res://src/scripts/network.gd"
+Database="*res://src/scripts/Database.gd"
+GameData="*res://src/scripts/GameData.gd"
+GameServerHub="*res://src/scripts/GameServerHub.gd"
 
 [physics]
 

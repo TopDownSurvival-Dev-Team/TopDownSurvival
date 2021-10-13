@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://src/scripts/game_state.gd" type="Script" id=1]
 [ext_resource path="res://src/scripts/ChatBox.gd" type="Script" id=2]
+[ext_resource path="res://src/scripts/Inventory.gd" type="Script" id=3]
 
 [node name="World" type="Node2D" groups=[
 "World",
@@ -14,6 +15,9 @@ script = ExtResource( 1 )
 "Chat Box",
 ]]
 script = ExtResource( 2 )
+
+[node name="Inventory" type="Node" parent="HUD"]
+script = ExtResource( 3 )
 
 [node name="Players" type="Node" parent="."]
 

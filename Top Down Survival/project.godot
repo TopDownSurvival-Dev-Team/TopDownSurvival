@@ -16,8 +16,9 @@ config/icon="res://icon.png"
 
 [autoload]
 
-Save="*res://src/autoload_scripts/save.gd"
 Network="*res://src/autoload_scripts/network.gd"
+GameData="*res://src/autoload_scripts/GameData.gd"
+Gateway="*res://src/autoload_scripts/Gateway.gd"
 FullscreenHandler="*res://src/autoload_scripts/FullscreenHandler.gd"
 
 [display]
@@ -77,6 +78,11 @@ attack={
 use={
 "deadzone": 0.5,
 "events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":2,"pressed":false,"doubleclick":false,"script":null)
+ ]
+}
+toggle_inventory={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":69,"unicode":0,"echo":false,"script":null)
  ]
 }
 toggle_fullscreen={
