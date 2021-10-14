@@ -7,6 +7,8 @@ var max_players = 4
 var players = {}
 var ready_players = []
 
+var server_started = false
+
 
 func _ready():
 	# Compression Mode
@@ -19,6 +21,7 @@ func _ready():
 func start_server():
 	network.create_server(port, max_players)
 	get_tree().set_network_peer(network)
+	server_started = true
 	print("Server started!")
 	
 	

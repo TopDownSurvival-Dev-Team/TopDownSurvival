@@ -1,7 +1,7 @@
 extends Node
 
-var network = NetworkedMultiplayerENet.new()
-var game_server_api = MultiplayerAPI.new()
+var network: NetworkedMultiplayerENet
+var game_server_api: MultiplayerAPI
 const HUB_ADDRESS = "tds-gateway.ddns.net"  # Same as gateway address
 const HUB_PORT = 8002
 const TOKEN_EXPIRE_TIME = 10
@@ -10,13 +10,9 @@ var cert = load("res://assets/certificates/TopDownSurvival-Gateway-Cert.crt")
 var pending_tokens = {}
 var used_tokens = {}
 
+var connection_attempts = 0
 
-func _ready():
-	network.connect("connection_succeeded", self, "_connection_successful")
-	network.connect("connection_failed", self, "_connection_failed")
-	network.connect("server_disconnected", self, "_hub_disconnected")
-	
-	
+
 func _process(delta):
 	if get_custom_multiplayer() == null:
 		return
@@ -26,6 +22,17 @@ func _process(delta):
 	
 	
 func connect_to_hub():
+	connection_attempts += 1
+	
+	# Create relevant variables
+	network = NetworkedMultiplayerENet.new()
+	game_server_api = MultiplayerAPI.new()
+	
+	# Connect signals
+	network.connect("connection_succeeded", self, "_connection_successful")
+	network.connect("connection_failed", self, "_connection_failed")
+	network.connect("server_disconnected", self, "_hub_disconnected")
+	
 	# Setup DTLS encryption
 	network.set_dtls_enabled(true)
 	network.set_dtls_verify_enabled(false)  # using self signed certs for now
@@ -40,16 +47,24 @@ func connect_to_hub():
 	
 func _connection_successful():
 	print("Successfully connected to Game Server Hub!")
+	connection_attempts = 0
 	
 	
 func _connection_failed():
-	print("Unable to connect to Game Server Hub, exiting...")
-	get_tree().quit()
+	if connection_attempts >= 3:
+		print("Unable to connect to Game Server Hub, exiting...")
+		get_tree().quit()
+	else:
+		print("Failed to connect to Game Server Hub. Trying again...")
+		connect_to_hub()
 	
 	
 func _hub_disconnected():
-	print("Disconnected from Game Server Hub. New players can only join after server reboot.")
-	set_custom_multiplayer(null)
+	print("Disconnected from Game Server Hub. Trying to reconnect...")
+	
+	# Only try to reconnect if previous connection was successful
+	if Network.server_started:
+		connect_to_hub()
 	
 	
 func verify_token(token: String) -> bool:
@@ -79,5 +94,6 @@ remote func receive_verification_info(token: String, player_info: Dictionary):
 	
 	
 remote func duplicate_connection():
+	# FIXME
 	print("Duplicate connection! Exiting...")
 	get_tree().quit()
