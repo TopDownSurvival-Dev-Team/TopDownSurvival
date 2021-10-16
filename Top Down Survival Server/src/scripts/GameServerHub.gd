@@ -84,7 +84,9 @@ func verify_token(token: String) -> bool:
 	
 	
 func get_user_info(token: String) -> Dictionary:
-	return used_tokens[token]
+	var info = used_tokens[token]
+	used_tokens.erase(info)
+	return info
 	
 	
 remote func receive_verification_info(token: String, player_info: Dictionary):

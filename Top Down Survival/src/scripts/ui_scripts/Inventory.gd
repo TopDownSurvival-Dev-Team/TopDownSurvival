@@ -14,7 +14,7 @@ func _input(event):
 
 
 func open_inventory():
-	rpc_id(1, "fetch_inventory_s", Network.local_player_id)
+	rpc_id(1, "fetch_inventory_s")
 	
 
 func _show_inventory():

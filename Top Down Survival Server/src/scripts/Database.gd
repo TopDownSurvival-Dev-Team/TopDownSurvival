@@ -20,7 +20,7 @@ func create_tables():
 	# Inventory Table
 	db.query("""
 	CREATE TABLE IF NOT EXISTS inventories (
-		player_id	INTEGER NOT NULL,
+		player_uid	TEXT NOT NULL,
 		inventory_slot	INTEGER NOT NULL,
 		item_id	TEXT NOT NULL,
 		quantity	INTEGER NOT NULL DEFAULT 1
@@ -28,6 +28,6 @@ func create_tables():
 	""")
 	
 	
-func get_inventory(player_id: int):
-	db.query("SELECT inventory_slot, item_id, quantity FROM inventories WHERE player_id = %s" % player_id)
+func get_inventory(player_uid: String):
+	db.query("SELECT inventory_slot, item_id, quantity FROM inventories WHERE player_uid = \"%s\"" % player_uid)
 	return db.query_result
