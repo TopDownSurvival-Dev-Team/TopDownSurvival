@@ -63,3 +63,7 @@ remote func fetch_inventory(inventory_data: Array):
 		
 	# Show inventory menu after adding slots
 	_show_inventory()
+
+
+func _on_ExitButton_pressed():
+	hide_inventory()
