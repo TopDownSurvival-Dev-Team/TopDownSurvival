@@ -1,10 +1,13 @@
-[gd_scene format=2]
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://src/scripts/ui_scripts/InventorySlot.gd" type="Script" id=1]
 
 [node name="InventorySlot" type="ColorRect"]
 margin_right = 50.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 50, 50 )
 color = Color( 0.222656, 0.165039, 0.10262, 1 )
+script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }

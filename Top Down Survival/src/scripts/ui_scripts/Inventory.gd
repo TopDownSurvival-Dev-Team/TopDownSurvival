@@ -47,17 +47,10 @@ remote func fetch_inventory(inventory_data: Array):
 		var item_id = item_data["item_id"]
 		var item_quantity = item_data["quantity"]
 		
-		var item_name = GameData.item_data[item_id]["name"]
-		var image_path = "res://assets/items/%s/%s.png" % [item_name, item_name]
-		var item_image = load(image_path)
-		
 		# Create inventory slot
-		# TODO: add quantities
 		var new_inv_slot = INVENTORY_SLOT_SCENE.instance()
-		var inv_icon = new_inv_slot.get_node("Icon")
-		
+		new_inv_slot.init(item_id, item_quantity)
 		new_inv_slot.name = "Inv%s" % item_inv_slot
-		inv_icon.texture = item_image
 		
 		grid_container.add_child(new_inv_slot, true)
 		
