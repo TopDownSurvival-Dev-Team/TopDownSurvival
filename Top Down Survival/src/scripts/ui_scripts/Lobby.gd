@@ -82,7 +82,7 @@ func _on_LoginButton_pressed():
 	# Make sure user has filled out the fields correctly
 	if not address_field.text.empty() and port_field.text.is_valid_integer():
 		attempt_to_login()
-
-
+	
+	
 func _on_RegisterSceneButton_pressed():
 	get_tree().change_scene(REGISTER_SCENE)

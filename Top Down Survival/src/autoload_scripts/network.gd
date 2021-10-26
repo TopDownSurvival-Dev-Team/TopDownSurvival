@@ -23,8 +23,8 @@ func _ready():
 	get_tree().connect("connection_failed", self, "_connection_failed")
 	
 	get_tree().connect("server_disconnected", self, "_server_disconnected")
-
-
+	
+	
 func connect_to_server(address: String, port: int, _token: String):
 	token = _token
 	
@@ -34,21 +34,21 @@ func connect_to_server(address: String, port: int, _token: String):
 	
 	get_tree().set_network_peer(network)
 	print("Connecting to game server")
-
-
+	
+	
 func _player_connected(id):
 	print("Player " + str(id) + " has connected")
-
-
+	
+	
 func _player_disconnected(id):
 	print("Player " + str(id) + " has disconnected")
-
-
+	
+	
 func _connection_successful():
 	print("Successfully connected to game server")
 	rpc_id(1, "verify_token", token)
-
-
+	
+	
 func _connection_failed():
 	print("Failed to connect to server")
 	get_tree().call_group("Lobby", "failed_to_connect_to_game")

@@ -8,6 +8,16 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "ColorRect",
+"class": "InventorySlot",
+"language": "GDScript",
+"path": "res://src/scripts/ui_scripts/templates/InventorySlot.gd"
+} ]
+_global_script_class_icons={
+"InventorySlot": ""
+}
+
 [application]
 
 config/name="Top Down Survival"
