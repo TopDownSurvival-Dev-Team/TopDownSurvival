@@ -6,6 +6,7 @@ var item_name: String
 var quantity: int
 var item_image: Texture
 var hovered = false
+var clickable = true
 
 onready var item_icon = $Icon
 onready var inventory = find_parent("Inventory")
@@ -22,7 +23,7 @@ func init(_item_id: String, _quantity: int):
 	
 	
 func _input(event: InputEvent):
-	if event.is_action_pressed("attack") and hovered:
+	if event.is_action_pressed("attack") and hovered and clickable:
 		_on_pressed()
 	
 	

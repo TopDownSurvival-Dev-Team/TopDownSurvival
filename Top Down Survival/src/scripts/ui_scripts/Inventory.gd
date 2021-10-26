@@ -24,6 +24,15 @@ func _show_inventory():
 	
 func hide_inventory():
 	visible = false
+	var floating_slot = free_slot.set_slot(null)
+	
+	if floating_slot:
+		var last_slot = grid_container.get_children().back()
+		if last_slot:
+			var slot_position = last_slot.name.trim_prefix("Inv").to_int()
+			floating_slot.name = "Inv%s" % slot_position
+			grid_container.add_child(floating_slot)
+			grid_container.move_child(floating_slot, slot_position)
 	
 	
 func remove_all_items():
