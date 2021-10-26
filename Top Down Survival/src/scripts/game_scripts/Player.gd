@@ -15,7 +15,7 @@ onready var animated_sprite = $AnimatedSprite
 onready var attack_timer = $AttackTimer
 
 
-func _input(event: InputEvent):
+func _input(_event: InputEvent):
 	if is_network_master():
 		if Input.is_action_just_pressed("attack"):
 			animated_sprite.play("attack")
@@ -31,7 +31,7 @@ func _ready():
 	set_player_label()
 
 
-func _physics_process(delta: float):
+func _physics_process(_delta: float):
 	if is_network_master():
 		camera.current = true
 		

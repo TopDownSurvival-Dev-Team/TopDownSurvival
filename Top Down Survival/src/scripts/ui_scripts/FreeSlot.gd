@@ -3,7 +3,7 @@ extends Node
 var item: InventorySlot = null
 
 
-func _process(delta):
+func _process(_delta):
 	if item:
 		item.set_global_position(item.get_global_mouse_position() - item.rect_size / 2)
 	

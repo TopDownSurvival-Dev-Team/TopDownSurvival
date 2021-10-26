@@ -16,13 +16,15 @@ sync var players = {}
 
 
 func _ready():
-	get_tree().connect("network_peer_connected", self, "_player_connected")
-	get_tree().connect("network_peer_disconnected", self, "_player_disconnected")
+	var _error
 	
-	get_tree().connect("connected_to_server", self, "_connection_successful")
-	get_tree().connect("connection_failed", self, "_connection_failed")
+	_error = get_tree().connect("network_peer_connected", self, "_player_connected")
+	_error = get_tree().connect("network_peer_disconnected", self, "_player_disconnected")
 	
-	get_tree().connect("server_disconnected", self, "_server_disconnected")
+	_error = get_tree().connect("connected_to_server", self, "_connection_successful")
+	_error = get_tree().connect("connection_failed", self, "_connection_failed")
+	
+	_error = get_tree().connect("server_disconnected", self, "_server_disconnected")
 	
 	
 func connect_to_server(address: String, port: int, _token: String):
@@ -80,6 +82,6 @@ remote func token_verified_successfully():
 	
 	# Start game world
 	print("Starting game")
-	get_tree().change_scene(WORLD_SCENE)
+	var _error = get_tree().change_scene(WORLD_SCENE)
 	
 	rpc_id(1, "request_game_data", token)

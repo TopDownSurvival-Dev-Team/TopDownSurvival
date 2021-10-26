@@ -85,4 +85,4 @@ func _on_LoginButton_pressed():
 	
 	
 func _on_RegisterSceneButton_pressed():
-	get_tree().change_scene(REGISTER_SCENE)
+	var _error = get_tree().change_scene(REGISTER_SCENE)
