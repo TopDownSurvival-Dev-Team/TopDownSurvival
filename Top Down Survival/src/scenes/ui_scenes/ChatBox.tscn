@@ -8,6 +8,7 @@ anchor_right = 0.362
 anchor_bottom = 1.0
 margin_top = -3.05176e-05
 margin_right = 0.311981
+grow_vertical = 0
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
