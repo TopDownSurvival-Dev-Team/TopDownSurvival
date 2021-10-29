@@ -9,7 +9,7 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "ColorRect",
+"base": "Button",
 "class": "InventorySlot",
 "language": "GDScript",
 "path": "res://src/scripts/ui_scripts/templates/InventorySlot.gd"

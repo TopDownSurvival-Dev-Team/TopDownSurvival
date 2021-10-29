@@ -1,14 +1,12 @@
-extends ColorRect
+extends Button
 class_name InventorySlot
 
 var item_id: String
 var item_name: String
 var quantity: int
 var item_image: Texture
-var hovered = false
-var clickable = true
 
-onready var item_icon = $Icon
+onready var item_icon = $Background/Icon
 onready var inventory = find_parent("Inventory")
 
 
@@ -22,22 +20,16 @@ func init(_item_id: String, _quantity: int):
 	item_image = load(image_path)
 	
 	
-func _input(event: InputEvent):
-	if event.is_action_pressed("attack") and hovered and clickable:
-		_on_pressed()
-	
-	
 func _ready():
 	item_icon.set_texture(item_image)
 	
 	
+func set_clickable(value: bool):
+	if value:
+		mouse_filter = Control.MOUSE_FILTER_STOP
+	else:
+		mouse_filter = Control.MOUSE_FILTER_IGNORE
+
+
 func _on_pressed():
 	inventory.on_slot_pressed(name)
-	
-	
-func _on_InventorySlot_mouse_entered():
-	hovered = true
-	
-	
-func _on_InventorySlot_mouse_exited():
-	hovered = false

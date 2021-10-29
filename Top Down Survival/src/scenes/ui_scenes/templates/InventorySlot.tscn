@@ -2,19 +2,28 @@
 
 [ext_resource path="res://src/scripts/ui_scripts/templates/InventorySlot.gd" type="Script" id=1]
 
-[node name="InventorySlot" type="ColorRect"]
+[node name="InventorySlot" type="Button"]
 anchor_right = 0.049
 anchor_bottom = 0.083
 margin_right = -0.176003
 margin_bottom = 0.199997
 rect_min_size = Vector2( 50, 50 )
-color = Color( 0.222656, 0.165039, 0.10262, 1 )
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Icon" type="TextureRect" parent="."]
+[node name="Background" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_min_size = Vector2( 50, 50 )
+mouse_filter = 1
+color = Color( 0.222656, 0.165039, 0.10262, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Icon" type="TextureRect" parent="Background"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 2.0
@@ -26,5 +35,4 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[connection signal="mouse_entered" from="." to="." method="_on_InventorySlot_mouse_entered"]
-[connection signal="mouse_exited" from="." to="." method="_on_InventorySlot_mouse_exited"]
+[connection signal="pressed" from="." to="." method="_on_pressed"]
