@@ -29,5 +29,10 @@ func create_tables():
 	
 	
 func get_inventory(player_uid: String):
-	db.query("SELECT inventory_slot, item_id, quantity FROM inventories WHERE player_uid = \"%s\"" % player_uid)
+	db.query("""
+	SELECT item_id, quantity
+	FROM inventories
+	WHERE player_uid = \"%s\"
+	ORDER BY inventory_slot
+	""" % player_uid)
 	return db.query_result
