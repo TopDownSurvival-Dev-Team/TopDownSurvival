@@ -2,7 +2,18 @@
 
 [ext_resource path="res://src/scripts/game_state.gd" type="Script" id=1]
 [ext_resource path="res://src/scripts/ChatBox.gd" type="Script" id=2]
-[ext_resource path="res://src/scripts/Inventory.gd" type="Script" id=3]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Node
+
+
+remote func fetch_inventory_s():
+	var id = get_tree().get_rpc_sender_id()
+	var player_uid = Network.players[id][\"firebase_uid\"]
+	
+	var inventory_data = Database.get_inventory(player_uid)
+	rpc_id(id, \"fetch_inventory\", inventory_data)
+"
 
 [node name="World" type="Node2D" groups=[
 "World",
@@ -17,7 +28,7 @@ script = ExtResource( 1 )
 script = ExtResource( 2 )
 
 [node name="Inventory" type="Node" parent="HUD"]
-script = ExtResource( 3 )
+script = SubResource( 1 )
 
 [node name="Players" type="Node" parent="."]
 
