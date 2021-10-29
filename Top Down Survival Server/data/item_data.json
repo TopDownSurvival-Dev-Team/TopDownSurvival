@@ -3,5 +3,10 @@
         "name": "Wood",
         "category": "Resource",
         "type": "Block"
-    }
+    },
+	"10002": {
+		"name": "test_item",
+		"category": "Resource",
+		"type": "Block"
+	}
 }
