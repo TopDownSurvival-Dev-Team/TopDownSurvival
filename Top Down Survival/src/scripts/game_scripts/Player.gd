@@ -29,7 +29,7 @@ func _input(event: InputEvent):
 		attack_timer.stop()
 		
 	if event.is_action_pressed("pick_up"):
-		pass
+		pick_up()
 	
 	
 func _ready():

@@ -3,11 +3,6 @@ extends Node2D
 const PLAYER_SCENE = preload("res://src/actors/Player.tscn")
 const TREE_SCENE  = preload("res://src/actors/Tree.tscn")
 
-#TODO: Move this to a json file in the future
-const ITEM_SCENES = {
-	"wood": preload("res://src/actors/items/Wood.tscn")
-}
-
 onready var players = $Players
 onready var trees = $Trees
 onready var items = $Items
@@ -58,24 +53,26 @@ remote func despawn_tree(tree_id: int):
 	
 	
 	
-remote func spawn_item(item_type: String, item_id: int, item_position: Vector2):
-	var new_item_scene = ITEM_SCENES[item_type]
+remote func spawn_item(item_id: String, quantity: int, scene_id: int, item_position: Vector2):
+	var item_type = GameData.item_data[item_id]["name"]
+	var new_item_scene = load("res://src/actors/items/%s.tscn" % item_type)
 	
 	if new_item_scene:
-		var new_item = new_item_scene.instance()
+		var scene_name = str(item_type) + "-" + str(scene_id)
+		var new_item: Item = new_item_scene.instance()
 		
-		new_item.name = str(item_type) + "-" + str(item_id)
+		new_item.init(scene_name, item_id, quantity)
 		items.add_child(new_item, true)
-		
 		new_item.global_position = item_position
 	
 	else:
-		print("Item of type '" + str(item_type) + "' not found")
+		print("Item of type '%s' not found" % item_type)
 	
 	
-remote func despawn_item(item_type: String, item_id: int):
-	var item_name = str(item_type) + "-" + str(item_id)
-	var item = items.get_node(item_name)
+remote func despawn_item(item_id: String, scene_id: int):
+	var item_type = GameData.item_data[item_id]["name"]
+	var scene_name = str(item_type) + "-" + str(scene_id)
+	var item = items.get_node(scene_name)
 	
 	if item:
 		items.remove_child(item)

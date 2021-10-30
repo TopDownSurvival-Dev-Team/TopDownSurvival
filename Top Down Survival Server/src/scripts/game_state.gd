@@ -2,11 +2,12 @@ extends Node2D
 
 const PLAYER_SCENE = preload("res://src/scenes/Player.tscn")
 const TREE_SCENE = preload("res://src/scenes/Tree.tscn")
+const ITEM_SCENE = preload("res://src/scenes/Item.tscn")
 
 const MAX_TREE_COUNT = 100
 const TREE_POS_RANGE = Vector2(5000, 5000)
 
-const MAX_ITEM_COUNT = 999
+const MAX_ITEM_COUNT = 99
 
 onready var players = $Players
 onready var trees = $Trees
@@ -69,10 +70,9 @@ func send_world_to(id):
 	for item in items.get_children():
 		# Get item info
 		var item_info = item.name.split("-", false, 1)
-		var item_type = str(item_info[0])
-		var item_id = int(item_info[1])
+		var scene_id = item_info[1].to_int()
 		
-		rpc_id(id, "spawn_item", item_type, item_id, item.global_position)
+		rpc_id(id, "spawn_item", item.item_id, item.quantity, scene_id, item.global_position)
 	
 	
 	
@@ -110,41 +110,46 @@ func despawn_tree_s(tree_id: int):
 	
 	
 	
-func spawn_item_s(item_type: String, item_position: Vector2):
-	# Limit number of items currently existing
+func spawn_item_s(item_id: String, quantity: int, item_position: Vector2):
+	# Limit number of item nodes currently existing
 	if items.get_child_count() >= MAX_ITEM_COUNT:
-		var remove_item = items.get_child(0)
+		var remove_item: Item = items.get_child(0)
 		
 		# Get item info
 		var item_info = remove_item.name.split("-", false, 1)
-		var r_item_type = str(item_info[0])
-		var r_item_id = int(item_info[1])
+		var r_item_id = remove_item.item_id
+		var r_scene_id = item_info[1].to_int()
 		
-		rpc("despawn_item", r_item_type, r_item_id)
+		rpc("despawn_item", r_item_id, r_scene_id)
 		items.remove_child(remove_item)
 		remove_item.queue_free()
 	
-	var new_item = Node2D.new()
-	var item_id = randi() % MAX_ITEM_COUNT
-	var item_name = str(item_type) + "-" + str(item_id)
+	# Create the item
+	var new_item = ITEM_SCENE.instance()
 	
-	# Make sure item_name is unique
-	while items.get_node_or_null(item_name) != null:
-		item_id = randi() % MAX_ITEM_COUNT
-		item_name = str(item_type) + "-" + str(item_id)
+	# Gather item info
+	var item_type = GameData.item_data[item_id]["name"]
+	var scene_id = randi() % MAX_ITEM_COUNT
+	var scene_name = str(item_type) + "-" + str(scene_id)
 	
-	new_item.name = item_name
+	# Make sure scene_name is unique
+	while items.get_node_or_null(scene_name) != null:
+		scene_id = randi() % MAX_ITEM_COUNT
+		scene_name = str(item_type) + "-" + str(scene_id)
+	
+	new_item.init(scene_name, item_id, quantity)
 	items.add_child(new_item, true)
 	new_item.global_position = item_position
 	
-	rpc("spawn_item", item_type, item_id, item_position)
+	rpc("spawn_item", item_id, quantity, scene_id, item_position)
 	
 	
-func despawn_item_s(item_type: String, item_id: int):
-	var item_name = str(item_type) + "-" + str(item_id)
-	var item = items.get_node(item_name)
+func despawn_item_s(item_id: String, scene_id: int):
+	var item_type = GameData.item_data[item_id]["name"]
+	var scene_name = str(item_type) + "-" + str(scene_id)
+	var item = items.get_node(scene_name)
 	
 	if item:
-		rpc("despawn_item", item_type, item_id)
+		rpc("despawn_item", item_id, scene_id)
 		items.remove_child(item)
 		item.queue_free()
