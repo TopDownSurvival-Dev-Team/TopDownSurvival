@@ -8,6 +8,7 @@ const ATTACK_DAMAGE = 3
 
 var velocity = Vector2.ZERO
 var attackable_bodies = []
+var pickable_bodies = []
 
 onready var player_label = $Label
 onready var camera = $Camera2D
@@ -15,22 +16,27 @@ onready var animated_sprite = $AnimatedSprite
 onready var attack_timer = $AttackTimer
 
 
-func _input(_event: InputEvent):
-	if is_network_master():
-		if Input.is_action_just_pressed("attack"):
-			animated_sprite.play("attack")
-			attack_timer.start()
-			
-		if Input.is_action_just_released("attack"):
-			animated_sprite.play("idle")
-			attack_timer.stop()
-
-
+func _input(event: InputEvent):
+	if not is_network_master():
+		return
+		
+	if event.is_action_pressed("attack"):
+		animated_sprite.play("attack")
+		attack_timer.start()
+		
+	elif event.is_action_released("attack"):
+		animated_sprite.play("idle")
+		attack_timer.stop()
+		
+	if event.is_action_pressed("pick_up"):
+		pass
+	
+	
 func _ready():
 	player_label.set_as_toplevel(true)
 	set_player_label()
-
-
+	
+	
 func _physics_process(_delta: float):
 	if is_network_master():
 		camera.current = true
@@ -42,15 +48,16 @@ func _physics_process(_delta: float):
 		update_label_position()
 		
 		rpc_unreliable_id(1, "update_player", global_transform, animated_sprite.animation)
-		
-
+	
+	
 remote func remote_update(transform: Transform2D, current_animation: String):
 	if not is_network_master():
 		global_transform = transform
 		update_label_position()
 		
 		animated_sprite.play(current_animation)
-
+	
+	
 func get_velocity(current_velocity: Vector2):
 	var new_velocity = current_velocity
 	var input_vector = Vector2(
@@ -85,18 +92,37 @@ func set_player_label():
 func update_label_position():
 	var pos_relative = LABEL_OFFSET - player_label.rect_size / 2
 	player_label.rect_position = pos_relative + position
-
-
+	
+	
+func attack():
+	for body in attackable_bodies:
+		body.request_damage(ATTACK_DAMAGE)
+	
+	
+func pick_up():
+	for body in pickable_bodies:
+		body.request_pick_up()
+	
+	
 func _on_AttackArea_body_entered(body: Node2D):
 	if body.is_in_group("Attackable"):
 		attackable_bodies.append(body)
-
-
+	
+	
 func _on_AttackArea_body_exited(body: Node2D):
 	if body.is_in_group("Attackable"):
 		attackable_bodies.erase(body)
-
-
+	
+	
+func _on_PickUpArea_body_entered(body: Node2D):
+	if body.is_in_group("Item"):
+		pickable_bodies.append(body)
+	
+	
+func _on_PickUpArea_body_exited(body: Node2D):
+	if body.is_in_group("Item"):
+		pickable_bodies.erase(body)
+	
+	
 func _on_AttackTimer_timeout():
-	for body in attackable_bodies:
-		body.request_damage(ATTACK_DAMAGE)
+	attack()

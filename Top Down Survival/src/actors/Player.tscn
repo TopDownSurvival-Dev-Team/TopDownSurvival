@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://src/sprite_frames/Player.tres" type="SpriteFrames" id=1]
 [ext_resource path="res://src/scripts/game_scripts/Player.gd" type="Script" id=2]
@@ -8,6 +8,9 @@ radius = 27.0
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 8, 29 )
+
+[sub_resource type="CircleShape2D" id=3]
+radius = 64.1785
 
 [node name="Player" type="KinematicBody2D"]
 light_mask = 0
@@ -47,10 +50,18 @@ shape = SubResource( 1 )
 smoothing_enabled = true
 
 [node name="AttackArea" type="Area2D" parent="."]
+visible = false
+collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea"]
 position = Vector2( 29, -1 )
 shape = SubResource( 2 )
+
+[node name="PickUpArea" type="Area2D" parent="."]
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PickUpArea"]
+shape = SubResource( 3 )
 
 [node name="AttackTimer" type="Timer" parent="."]
 process_mode = 0
@@ -58,4 +69,6 @@ wait_time = 0.2
 
 [connection signal="body_entered" from="AttackArea" to="." method="_on_AttackArea_body_entered"]
 [connection signal="body_exited" from="AttackArea" to="." method="_on_AttackArea_body_exited"]
+[connection signal="body_entered" from="PickUpArea" to="." method="_on_PickUpArea_body_entered"]
+[connection signal="body_exited" from="PickUpArea" to="." method="_on_PickUpArea_body_exited"]
 [connection signal="timeout" from="AttackTimer" to="." method="_on_AttackTimer_timeout"]
