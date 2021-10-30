@@ -19,4 +19,5 @@ remote func pick_up_s():
 	get_tree().call_group("World", "despawn_item_s", item_id, scene_id)
 	
 	# Update player inventory
+	# FIXME: call_group doesn't work
 	get_tree().call_group("Inventory", "add_item_s", id, item_id, quantity)
