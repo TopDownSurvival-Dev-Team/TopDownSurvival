@@ -13,7 +13,7 @@ var used_tokens = {}
 var connection_attempts = 0
 
 
-func _process(delta):
+func _process(_delta):
 	if get_custom_multiplayer() == null:
 		return
 	if not custom_multiplayer.has_network_peer():

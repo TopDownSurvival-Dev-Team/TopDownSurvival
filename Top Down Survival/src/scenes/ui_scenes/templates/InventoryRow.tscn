@@ -1,0 +1,43 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://assets/items/test_item/test_item.png" type="Texture" id=1]
+[ext_resource path="res://src/dynamic_fonts/Pixellari_15.tres" type="DynamicFont" id=2]
+[ext_resource path="res://src/scripts/ui_scripts/templates/InventoryRow.gd" type="Script" id=3]
+
+[node name="InventoryRow" type="Control"]
+anchor_right = 1.0
+rect_min_size = Vector2( 0, 32 )
+size_flags_horizontal = 3
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="H" type="HBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = -884.0
+margin_bottom = -568.0
+rect_min_size = Vector2( 0, 32 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Icon" type="TextureRect" parent="H"]
+margin_right = 32.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 32, 32 )
+texture = ExtResource( 1 )
+expand = true
+stretch_mode = 5
+
+[node name="Info" type="Label" parent="H"]
+margin_left = 36.0
+margin_right = 140.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 0, 32 )
+size_flags_horizontal = 3
+size_flags_vertical = 5
+custom_fonts/font = ExtResource( 2 )
+text = "Item Name (x1)"
+valign = 1

@@ -1,123 +1,91 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://src/dynamic_fonts/Pixellari_32.tres" type="DynamicFont" id=1]
+[ext_resource path="res://src/dynamic_fonts/Pixellari_25.tres" type="DynamicFont" id=1]
 [ext_resource path="res://src/scripts/ui_scripts/Inventory.gd" type="Script" id=2]
-[ext_resource path="res://src/scripts/ui_scripts/FreeSlot.gd" type="Script" id=3]
+[ext_resource path="res://src/scenes/ui_scenes/templates/InventoryRow.tscn" type="PackedScene" id=3]
 
 [node name="Inventory" type="Control"]
+anchor_left = 0.687
+anchor_top = 0.745
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_left = 0.511963
+margin_top = -3.05176e-05
+grow_horizontal = 0
+grow_vertical = 0
 script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ColorRect" type="ColorRect" parent="."]
-anchor_right = 1.0
-anchor_bottom = 1.0
-color = Color( 0, 0, 0, 0.431373 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="Background" type="ColorRect" parent="."]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -225.0
-margin_top = -245.0
-margin_right = 225.0
-margin_bottom = 245.0
-color = Color( 0.164706, 0.117647, 0.0666667, 1 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 0.392157 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="FreeSlot" type="Node" parent="Background"]
-script = ExtResource( 3 )
-
-[node name="M" type="MarginContainer" parent="Background"]
+[node name="V" type="VBoxContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 10.0
-margin_top = 10.0
-margin_right = -10.0
-margin_bottom = -10.0
+margin_top = 3.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="V" type="VBoxContainer" parent="Background/M"]
-margin_right = 430.0
-margin_bottom = 470.0
-custom_constants/separation = 10
-
-[node name="Header" type="HBoxContainer" parent="Background/M/V"]
-margin_right = 430.0
-margin_bottom = 50.0
-rect_min_size = Vector2( 0, 50 )
-
-[node name="Control" type="Control" parent="Background/M/V/Header"]
-margin_right = 111.0
-margin_bottom = 50.0
-size_flags_horizontal = 3
-
-[node name="Background" type="ColorRect" parent="Background/M/V/Header"]
-margin_left = 115.0
-margin_right = 315.0
-margin_bottom = 50.0
-rect_min_size = Vector2( 200, 50 )
-color = Color( 0.278431, 0.219608, 0.12549, 1 )
-
-[node name="Label" type="Label" parent="Background/M/V/Header/Background"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_top = 5.0
+[node name="Label" type="Label" parent="V"]
+margin_right = 320.0
+margin_bottom = 26.0
 grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 5
 custom_fonts/font = ExtResource( 1 )
 text = "Inventory"
 align = 1
 valign = 1
-uppercase = true
+
+[node name="SC" type="ScrollContainer" parent="V"]
+margin_top = 30.0
+margin_right = 320.0
+margin_bottom = 150.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+scroll_horizontal_enabled = false
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Exit" type="Control" parent="Background/M/V/Header"]
-margin_left = 319.0
-margin_right = 430.0
-margin_bottom = 50.0
-size_flags_horizontal = 3
-
-[node name="ExitButton" type="Button" parent="Background/M/V/Header/Exit"]
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-margin_left = -32.0
-margin_top = -19.0
-margin_bottom = 19.0
-grow_horizontal = 0
-custom_fonts/font = ExtResource( 1 )
-text = "X"
-flat = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="ScrollContainer" type="ScrollContainer" parent="Background/M/V"]
-margin_top = 60.0
-margin_right = 430.0
-margin_bottom = 470.0
-size_flags_vertical = 3
-
-[node name="GridContainer" type="GridContainer" parent="Background/M/V/ScrollContainer"]
-margin_right = 430.0
-margin_bottom = 410.0
-grow_horizontal = 2
+[node name="RowContainer" type="VBoxContainer" parent="V/SC"]
+margin_right = 308.0
+margin_bottom = 140.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-columns = 8
 
-[connection signal="pressed" from="Background/M/V/Header/Exit/ExitButton" to="." method="_on_ExitButton_pressed"]
+[node name="Inv1" parent="V/SC/RowContainer" instance=ExtResource( 3 )]
+anchor_right = 0.0
+margin_right = 308.0
+margin_bottom = 32.0
+preview = true
+
+[node name="Inv2" parent="V/SC/RowContainer" instance=ExtResource( 3 )]
+anchor_right = 0.0
+margin_top = 36.0
+margin_right = 308.0
+margin_bottom = 68.0
+preview = true
+
+[node name="Inv3" parent="V/SC/RowContainer" instance=ExtResource( 3 )]
+anchor_right = 0.0
+margin_top = 72.0
+margin_right = 308.0
+margin_bottom = 104.0
+preview = true
+
+[node name="Inv4" parent="V/SC/RowContainer" instance=ExtResource( 3 )]
+anchor_right = 0.0
+margin_top = 108.0
+margin_right = 308.0
+margin_bottom = 140.0
+preview = true

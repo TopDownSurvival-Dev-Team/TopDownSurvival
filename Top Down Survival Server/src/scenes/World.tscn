@@ -16,7 +16,9 @@ script = ExtResource( 1 )
 ]]
 script = ExtResource( 2 )
 
-[node name="Inventory" type="Node" parent="HUD"]
+[node name="Inventory" type="Node" parent="HUD" groups=[
+"Inventory",
+]]
 script = ExtResource( 3 )
 
 [node name="Players" type="Node" parent="."]
