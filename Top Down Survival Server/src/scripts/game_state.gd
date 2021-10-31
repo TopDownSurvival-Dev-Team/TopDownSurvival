@@ -46,6 +46,7 @@ func load_world():
 			
 		var new_tree = TREE_SCENE.instance()
 		new_tree.name = str(tree_id)
+		new_tree.connect("on_break", self, "on_tree_break")
 		trees.add_child(new_tree, true)
 		
 		var new_tree_pos = Vector2(
@@ -107,6 +108,14 @@ func despawn_tree_s(tree_id: int):
 		rpc("despawn_tree", tree_id)
 		trees.remove_child(tree)
 		tree.queue_free()
+	
+	
+func on_tree_break(tree: GameTree):
+	# Spawn wood at current position
+	spawn_item_s(tree.ITEM_DROP, tree.wood_quantity, tree.global_position)
+	
+	# Despawn tree
+	despawn_tree_s(tree.name.to_int())
 	
 	
 	

@@ -10,11 +10,17 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "Node2D",
+"class": "GameTree",
+"language": "GDScript",
+"path": "res://src/scripts/Tree.gd"
+}, {
+"base": "Node2D",
 "class": "Item",
 "language": "GDScript",
 "path": "res://src/scripts/Item.gd"
 } ]
 _global_script_class_icons={
+"GameTree": "",
 "Item": ""
 }
 
