@@ -16,5 +16,7 @@ func add_item_s(player_id: int, item_id: String, quantity: int):
 	if current_quantity:
 		current_quantity += quantity
 		Database.set_item_quantity(player_uid, item_id, quantity)
+		rpc_id(player_id, "update_item", item_id, current_quantity)
 	else:
 		Database.create_new_item(player_uid, item_id, quantity)
+		rpc_id(player_id, "add_item", item_id, quantity)

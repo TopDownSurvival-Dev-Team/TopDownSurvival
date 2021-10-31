@@ -22,3 +22,14 @@ remote func fetch_inventory(inventory_data: Array):
 		var new_inv_row = INVENTORY_ROW_SCENE.instance()
 		new_inv_row.init(item_id, item_quantity)
 		row_container.add_child(new_inv_row)
+		
+		
+remote func add_item(item_id: String, quantity: int):
+	var new_inv_row = INVENTORY_ROW_SCENE.instance()
+	new_inv_row.init(item_id, quantity)
+	row_container.add_child(new_inv_row)
+	
+	
+remote func update_item(item_id: String, quantity: int):
+	var inv_row = row_container.get_node("Inv%s" % item_id)
+	inv_row.set_quantity(quantity)
