@@ -29,6 +29,7 @@ __meta__ = {
 [node name="V" type="VBoxContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_top = 3.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -48,7 +49,7 @@ valign = 1
 [node name="SC" type="ScrollContainer" parent="V"]
 margin_top = 30.0
 margin_right = 320.0
-margin_bottom = 153.0
+margin_bottom = 150.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 scroll_horizontal_enabled = false
