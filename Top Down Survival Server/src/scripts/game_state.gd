@@ -9,6 +9,7 @@ const TREE_POS_RANGE = Vector2(5000, 5000)
 
 const MAX_ITEM_COUNT = 99
 
+onready var inventory = $HUD/Inventory
 onready var players = $Players
 onready var trees = $Trees
 onready var items = $Items
@@ -135,9 +136,12 @@ func spawn_item_s(item_id: String, quantity: int, item_position: Vector2):
 	# Make sure scene_name is unique
 	while items.get_node_or_null(scene_name) != null:
 		scene_id = randi() % MAX_ITEM_COUNT
+		
 		scene_name = str(item_type) + "-" + str(scene_id)
 	
 	new_item.init(scene_name, item_id, quantity)
+	new_item.connect("picked_up", self, "on_item_picked_up")
+	
 	items.add_child(new_item, true)
 	new_item.global_position = item_position
 	
@@ -153,3 +157,12 @@ func despawn_item_s(item_id: String, scene_id: int):
 		rpc("despawn_item", item_id, scene_id)
 		items.remove_child(item)
 		item.queue_free()
+		
+		
+func on_item_picked_up(item: Item, player_id: int):
+	# Remove item from scene
+	var scene_id = item.name.split("-")[1].to_int()
+	despawn_item_s(item.item_id, scene_id)
+	
+	# Update player inventory
+	inventory.add_item_s(player_id, item.item_id, item.quantity)
