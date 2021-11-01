@@ -50,7 +50,7 @@ func get_item_quantity(player_uid: String, item_id: String):  # int or null
 		WHERE player_uid = \"%s\" AND item_id = \"%s\"
 	""" % [player_uid, item_id])
 	
-	if db.query_result[0] != null:
+	if db.query_result:
 		return db.query_result[0]["quantity"]
 	return null
 	

@@ -1,5 +1,8 @@
 extends Node
 
+signal player_joined_game(player_id)
+signal player_left_game(player_id)
+
 var network = NetworkedMultiplayerENet.new()
 var port = 8000
 var max_players = 4
@@ -25,19 +28,17 @@ func start_server():
 	print("Server started!")
 	
 	
-func _player_connected(id):
+func _player_connected(id: int):
 	print("Player " + str(id) + " has connected")
 	
 	
-func _player_disconnected(id):
+func _player_disconnected(id: int):
 	print("Player " + str(id) + " has disconnected")
 	
 	if id in players.keys():
-		get_tree().call_group("World", "despawn_player_s", id)
-		get_tree().call_group("Chat Box", "send_leave_message", players[id]["username"])
-		
 		players.erase(id)
 		rset("players", players)
+		emit_signal("player_left_game", id)
 		
 		
 remote func verify_token(token: String):
@@ -55,6 +56,7 @@ remote func request_game_data(token: String):
 	var player_info = GameServerHub.get_user_info(token)
 	players[id] = player_info
 	rset("players", players)
+#	emit_signal("player_joined_game", id)
 	
 	# Send game data to new player
 	GameData.send_game_data(id)

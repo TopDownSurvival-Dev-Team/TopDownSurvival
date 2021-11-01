@@ -25,6 +25,9 @@ func _ready():
 	GameServerHub.connect_to_hub()
 	yield(GameServerHub.network, "connection_succeeded")
 	
+	# Connect signals
+	Network.connect("player_left_game", self, "despawn_player_s")
+	
 	# Load world before letting players connect
 	load_world()
 	Network.start_server()
@@ -79,24 +82,23 @@ func send_world_to(id):
 	
 	
 	
-func spawn_player_s(id):
+func spawn_player_s(id: int):
 	print("Spawning player " + str(id))
 	
 	var new_player = PLAYER_SCENE.instance()
 	new_player.name = str(id)
 	players.add_child(new_player, true)
-	
 	rpc("spawn_player", id)
 	
 	
-func despawn_player_s(id):
+func despawn_player_s(id: int):
 	print("Despawning player " + str(id))
 	
-	var player = players.get_node(str(id))
-	players.remove_child(player)
-	player.queue_free()
-	
-	rpc("despawn_player", id)
+	var player = players.get_node_or_null(str(id))
+	if player:
+		players.remove_child(player)
+		player.queue_free()
+		rpc("despawn_player", id)
 	
 	
 	
