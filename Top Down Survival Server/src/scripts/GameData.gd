@@ -12,6 +12,9 @@ func _ready():
 	item_data = parse_json(file.get_as_text())
 	file.close()
 	
+	# Connect signals
+	Network.connect("player_joined_game", self, "send_game_data")
+	
 	
 func send_game_data(player_id: int):
 	rpc_id(player_id, "send_item_data", item_data)

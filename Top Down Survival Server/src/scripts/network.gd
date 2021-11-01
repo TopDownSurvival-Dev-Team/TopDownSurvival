@@ -36,9 +36,9 @@ func _player_disconnected(id: int):
 	print("Player " + str(id) + " has disconnected")
 	
 	if id in players.keys():
+		emit_signal("player_left_game", id)
 		players.erase(id)
 		rset("players", players)
-		emit_signal("player_left_game", id)
 		
 		
 remote func verify_token(token: String):
@@ -56,14 +56,4 @@ remote func request_game_data(token: String):
 	var player_info = GameServerHub.get_user_info(token)
 	players[id] = player_info
 	rset("players", players)
-#	emit_signal("player_joined_game", id)
-	
-	# Send game data to new player
-	GameData.send_game_data(id)
-	
-	# Send existing players to new player
-	get_tree().call_group("World", "send_world_to", id)
-	get_tree().call_group("Chat Box", "send_join_message", players[id]["username"])
-	
-	# Spawn the new player on all clients
-	get_tree().call_group("World", "spawn_player_s", id)
+	emit_signal("player_joined_game", id)

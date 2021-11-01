@@ -26,6 +26,8 @@ func _ready():
 	yield(GameServerHub.network, "connection_succeeded")
 	
 	# Connect signals
+	Network.connect("player_joined_game", self, "send_world_to")
+	Network.connect("player_joined_game", self, "spawn_player_s")
 	Network.connect("player_left_game", self, "despawn_player_s")
 	
 	# Load world before letting players connect
@@ -94,7 +96,7 @@ func spawn_player_s(id: int):
 func despawn_player_s(id: int):
 	print("Despawning player " + str(id))
 	
-	var player = players.get_node_or_null(str(id))
+	var player = players.get_node(str(id))
 	if player:
 		players.remove_child(player)
 		player.queue_free()
