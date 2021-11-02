@@ -42,18 +42,23 @@ func _player_disconnected(id: int):
 		
 		
 remote func verify_token(token: String):
-	var sender_id = get_tree().get_rpc_sender_id()
+	var id = get_tree().get_rpc_sender_id()
 	
 	if GameServerHub.verify_token(token):
-		rpc_id(sender_id, "token_verified_successfully")
+		rpc_id(id, "token_verified_successfully")
 	else:
-		# Kick out the player if they provide an invalid token
-		network.disconnect_peer(sender_id)
+		print("Kicking player %s because their token was invalid" % id)
+		network.disconnect_peer(id)
 	
 	
 remote func request_game_data(token: String):
 	var id = get_tree().get_rpc_sender_id()
 	var player_info = GameServerHub.get_user_info(token)
-	players[id] = player_info
-	rset("players", players)
-	emit_signal("player_joined_game", id)
+	
+	if player_info:
+		players[id] = player_info
+		rset("players", players)
+		emit_signal("player_joined_game", id)
+	else:
+		print("Kicking player %s because they did not verify their token" % id)
+		network.disconnect_peer(id)

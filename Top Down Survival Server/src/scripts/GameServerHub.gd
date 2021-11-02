@@ -83,10 +83,12 @@ func verify_token(token: String) -> bool:
 	return true
 	
 	
-func get_user_info(token: String) -> Dictionary:
-	var info = used_tokens[token]
-	used_tokens.erase(info)
-	return info
+func get_user_info(token: String):  # Dictionary or null
+	if token in used_tokens.keys():
+		var info = used_tokens[token]
+		used_tokens.erase(info)
+		return info
+	return null
 	
 	
 remote func receive_verification_info(token: String, player_info: Dictionary):
