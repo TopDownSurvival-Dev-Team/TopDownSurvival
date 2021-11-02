@@ -22,6 +22,8 @@ func _ready():
 	Gateway.connect("gateway_connection_failure", self, "failed_to_connect_to_gateway")
 	Gateway.connect("login_success", self, "attempt_to_join_game")
 	Gateway.connect("login_failure", self, "failed_to_login")
+	Network.connect("server_connection_failed", self, "failed_to_connect_to_game")
+	Network.connect("invalid_token_supplied", self, "invalid_token")
 	
 	
 func make_fields_editable(value: bool):

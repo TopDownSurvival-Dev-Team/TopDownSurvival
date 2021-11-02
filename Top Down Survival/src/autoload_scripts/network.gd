@@ -1,9 +1,12 @@
 extends Node
 
+signal server_connection_failed
+signal invalid_token_supplied
+
 const DEFAULT_IP = "127.0.0.1"
 const DEFAULT_PORT = 8000
-const LOBBY_SCENE = "res://src/scenes/ui_scenes/Lobby.tscn"
-const WORLD_SCENE = "res://src/scenes/game_scenes/World.tscn"
+const LOBBY_SCENE = preload("res://src/scenes/ui_scenes/Lobby.tscn")
+const WORLD_SCENE_PATH = "res://src/scenes/game_scenes/World.tscn"
 
 var network: NetworkedMultiplayerENet
 var local_player_id = 0
@@ -53,7 +56,7 @@ func _connection_successful():
 	
 func _connection_failed():
 	print("Failed to connect to server")
-	get_tree().call_group("Lobby", "failed_to_connect_to_game")
+	emit_signal("server_connection_failed")
 	
 	
 func _server_disconnected():
@@ -61,9 +64,9 @@ func _server_disconnected():
 		print("Disconnected from server")
 		
 		# Go back to lobby
-		var lobby_scene = load(LOBBY_SCENE).instance()
+		var lobby_scene = LOBBY_SCENE.instance()
 		get_tree().get_root().add_child(lobby_scene)
-		get_tree().call_group("Lobby", "disconnected_from_server")
+		lobby_scene.disconnected_from_server()
 		
 		# Remove world scene
 		var world_scene = get_tree().get_root().get_node("World")
@@ -72,7 +75,7 @@ func _server_disconnected():
 		
 	else:
 		print("Invalid auth token")
-		get_tree().call_group("Lobby", "invalid_token")
+		emit_signal("invalid_token_supplied")
 	
 	
 remote func token_verified_successfully():
@@ -82,6 +85,6 @@ remote func token_verified_successfully():
 	
 	# Start game world
 	print("Starting game")
-	var _error = get_tree().change_scene(WORLD_SCENE)
+	var _error = get_tree().change_scene(WORLD_SCENE_PATH)
 	
 	rpc_id(1, "request_game_data", token)
