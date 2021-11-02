@@ -7,6 +7,14 @@ enum ConnectionReason {
 }
 
 
+signal gateway_connection_success
+signal gateway_connection_failure
+
+signal register_success
+signal register_failure(error_message)
+signal login_success(token)
+signal login_failure(error_message)
+
 var network: NetworkedMultiplayerENet
 var gateway_api: MultiplayerAPI
 const GATEWAY_ADDRESS = "tds-gateway.ddns.net"
@@ -58,7 +66,7 @@ func _connection_successful():
 			print("Sending register request")
 			rpc_id(1, "register_request", username, email, password)
 			
-	get_tree().call_group("Lobby", "connected_to_gateway")
+	emit_signal("gateway_connection_success")
 	game_server_address = ""
 	username = ""
 	email = ""
@@ -67,8 +75,7 @@ func _connection_successful():
 	
 func _connection_failed():
 	print("Failed to connect to a gateway server")
-	get_tree().call_group("Lobby", "failed_to_connect_to_gateway")
-	get_tree().call_group("Register", "failed_to_connect_to_gateway")
+	emit_signal("gateway_connection_failure")
 	
 	game_server_address = ""
 	username = ""
@@ -78,22 +85,22 @@ func _connection_failed():
 	
 remote func register_success():
 	print("Registered successfully")
-	get_tree().call_group("Register", "registered_successfully")
+	emit_signal("register_success")
 	
 	
 remote func register_failed(error_message: String):
 	print("Register failed")
-	get_tree().call_group("Register", "failed_to_register", error_message)
+	emit_signal("register_failure", error_message)
 	
 	
 remote func login_success(token: String):
 	print("Logged in successfully")
-	get_tree().call_group("Lobby", "attempt_to_join_game", token)
+	emit_signal("login_success", token)
 	
 	
 remote func login_failed(error_message: String):
 	print("Log in failed")
-	get_tree().call_group("Lobby", "failed_to_login", error_message)
+	emit_signal("login_failure", error_message)
 	
 	
 func register(_username: String, _email: String, _password: String):

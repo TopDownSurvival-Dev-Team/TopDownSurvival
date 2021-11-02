@@ -17,6 +17,12 @@ func _ready():
 	port_field.text = str(Network.DEFAULT_PORT)
 	status_label.visible = false
 	
+	# Connect signals
+	Gateway.connect("gateway_connection_success", self, "connected_to_gateway")
+	Gateway.connect("gateway_connection_failure", self, "failed_to_connect_to_gateway")
+	Gateway.connect("login_success", self, "attempt_to_join_game")
+	Gateway.connect("login_failure", self, "failed_to_login")
+	
 	
 func make_fields_editable(value: bool):
 	email_field.editable = value

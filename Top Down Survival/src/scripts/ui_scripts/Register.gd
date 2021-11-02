@@ -14,6 +14,11 @@ onready var animation_player = $AnimationPlayer
 func _ready():
 	status_label.visible = false
 	
+	# Connect signals
+	Gateway.connect("gateway_connection_failure", self, "failed_to_connect_to_gateway")
+	Gateway.connect("register_success", self, "registered_successfully")
+	Gateway.connect("register_failure", self, "failed_to_register")
+	
 	
 func make_fields_editable(value: bool):
 	username_field.editable = value
