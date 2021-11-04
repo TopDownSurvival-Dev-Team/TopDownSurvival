@@ -8,10 +8,10 @@ onready var trees = $Trees
 onready var items = $Items
 
 onready var player_spawn = $PlayerSpawn
-	
-	
-	
-	
+
+
+
+
 remote func spawn_player(player_id: int):
 	print("Spawning player " + str(player_id))
 	
