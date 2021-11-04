@@ -41,6 +41,10 @@ func _player_disconnected(id: int):
 		rset("players", players)
 		
 		
+func get_peer_count() -> int:
+	return len(players)
+		
+		
 remote func verify_token(token: String):
 	var id = get_tree().get_rpc_sender_id()
 	

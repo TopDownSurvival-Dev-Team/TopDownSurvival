@@ -9,6 +9,8 @@ const TREE_POS_RANGE = Vector2(5000, 5000)
 
 const MAX_ITEM_COUNT = 99
 
+var world_loaded = false
+
 onready var inventory = $HUD/Inventory
 onready var players = $Players
 onready var trees = $Trees
@@ -31,34 +33,79 @@ func _ready():
 	Network.connect("player_left_game", self, "despawn_player_s")
 	
 	# Load world before letting players connect
-	load_world()
+	var world_data = Database.get_world_data()
+	
+	if world_data.empty():
+		generate_world()
+		save_world()
+	else:
+		load_world(world_data)
+		
+	world_loaded = true
 	Network.start_server()
 	
 	
-func load_world():
-	# In the future this will load the game world from a save file
-	# For now, it just randomly spawns natural structures
-	print("Loading world")
+func _notification(what):
+	if what == MainLoop.NOTIFICATION_WM_QUIT_REQUEST and world_loaded:
+		save_world()
 	
-	print("Loading natural structures")
+	
+func load_world(world_data: Array):
+	print("Loading world...")
+	
+	for entity_data in world_data:
+		var entity_type = entity_data["entity_type"]
+		var entity_pos = entity_data["position"]
+		var entity_info = entity_data["entity_info"]
+		
+		match entity_type:
+			"tree":
+				spawn_tree_s(entity_pos)
+				
+			_:
+				var quantity = entity_info["quantity"]
+				spawn_item_s(entity_type, quantity, entity_pos)
+				
+	print("Loaded world!")
+	
+	
+func save_world():
+	print("Saving world...")
+	var world_data = []
+	
+	for tree in trees.get_children():
+		var data = {
+			"entity_type": "tree",
+			"position": tree.global_position,
+			"entity_info": {}
+		}
+		world_data.append(data)
+		
+	for item in items.get_children():
+		var data = {
+			"entity_type": item.item_id,
+			"position": item.global_position,
+			"entity_info": {
+				"quantity": item.quantity
+			}
+		}
+		world_data.append(data)
+		
+	Database.save_world_data(world_data)
+	print("Saved world!")
+	
+	
+func generate_world():
+	print("Generating world...")
+	
+	print("Generating natural structures")
 	
 	for _i in range(MAX_TREE_COUNT):
-		var tree_id = randi() % MAX_TREE_COUNT
-		
-		# Make sure tree_id is unique
-		while trees.get_node_or_null(str(tree_id)) != null:
-			tree_id = randi() % MAX_TREE_COUNT
-			
-		var new_tree = TREE_SCENE.instance()
-		new_tree.name = str(tree_id)
-		new_tree.connect("on_break", self, "on_tree_break")
-		trees.add_child(new_tree, true)
-		
 		var new_tree_pos = Vector2(
 			randi() % int(TREE_POS_RANGE.x) - TREE_POS_RANGE.x / 2,
 			randi() % int(TREE_POS_RANGE.y) - TREE_POS_RANGE.y / 2
 		)
-		new_tree.global_position = new_tree_pos
+		spawn_tree_s(new_tree_pos)
 	
 	
 func send_world_to(id):
@@ -105,11 +152,28 @@ func despawn_player_s(id: int):
 	
 	
 	
-func despawn_tree_s(tree_id: int):
-	var tree = trees.get_node(str(tree_id))
+func spawn_tree_s(tree_position: Vector2):
+	var scene_id = randi() % MAX_TREE_COUNT
 	
-	if tree:
-		rpc("despawn_tree", tree_id)
+	# Make sure scene_id is unique
+	while trees.get_node_or_null(str(scene_id)) != null:
+		scene_id = randi() % MAX_TREE_COUNT
+		
+	var new_tree = TREE_SCENE.instance()
+	new_tree.name = str(scene_id)
+	new_tree.connect("on_break", self, "on_tree_break")
+	trees.add_child(new_tree, true)
+	new_tree.global_position = tree_position
+	
+	if Network.get_peer_count() > 0:
+		rpc("spawn_tree", int(new_tree.name), new_tree.global_position)
+	
+	
+func despawn_tree_s(scene_id: int):
+	var tree = trees.get_node(str(scene_id))
+	
+	if tree and Network.get_peer_count() > 0:
+		rpc("despawn_tree", scene_id)
 		trees.remove_child(tree)
 		tree.queue_free()
 	
@@ -134,9 +198,7 @@ func spawn_item_s(item_id: String, quantity: int, item_position: Vector2):
 		var r_item_id = remove_item.item_id
 		var r_scene_id = item_info[1].to_int()
 		
-		rpc("despawn_item", r_item_id, r_scene_id)
-		items.remove_child(remove_item)
-		remove_item.queue_free()
+		despawn_item_s(r_item_id, r_scene_id)
 	
 	# Create the item
 	var new_item = ITEM_SCENE.instance()
@@ -158,7 +220,8 @@ func spawn_item_s(item_id: String, quantity: int, item_position: Vector2):
 	items.add_child(new_item, true)
 	new_item.global_position = item_position
 	
-	rpc("spawn_item", item_id, quantity, scene_id, item_position)
+	if Network.get_peer_count() > 0:
+		rpc("spawn_item", item_id, quantity, scene_id, item_position)
 	
 	
 func despawn_item_s(item_id: String, scene_id: int):
@@ -166,7 +229,7 @@ func despawn_item_s(item_id: String, scene_id: int):
 	var scene_name = str(item_type) + "-" + str(scene_id)
 	var item = items.get_node(scene_name)
 	
-	if item:
+	if item and Network.get_peer_count() > 0:
 		rpc("despawn_item", item_id, scene_id)
 		items.remove_child(item)
 		item.queue_free()

@@ -26,3 +26,9 @@ script = ExtResource( 3 )
 [node name="Trees" type="Node" parent="."]
 
 [node name="Items" type="Node" parent="."]
+
+[node name="AutoSaveTimer" type="Timer" parent="."]
+wait_time = 300.0
+autostart = true
+
+[connection signal="timeout" from="AutoSaveTimer" to="." method="save_world"]
