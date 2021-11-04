@@ -95,24 +95,24 @@ func despawn_player_s(id: int):
 	
 	
 func spawn_tree_s(tree_position: Vector2):
-	var tree_id = randi() % MAX_TREE_COUNT
+	var scene_id = randi() % MAX_TREE_COUNT
 	
-	# Make sure tree_id is unique
-	while trees.get_node_or_null(str(tree_id)) != null:
-		tree_id = randi() % MAX_TREE_COUNT
+	# Make sure scene_id is unique
+	while trees.get_node_or_null(str(scene_id)) != null:
+		scene_id = randi() % MAX_TREE_COUNT
 		
 	var new_tree = TREE_SCENE.instance()
-	new_tree.name = str(tree_id)
+	new_tree.name = str(scene_id)
 	new_tree.connect("on_break", self, "on_tree_break")
 	trees.add_child(new_tree, true)
 	new_tree.global_position = tree_position
 	
 	
-func despawn_tree_s(tree_id: int):
-	var tree = trees.get_node(str(tree_id))
+func despawn_tree_s(scene_id: int):
+	var tree = trees.get_node(str(scene_id))
 	
 	if tree:
-		rpc("despawn_tree", tree_id)
+		rpc("despawn_tree", scene_id)
 		trees.remove_child(tree)
 		tree.queue_free()
 	

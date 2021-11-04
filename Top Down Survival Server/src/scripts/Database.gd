@@ -26,6 +26,16 @@ func create_tables():
 	)
 	""")
 	
+	db.query("""
+	CREATE TABLE IF NOT EXISTS world (
+		entity_type	TEXT NOT NULL,
+		scene_id	INTEGER NOT NULL,
+		x_position	INTEGER NOT NULL,
+		y_position	INTEGER NOT NULL,
+		entity_info	TEXT NOT NULL DEFAULT "{}"
+	)
+	""")
+	
 	
 func get_inventory(player_uid: String) -> Array:
 	db.query("""
