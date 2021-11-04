@@ -43,22 +43,11 @@ func load_world():
 	print("Loading natural structures")
 	
 	for _i in range(MAX_TREE_COUNT):
-		var tree_id = randi() % MAX_TREE_COUNT
-		
-		# Make sure tree_id is unique
-		while trees.get_node_or_null(str(tree_id)) != null:
-			tree_id = randi() % MAX_TREE_COUNT
-			
-		var new_tree = TREE_SCENE.instance()
-		new_tree.name = str(tree_id)
-		new_tree.connect("on_break", self, "on_tree_break")
-		trees.add_child(new_tree, true)
-		
 		var new_tree_pos = Vector2(
 			randi() % int(TREE_POS_RANGE.x) - TREE_POS_RANGE.x / 2,
 			randi() % int(TREE_POS_RANGE.y) - TREE_POS_RANGE.y / 2
 		)
-		new_tree.global_position = new_tree_pos
+		spawn_tree_s(new_tree_pos)
 	
 	
 func send_world_to(id):
@@ -103,6 +92,20 @@ func despawn_player_s(id: int):
 		rpc("despawn_player", id)
 	
 	
+	
+	
+func spawn_tree_s(tree_position: Vector2):
+	var tree_id = randi() % MAX_TREE_COUNT
+	
+	# Make sure tree_id is unique
+	while trees.get_node_or_null(str(tree_id)) != null:
+		tree_id = randi() % MAX_TREE_COUNT
+		
+	var new_tree = TREE_SCENE.instance()
+	new_tree.name = str(tree_id)
+	new_tree.connect("on_break", self, "on_tree_break")
+	trees.add_child(new_tree, true)
+	new_tree.global_position = tree_position
 	
 	
 func despawn_tree_s(tree_id: int):
