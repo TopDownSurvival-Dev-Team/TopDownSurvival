@@ -38,18 +38,49 @@ func _ready():
 		save_world()
 	else:
 		load_world(world_data)
-	
+		
 	Network.start_server()
 	
 	
-func load_world(data: Array):
+func load_world(world_data: Array):
 	print("Loading world...")
 	# TODO
 	
 	
 func save_world():
 	print("Saving world...")
-	# TODO
+	var world_data = []
+	
+	for player in players.get_children():
+		var player_uid = Network.players[player.name.to_int()]["firebase_uid"]
+		var data = {
+			"entity_type": "player",
+			"position": player.global_position,
+			"entity_info": {
+				"player_uid": player_uid
+			}
+		}
+	
+	for tree in trees.get_children():
+		var data = {
+			"entity_type": "tree",
+			"position": tree.global_position,
+			"entity_info": {}
+		}
+		world_data.append(data)
+		
+	for item in items.get_children():
+		var data = {
+			"entity_type": item.item_id,
+			"position": item.global_position,
+			"entity_info": {
+				"quantity": item.quantity
+			}
+		}
+		world_data.append(data)
+		
+	Database.save_world_data(world_data)
+	print("Saved world!")
 	
 	
 func generate_world():

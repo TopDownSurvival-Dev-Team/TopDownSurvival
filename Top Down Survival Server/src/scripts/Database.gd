@@ -19,20 +19,20 @@ func init_db():
 func create_tables():
 	# Inventory Table
 	db.query("""
-	CREATE TABLE IF NOT EXISTS inventories (
-		player_uid	TEXT NOT NULL,
-		item_id	TEXT NOT NULL,
-		quantity	INTEGER NOT NULL DEFAULT 1
-	)
+		CREATE TABLE IF NOT EXISTS inventories (
+			player_uid	TEXT NOT NULL,
+			item_id	TEXT NOT NULL,
+			quantity	INTEGER NOT NULL DEFAULT 1
+		)
 	""")
 	
 	db.query("""
-	CREATE TABLE IF NOT EXISTS world (
-		entity_type	TEXT NOT NULL,
-		x_position	INTEGER NOT NULL,
-		y_position	INTEGER NOT NULL,
-		entity_info	TEXT NOT NULL DEFAULT "{}"
-	)
+		CREATE TABLE IF NOT EXISTS world (
+			entity_type	TEXT NOT NULL,
+			x_position	INTEGER NOT NULL,
+			y_position	INTEGER NOT NULL,
+			entity_info	TEXT NOT NULL DEFAULT "{}"
+		)
 	""")
 	
 	
@@ -41,18 +41,27 @@ func get_world_data() -> Array:
 	db.query("SELECT * FROM world")
 	
 	for entity_data in db.query_result:
-		var data = {}
-		
-		data["entity_type"] = entity_data["entity_type"]
-		data["position"] = Vector2(
-			entity_data["x_position"],
-			entity_data["y_position"]
-		)
-		data["entity_info"] = parse_json(entity_data["entity_info"])
-		
+		var data = {
+			"entity_type": entity_data["entity_type"],
+			"position": Vector2(entity_data["x_position"], entity_data["y_position"]),
+			"entity_info": parse_json(entity_data["entity_info"])
+		}
 		world_data.append(data)
 	
 	return world_data
+	
+	
+func save_world_data(world_data: Array):
+	db.query("DELETE FROM world")
+	
+	for entity_data in world_data:
+		var entity_type = entity_data["entity_type"]
+		var position = entity_data["position"]
+		var entity_info = to_json(entity_data["entity_info"])
+		
+		db.query("""
+			INSERT INTO world VALUES ("%s", %s, %s, "%s")
+		""" % [entity_type, position.x, position.y, entity_info])
 	
 	
 func get_inventory(player_uid: String) -> Array:
