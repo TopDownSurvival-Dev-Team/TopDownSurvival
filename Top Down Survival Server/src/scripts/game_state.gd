@@ -31,16 +31,31 @@ func _ready():
 	Network.connect("player_left_game", self, "despawn_player_s")
 	
 	# Load world before letting players connect
-	load_world()
+	var world_data = Database.get_world_data()
+	
+	if world_data.empty():
+		generate_world()
+		save_world()
+	else:
+		load_world(world_data)
+	
 	Network.start_server()
 	
 	
-func load_world():
-	# In the future this will load the game world from a save file
-	# For now, it just randomly spawns natural structures
-	print("Loading world")
+func load_world(data: Array):
+	print("Loading world...")
+	# TODO
 	
-	print("Loading natural structures")
+	
+func save_world():
+	print("Saving world...")
+	# TODO
+	
+	
+func generate_world():
+	print("Generating world...")
+	
+	print("Generating natural structures")
 	
 	for _i in range(MAX_TREE_COUNT):
 		var new_tree_pos = Vector2(

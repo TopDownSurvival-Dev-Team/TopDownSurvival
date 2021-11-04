@@ -29,12 +29,30 @@ func create_tables():
 	db.query("""
 	CREATE TABLE IF NOT EXISTS world (
 		entity_type	TEXT NOT NULL,
-		scene_id	INTEGER NOT NULL,
 		x_position	INTEGER NOT NULL,
 		y_position	INTEGER NOT NULL,
 		entity_info	TEXT NOT NULL DEFAULT "{}"
 	)
 	""")
+	
+	
+func get_world_data() -> Array:
+	var world_data = []
+	db.query("SELECT * FROM world")
+	
+	for entity_data in db.query_result:
+		var data = {}
+		
+		data["entity_type"] = entity_data["entity_type"]
+		data["position"] = Vector2(
+			entity_data["x_position"],
+			entity_data["y_position"]
+		)
+		data["entity_info"] = parse_json(entity_data["entity_info"])
+		
+		world_data.append(data)
+	
+	return world_data
 	
 	
 func get_inventory(player_uid: String) -> Array:
