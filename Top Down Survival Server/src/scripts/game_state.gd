@@ -198,9 +198,7 @@ func spawn_item_s(item_id: String, quantity: int, item_position: Vector2):
 		var r_item_id = remove_item.item_id
 		var r_scene_id = item_info[1].to_int()
 		
-		rpc("despawn_item", r_item_id, r_scene_id)
-		items.remove_child(remove_item)
-		remove_item.queue_free()
+		despawn_item_s(r_item_id, r_scene_id)
 	
 	# Create the item
 	var new_item = ITEM_SCENE.instance()
