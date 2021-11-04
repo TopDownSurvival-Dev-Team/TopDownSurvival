@@ -60,7 +60,7 @@ func save_world_data(world_data: Array):
 		var entity_info = to_json(entity_data["entity_info"])
 		
 		db.query("""
-			INSERT INTO world VALUES ("%s", %s, %s, "%s")
+			INSERT INTO world VALUES ('%s', %s, %s, '%s')
 		""" % [entity_type, position.x, position.y, entity_info])
 	
 	
