@@ -132,7 +132,7 @@ jobs:
           CHANNEL: "macos-server-beta"
           ITCH_GAME: "top-down-survival"
           ITCH_USER: "mysterycoder456"
-          PACKAGE: "Top Down Survival Server/exports/MacOS.zip"
+          PACKAGE: "Top Down Survival Server/exports/MacOS.dmg"
           VERSION_FILE: "version.txt"
           
       - name: Publish Windows Build
