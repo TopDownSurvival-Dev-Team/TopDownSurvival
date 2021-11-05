@@ -4,6 +4,8 @@ env:
   GODOT_VERSION: 3.3.4
   CLIENT_PATH: "Top Down Survival"
   SERVER_PATH: "Top Down Survival Server"
+  ITCH_PROJECT_NAME: "mysterycoder456/top-down-survival"
+  ITCH_API_KEY: ${{ secrets.ITCH_API_KEY }}
 
 # Controls when the workflow will run
 on:
