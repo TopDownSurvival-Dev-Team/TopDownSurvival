@@ -1,0 +1,156 @@
+name: "Release Beta"
+
+env:
+  GODOT_VERSION: 3.3.4
+  CLIENT_PATH: "Top Down Survival"
+  SERVER_PATH: "Top Down Survival Server"
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches: [ release-beta ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  export-client:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+    
+    container:
+      image: barichello/godot-ci:3.3.4
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          lfs: true
+      
+      - name: Setup
+        run: |
+          mkdir -v -p ~/.local/share/godot/templates
+          mv /root/.local/share/godot/templates/${GODOT_VERSION}.stable ~/.local/share/godot/templates/${GODOT_VERSION}.stable
+      
+      - name: MacOS Build
+        run: |
+          mkdir -v -p "${CLIENT_PATH}/exports"
+          cd "${CLIENT_PATH}"
+          godot -v --export "MacOS" exports/MacOS.zip
+      
+      - name: Windows Build
+        run: |
+          mkdir -v -p "${CLIENT_PATH}/exports/Windows"
+          cd "${CLIENT_PATH}"
+          godot -v --export "Windows Desktop" "exports/Windows/${CLIENT_PATH}.exe"
+          zip -r exports/Windows.zip exports/Windows
+      
+      - name: Linux Build
+        run: |
+          mkdir -v -p "${CLIENT_PATH}/exports/Linux"
+          cd "${CLIENT_PATH}"
+          godot -v --export "Linux/X11" "exports/Linux/${CLIENT_PATH}.x86_64"
+          zip -r exports/Linux.zip exports/Linux
+          
+      - name: Publish MacOS Build
+        uses: josephbmanley/butler-publish-itchio-action@master
+        env:
+          BUTLER_CREDENTIALS: ${{ secrets.ITCH_API_KEY }}
+          CHANNEL: "macos-beta"
+          ITCH_GAME: "top-down-survival"
+          ITCH_USER: "mysterycoder456"
+          PACKAGE: "Top Down Survival/exports/MacOS.zip"
+          VERSION_FILE: "version.txt"
+          
+      - name: Publish Windows Build
+        uses: josephbmanley/butler-publish-itchio-action@master
+        env:
+          BUTLER_CREDENTIALS: ${{ secrets.ITCH_API_KEY }}
+          CHANNEL: "windows-beta"
+          ITCH_GAME: "top-down-survival"
+          ITCH_USER: "mysterycoder456"
+          PACKAGE: "Top Down Survival/exports/Windows.zip"
+          VERSION_FILE: "version.txt"
+          
+      - name: Publish Linux Build
+        uses: josephbmanley/butler-publish-itchio-action@master
+        env:
+          BUTLER_CREDENTIALS: ${{ secrets.ITCH_API_KEY }}
+          CHANNEL: "linux-beta"
+          ITCH_GAME: "top-down-survival"
+          ITCH_USER: "mysterycoder456"
+          PACKAGE: "Top Down Survival/exports/Linux.zip"
+          VERSION_FILE: "version.txt"
+          
+  export-server:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+    
+    container:
+      image: barichello/godot-ci:3.3.4
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          lfs: true
+      
+      - name: Setup
+        run: |
+          mkdir -v -p ~/.local/share/godot/templates
+          mv /root/.local/share/godot/templates/${GODOT_VERSION}.stable ~/.local/share/godot/templates/${GODOT_VERSION}.stable
+      
+      - name: MacOS Build
+        run: |
+          mkdir -v -p "${SERVER_PATH}/exports"
+          cd "${SERVER_PATH}"
+          godot -v --export "MacOS" exports/MacOS.dmg
+      
+      - name: Windows Build
+        run: |
+          mkdir -v -p "${SERVER_PATH}/exports/Windows"
+          cd "${SERVER_PATH}"
+          godot -v --export "Windows Desktop" "exports/Windows/${SERVER_PATH}.exe"
+          zip -r exports/Windows.zip exports/Windows
+      
+      - name: Linux Build
+        run: |
+          mkdir -v -p "${SERVER_PATH}/exports/Linux"
+          cd "${SERVER_PATH}"
+          godot -v --export "Linux/X11" "exports/Linux/${SERVER_PATH}.x86_64"
+          zip -r exports/Linux.zip exports/Linux
+          
+      - name: Publish MacOS Build
+        uses: josephbmanley/butler-publish-itchio-action@master
+        env:
+          BUTLER_CREDENTIALS: ${{ secrets.ITCH_API_KEY }}
+          CHANNEL: "macos-server-beta"
+          ITCH_GAME: "top-down-survival"
+          ITCH_USER: "mysterycoder456"
+          PACKAGE: "Top Down Survival Server/exports/MacOS.dmg"
+          VERSION_FILE: "version.txt"
+          
+      - name: Publish Windows Build
+        uses: josephbmanley/butler-publish-itchio-action@master
+        env:
+          BUTLER_CREDENTIALS: ${{ secrets.ITCH_API_KEY }}
+          CHANNEL: "windows-server-beta"
+          ITCH_GAME: "top-down-survival"
+          ITCH_USER: "mysterycoder456"
+          PACKAGE: "Top Down Survival Server/exports/Windows.zip"
+          VERSION_FILE: "version.txt"
+          
+      - name: Publish Linux Build
+        uses: josephbmanley/butler-publish-itchio-action@master
+        env:
+          BUTLER_CREDENTIALS: ${{ secrets.ITCH_API_KEY }}
+          CHANNEL: "linux-server-beta"
+          ITCH_GAME: "top-down-survival"
+          ITCH_USER: "mysterycoder456"
+          PACKAGE: "Top Down Survival Server/exports/Linux.zip"
+          VERSION_FILE: "version.txt"
