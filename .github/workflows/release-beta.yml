@@ -20,7 +20,7 @@ jobs:
     runs-on: ubuntu-latest
     
     container:
-      image: barichello/godot-ci:${GODOT_VERSION}
+      image: barichello/godot-ci:3.3.4
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
