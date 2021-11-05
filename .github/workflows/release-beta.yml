@@ -4,8 +4,6 @@ env:
   GODOT_VERSION: 3.3.4
   CLIENT_PATH: "Top Down Survival"
   SERVER_PATH: "Top Down Survival Server"
-  ITCH_PROJECT_NAME: "mysterycoder456/top-down-survival"
-  ITCH_API_KEY: ${{ secrets.ITCH_API_KEY }}
 
 # Controls when the workflow will run
 on:
@@ -57,6 +55,33 @@ jobs:
           godot -v --export "Linux/X11" "exports/Linux/${CLIENT_PATH}.x86_64"
           zip -r exports/Linux.zip exports/Linux
           
+      - name: Publish MacOS Build
+        uses: josephbmanley/butler-publish-itchio-action@master
+        env:
+          BUTLER_CREDENTIALS: ${{ secrets.ITCH_API_KEY }}
+          CHANNEL: "macos-beta"
+          ITCH_GAME: "top-down-survival"
+          ITCH_USER: "mysterycoder456"
+          PACKAGE: '"${CLIENT_PATH}/exports/MacOS.zip"'
+          
+      - name: Publish Windows Build
+        uses: josephbmanley/butler-publish-itchio-action@master
+        env:
+          BUTLER_CREDENTIALS: ${{ secrets.ITCH_API_KEY }}
+          CHANNEL: "windows-beta"
+          ITCH_GAME: "top-down-survival"
+          ITCH_USER: "mysterycoder456"
+          PACKAGE: '"${CLIENT_PATH}/exports/Windows.zip"'
+          
+      - name: Publish Linux Build
+        uses: josephbmanley/butler-publish-itchio-action@master
+        env:
+          BUTLER_CREDENTIALS: ${{ secrets.ITCH_API_KEY }}
+          CHANNEL: "linux-beta"
+          ITCH_GAME: "top-down-survival"
+          ITCH_USER: "mysterycoder456"
+          PACKAGE: '"${CLIENT_PATH}/exports/Linux.zip"'
+          
   export-server:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
@@ -96,3 +121,30 @@ jobs:
           cd "${SERVER_PATH}"
           godot -v --export "Linux/X11" "exports/Linux/${SERVER_PATH}.x86_64"
           zip -r exports/Linux.zip exports/Linux
+          
+      - name: Publish MacOS Build
+        uses: josephbmanley/butler-publish-itchio-action@master
+        env:
+          BUTLER_CREDENTIALS: ${{ secrets.ITCH_API_KEY }}
+          CHANNEL: "macos-server-beta"
+          ITCH_GAME: "top-down-survival"
+          ITCH_USER: "mysterycoder456"
+          PACKAGE: '"${SERVER_PATH}/exports/MacOS.zip"'
+          
+      - name: Publish Windows Build
+        uses: josephbmanley/butler-publish-itchio-action@master
+        env:
+          BUTLER_CREDENTIALS: ${{ secrets.ITCH_API_KEY }}
+          CHANNEL: "windows-server-beta"
+          ITCH_GAME: "top-down-survival"
+          ITCH_USER: "mysterycoder456"
+          PACKAGE: '"${SERVER_PATH}/exports/Windows.zip"'
+          
+      - name: Publish Linux Build
+        uses: josephbmanley/butler-publish-itchio-action@master
+        env:
+          BUTLER_CREDENTIALS: ${{ secrets.ITCH_API_KEY }}
+          CHANNEL: "linux-server-beta"
+          ITCH_GAME: "top-down-survival"
+          ITCH_USER: "mysterycoder456"
+          PACKAGE: '"${SERVER_PATH}/exports/Linux.zip"'
