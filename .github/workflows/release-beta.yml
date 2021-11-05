@@ -63,6 +63,7 @@ jobs:
           ITCH_GAME: "top-down-survival"
           ITCH_USER: "mysterycoder456"
           PACKAGE: '"${CLIENT_PATH}/exports/MacOS.zip"'
+          VERSION_FILE: "version.txt"
           
       - name: Publish Windows Build
         uses: josephbmanley/butler-publish-itchio-action@master
@@ -72,6 +73,7 @@ jobs:
           ITCH_GAME: "top-down-survival"
           ITCH_USER: "mysterycoder456"
           PACKAGE: '"${CLIENT_PATH}/exports/Windows.zip"'
+          VERSION_FILE: "version.txt"
           
       - name: Publish Linux Build
         uses: josephbmanley/butler-publish-itchio-action@master
@@ -81,6 +83,7 @@ jobs:
           ITCH_GAME: "top-down-survival"
           ITCH_USER: "mysterycoder456"
           PACKAGE: '"${CLIENT_PATH}/exports/Linux.zip"'
+          VERSION_FILE: "version.txt"
           
   export-server:
     # The type of runner that the job will run on
@@ -130,6 +133,7 @@ jobs:
           ITCH_GAME: "top-down-survival"
           ITCH_USER: "mysterycoder456"
           PACKAGE: '"${SERVER_PATH}/exports/MacOS.zip"'
+          VERSION_FILE: "version.txt"
           
       - name: Publish Windows Build
         uses: josephbmanley/butler-publish-itchio-action@master
@@ -139,6 +143,7 @@ jobs:
           ITCH_GAME: "top-down-survival"
           ITCH_USER: "mysterycoder456"
           PACKAGE: '"${SERVER_PATH}/exports/Windows.zip"'
+          VERSION_FILE: "version.txt"
           
       - name: Publish Linux Build
         uses: josephbmanley/butler-publish-itchio-action@master
@@ -148,3 +153,4 @@ jobs:
           ITCH_GAME: "top-down-survival"
           ITCH_USER: "mysterycoder456"
           PACKAGE: '"${SERVER_PATH}/exports/Linux.zip"'
+          VERSION_FILE: "version.txt"
