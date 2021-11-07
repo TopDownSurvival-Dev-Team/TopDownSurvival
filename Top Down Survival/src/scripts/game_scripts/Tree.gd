@@ -7,21 +7,21 @@ onready var health_bar_show_timer = $HealthBarShowTimer
 
 
 func _ready():
-	health_bar.visible = false
-	
-	
+    health_bar.visible = false
+
+
 func request_damage(damage_amount: int):
-	rpc_id(1, "damage_s", damage_amount)
+    rpc_id(1, "damage_s", damage_amount)
 
 
 remote func damage(damage_amount: int):
-	# TODO: Add damage animation
-	health -= damage_amount
-	
-	health_bar.value = health
-	health_bar.visible = true
-	health_bar_show_timer.start()
+    # TODO: Add damage animation
+    health -= damage_amount
+
+    health_bar.value = health
+    health_bar.visible = true
+    health_bar_show_timer.start()
 
 
 func _on_HealthBarShowTimer_timeout():
-	health_bar.visible = false
+    health_bar.visible = false

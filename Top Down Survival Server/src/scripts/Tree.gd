@@ -12,13 +12,13 @@ var wood_quantity: int
 
 
 func _ready():
-	wood_quantity = (randi() % (MAX_WOOD_DROP - MIN_WOOD_DROP)) + MIN_WOOD_DROP
-	
-	
+    wood_quantity = (randi() % (MAX_WOOD_DROP - MIN_WOOD_DROP)) + MIN_WOOD_DROP
+
+
 remote func damage_s(damage_amount: int):
-	health -= damage_amount
-	
-	if health > 0:
-		rpc("damage", damage_amount)
-	else:
-		emit_signal("on_break", self)
+    health -= damage_amount
+
+    if health > 0:
+        rpc("damage", damage_amount)
+    else:
+        emit_signal("on_break", self)
