@@ -1,7 +1,7 @@
 name: "Release Beta"
 
 env:
-  GODOT_VERSION: 3.3.4
+  GODOT_VERSION: 3.4
   CLIENT_PATH: "Top Down Survival"
   SERVER_PATH: "Top Down Survival Server"
 
@@ -20,7 +20,7 @@ jobs:
     runs-on: ubuntu-latest
     
     container:
-      image: barichello/godot-ci:3.3.4
+      image: barichello/godot-ci:3.4
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -90,7 +90,7 @@ jobs:
     runs-on: ubuntu-latest
     
     container:
-      image: barichello/godot-ci:3.3.4
+      image: barichello/godot-ci:3.4
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -109,7 +109,7 @@ jobs:
         run: |
           mkdir -v -p "${SERVER_PATH}/exports"
           cd "${SERVER_PATH}"
-          godot -v --export "MacOS" exports/MacOS.dmg
+          godot -v --export "MacOS" exports/MacOS.zip
       
       - name: Windows Build
         run: |
@@ -132,7 +132,7 @@ jobs:
           CHANNEL: "macos-server-beta"
           ITCH_GAME: "top-down-survival"
           ITCH_USER: "mysterycoder456"
-          PACKAGE: "Top Down Survival Server/exports/MacOS.dmg"
+          PACKAGE: "Top Down Survival Server/exports/MacOS.zip"
           VERSION_FILE: "version.txt"
           
       - name: Publish Windows Build
