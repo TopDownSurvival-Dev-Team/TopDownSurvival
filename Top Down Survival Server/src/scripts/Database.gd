@@ -35,6 +35,28 @@ func create_tables():
         )
     """)
 
+    db.query("""
+        CREATE TABLE IF NOT EXISTS player_positions (
+            player_uid	TEXT NOT NULL,
+            x_position	INTEGER NOT NULL,
+            y_position	INTEGER NOT NULL
+        )
+    """)
+
+
+func get_player_position(player_uid: String):  # Vector2 or null
+    db.query("""
+        SELECT x_position, y_position
+        FROM player_positions
+        WHERE player_uid = \"%s\"
+    """ % player_uid)
+    
+    if db.query_result:
+        var x = db.query_result[0]["x_position"]
+        var y = db.query_result[0]["y_position"]
+        return Vector2(x, y)
+    return null
+
 
 func get_world_data() -> Array:
     var world_data = []

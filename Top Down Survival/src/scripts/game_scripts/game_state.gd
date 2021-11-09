@@ -7,12 +7,10 @@ onready var players = $Players
 onready var trees = $Trees
 onready var items = $Items
 
-onready var player_spawn = $PlayerSpawn
 
 
 
-
-remote func spawn_player(player_id: int):
+remote func spawn_player(player_id: int, player_position: Vector2):
     print("Spawning player " + str(player_id))
 
     var new_player = PLAYER_SCENE.instance()
@@ -20,7 +18,7 @@ remote func spawn_player(player_id: int):
     players.add_child(new_player, true)
 
     new_player.set_network_master(player_id)
-    new_player.position = player_spawn.position
+    new_player.global_position = player_position
 
 
 remote func despawn_player(player_id: int):

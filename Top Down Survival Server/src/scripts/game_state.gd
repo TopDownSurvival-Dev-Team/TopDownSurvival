@@ -15,6 +15,7 @@ onready var inventory = $HUD/Inventory
 onready var players = $Players
 onready var trees = $Trees
 onready var items = $Items
+onready var player_spawn = $PlayerSpawn
 
 
 func _ready():
@@ -134,10 +135,18 @@ func send_world_to(id):
 func spawn_player_s(id: int):
     print("Spawning player " + str(id))
 
+    var player_uid = Network.players[id]["firebase_uid"]
+    var player_position = Database.get_player_position(player_uid)
+
+    if not player_position:
+        player_position = player_spawn.global_position
+
     var new_player = PLAYER_SCENE.instance()
     new_player.name = str(id)
+    new_player.global_position = player_position
     players.add_child(new_player, true)
-    rpc("spawn_player", id)
+
+    rpc("spawn_player", id, player_position)
 
 
 func despawn_player_s(id: int):
