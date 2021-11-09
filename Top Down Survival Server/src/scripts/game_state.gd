@@ -74,6 +74,11 @@ func save_world():
     print("Saving world...")
     var world_data = []
 
+    for player in players.get_children():
+        var id = player.name.to_int()
+        var player_uid = Network.players[id]["firebase_uid"]
+        Database.set_player_position(player_uid, player.global_position)
+
     for tree in trees.get_children():
         var data = {
             "entity_type": "tree",
@@ -151,11 +156,16 @@ func spawn_player_s(id: int):
 
 func despawn_player_s(id: int):
     print("Despawning player " + str(id))
-
     var player = players.get_node(str(id))
+
     if player:
+        # Save player position
+        var player_uid = Network.players[id]["firebase_uid"]
+        Database.set_player_position(player_uid, player.global_position)
+
         players.remove_child(player)
         player.queue_free()
+
         rpc("despawn_player", id)
 
 

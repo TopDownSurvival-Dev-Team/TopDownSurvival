@@ -58,6 +58,22 @@ func get_player_position(player_uid: String):  # Vector2 or null
     return null
 
 
+func set_player_position(player_uid: String, position: Vector2):
+    var current_pos = get_player_position(player_uid)
+
+    if current_pos:
+        db.query("""
+            UPDATE player_positions
+            SET x_position = %s, y_position = %s
+            WHERE player_uid = \"%s\"
+        """ % [position.x, position.y, player_uid])
+    else:
+        db.query("""
+            INSERT INTO player_positions
+            VALUES (\"%s\", %s, %s)
+        """ % [player_uid, position.x, position.y])
+
+
 func get_world_data() -> Array:
     var world_data = []
     db.query("SELECT * FROM world")
@@ -97,7 +113,7 @@ func get_inventory(player_uid: String) -> Array:
 
 func create_new_item(player_uid: String, item_id: String, quantity: int):
     db.query("""
-        INSERT INTO inventories (player_uid, item_id, quantity)
+        INSERT INTO inventories
         VALUES (\"%s\", \"%s\", %s)
     """ % [player_uid, item_id, quantity])
 
