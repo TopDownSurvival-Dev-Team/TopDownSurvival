@@ -37,3 +37,11 @@ func _on_LineEdit_text_entered(_new_text):
 
 func _on_SendButton_pressed():
     send_message()
+
+
+func _on_LineEdit_focus_entered():
+    emit_signal("focus_entered")
+
+
+func _on_LineEdit_focus_exited():
+    emit_signal("focus_exited")

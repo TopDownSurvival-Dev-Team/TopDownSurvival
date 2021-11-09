@@ -3,6 +3,7 @@ extends Node2D
 const PLAYER_SCENE = preload("res://src/actors/Player.tscn")
 const TREE_SCENE  = preload("res://src/actors/Tree.tscn")
 
+onready var chat_box = $HUD/ChatBox
 onready var players = $Players
 onready var trees = $Trees
 onready var items = $Items
@@ -19,6 +20,10 @@ remote func spawn_player(player_id: int, player_position: Vector2):
 
     new_player.set_network_master(player_id)
     new_player.global_position = player_position
+
+    if new_player.is_network_master():
+        chat_box.connect("focus_entered", new_player, "on_gui_focus_entered")
+        chat_box.connect("focus_exited", new_player, "on_gui_focus_exited")
 
 
 remote func despawn_player(player_id: int):
