@@ -1,7 +1,7 @@
 extends Node
 
 const SQLite = preload("res://addons/godot-sqlite/bin/gdsqlite.gdns")
-const DB_PATH = "res://data/database"
+const DB_PATH = "user://database"
 
 var db = SQLite.new()
 
