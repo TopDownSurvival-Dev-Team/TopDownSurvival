@@ -17,7 +17,7 @@ signal login_failure(error_message)
 
 var network: NetworkedMultiplayerENet
 var gateway_api: MultiplayerAPI
-const GATEWAY_ADDRESS = "tds-gateway.ddns.net"
+const GATEWAY_ADDRESS = "topdownsurvival.tk"
 const GATEWAY_PORT = 8001
 var cert = load("res://assets/certificates/TopDownSurvival-Gateway-Cert.crt")
 var connection_reason
