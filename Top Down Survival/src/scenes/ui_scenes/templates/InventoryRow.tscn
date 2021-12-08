@@ -16,14 +16,20 @@ __meta__ = {
 [node name="H" type="HBoxContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_right = -884.0
-margin_bottom = -568.0
-rect_min_size = Vector2( 0, 32 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Icon" type="TextureRect" parent="H"]
+[node name="H" type="HBoxContainer" parent="H"]
+margin_right = 999.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 0, 32 )
+size_flags_horizontal = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Icon" type="TextureRect" parent="H/H"]
 margin_right = 32.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 32, 32 )
@@ -31,9 +37,9 @@ texture = ExtResource( 1 )
 expand = true
 stretch_mode = 5
 
-[node name="Info" type="Label" parent="H"]
+[node name="Info" type="Label" parent="H/H"]
 margin_left = 36.0
-margin_right = 140.0
+margin_right = 999.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 0, 32 )
 size_flags_horizontal = 3
@@ -41,3 +47,19 @@ size_flags_vertical = 5
 custom_fonts/font = ExtResource( 2 )
 text = "Item Name (x1)"
 valign = 1
+
+[node name="DropButton" type="Button" parent="H"]
+margin_left = 1003.0
+margin_right = 1024.0
+margin_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+custom_fonts/font = ExtResource( 2 )
+shortcut_in_tooltip = false
+text = "X"
+flat = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="pressed" from="H/DropButton" to="." method="_on_DropButton_pressed"]

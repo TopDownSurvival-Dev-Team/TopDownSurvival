@@ -118,6 +118,13 @@ func create_new_item(player_uid: String, item_id: String, quantity: int):
     """ % [player_uid, item_id, quantity])
 
 
+func remove_item(player_uid: String, item_id: String):
+    db.query("""
+        DELETE FROM inventories
+        WHERE player_uid = \"%s\" AND item_id = \"%s\"
+    """ % [player_uid, item_id])
+
+
 func get_item_quantity(player_uid: String, item_id: String):  # int or null
     db.query("""
         SELECT quantity
