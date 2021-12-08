@@ -1,11 +1,13 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://src/dynamic_fonts/Pixellari_25.tres" type="DynamicFont" id=1]
 [ext_resource path="res://src/scripts/ui_scripts/PauseMenu.gd" type="Script" id=2]
+[ext_resource path="res://src/themes/MainTheme.tres" type="Theme" id=3]
 
 [node name="PauseMenu" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+theme = ExtResource( 3 )
 script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -14,7 +16,7 @@ __meta__ = {
 [node name="Background" type="ColorRect" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-color = Color( 0, 0, 0, 0.392157 )
+color = Color( 0.117647, 0.152941, 0.160784, 0.392157 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -37,23 +39,23 @@ __meta__ = {
 }
 
 [node name="ResumeButton" type="Button" parent="V"]
-margin_top = 242.0
+margin_top = 245.0
 margin_right = 200.0
-margin_bottom = 274.0
+margin_bottom = 275.0
 custom_fonts/font = ExtResource( 1 )
 text = "Resume Game"
 
 [node name="MenuButton" type="Button" parent="V"]
-margin_top = 284.0
+margin_top = 285.0
 margin_right = 200.0
-margin_bottom = 316.0
+margin_bottom = 315.0
 custom_fonts/font = ExtResource( 1 )
 text = "Quit to Menu"
 
 [node name="QuitButton" type="Button" parent="V"]
-margin_top = 326.0
+margin_top = 325.0
 margin_right = 200.0
-margin_bottom = 358.0
+margin_bottom = 355.0
 custom_fonts/font = ExtResource( 1 )
 text = "Quit Game"
 
