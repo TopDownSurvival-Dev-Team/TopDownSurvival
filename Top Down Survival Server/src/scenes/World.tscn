@@ -27,4 +27,5 @@ autostart = true
 
 [node name="PlayerSpawn" type="Position2D" parent="."]
 
+[connection signal="item_dropped" from="HUD/Inventory" to="." method="on_item_dropped"]
 [connection signal="timeout" from="AutoSaveTimer" to="." method="save_world"]

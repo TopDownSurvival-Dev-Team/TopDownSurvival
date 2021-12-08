@@ -1,5 +1,7 @@
 extends Node
 
+signal item_dropped(item_id, quantity, player_id)
+
 
 remote func fetch_inventory_s():
     var id = get_tree().get_rpc_sender_id()
@@ -13,7 +15,7 @@ remote func on_item_dropped_s(item_id, quantity):
     if quantity > 0:
         var id = get_tree().get_rpc_sender_id()
         remove_item_s(id, item_id, quantity)
-        # TODO: Spawn item in world
+        emit_signal("item_dropped", item_id, quantity, id)
 
 
 func add_item_s(player_id: int, item_id: String, quantity: int):

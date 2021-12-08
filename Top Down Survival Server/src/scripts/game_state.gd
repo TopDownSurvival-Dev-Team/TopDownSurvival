@@ -261,3 +261,17 @@ func on_item_picked_up(item: Item, player_id: int):
 
     # Update player inventory
     inventory.add_item_s(player_id, item.item_id, item.quantity)
+
+
+func on_item_dropped(item_id: String, quantity: int, player_id: int):
+    var player: Node2D = players.get_node(str(player_id))
+    var player_position = player.global_position
+
+    # Get player direction vector
+    var player_direction = Vector2(
+        cos(player.rotation),
+        sin(player.rotation)
+    )
+
+    var item_position = player_position + player_direction * 64
+    spawn_item_s(item_id, quantity, item_position)
