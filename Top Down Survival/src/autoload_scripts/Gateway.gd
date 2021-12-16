@@ -42,7 +42,6 @@ func _connect_to_server():
 
     # Setup DTLS encryption
     network.set_dtls_enabled(true)
-    network.set_dtls_verify_enabled(false)  # using self signed certs for now
     network.set_dtls_certificate(cert)
 
     # Setup custom MultiplayerAPI

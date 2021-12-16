@@ -113,6 +113,10 @@ pause={
 2d_physics/layer_3="Structures"
 2d_physics/layer_4="Items"
 
+[network]
+
+ssl/certificates="res://assets/certificates/TopDownSurvival-Gateway-Cert.crt"
+
 [physics]
 
 common/enable_pause_aware_picking=true
