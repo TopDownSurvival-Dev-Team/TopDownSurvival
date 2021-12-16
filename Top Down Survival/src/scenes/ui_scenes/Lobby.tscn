@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://src/scripts/ui_scripts/Lobby.gd" type="Script" id=1]
+[ext_resource path="res://src/themes/MainTheme.tres" type="Theme" id=2]
 [ext_resource path="res://src/animations/Gateway Connecting Animation.tres" type="Animation" id=3]
 
 [sub_resource type="Animation" id=1]
@@ -40,6 +41,7 @@ tracks/0/keys = {
 [node name="Lobby" type="Control" groups=["Lobby"]]
 anchor_right = 1.0
 anchor_bottom = 1.0
+theme = ExtResource( 2 )
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -48,7 +50,7 @@ __meta__ = {
 [node name="Background" type="ColorRect" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-color = Color( 0.0431373, 0.431373, 0.101961, 1 )
+color = Color( 0.117647, 0.152941, 0.160784, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -61,103 +63,105 @@ __meta__ = {
 }
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
-margin_left = 362.0
-margin_top = 196.0
-margin_right = 662.0
-margin_bottom = 403.0
+margin_left = 287.0
+margin_top = 179.0
+margin_right = 737.0
+margin_bottom = 420.0
 grow_horizontal = 2
 grow_vertical = 2
-rect_min_size = Vector2( 300, 0 )
+rect_min_size = Vector2( 450, 0 )
 custom_constants/separation = 15
 alignment = 1
 
 [node name="LobbyTitle" type="Label" parent="CenterContainer/VBoxContainer"]
-margin_right = 300.0
-margin_bottom = 14.0
+margin_right = 450.0
+margin_bottom = 20.0
 text = "Lobby"
 align = 1
 valign = 1
 uppercase = true
 
 [node name="Fields" type="GridContainer" parent="CenterContainer/VBoxContainer"]
-margin_top = 29.0
-margin_right = 300.0
-margin_bottom = 137.0
+margin_top = 35.0
+margin_right = 450.0
+margin_bottom = 163.0
+custom_constants/vseparation = 8
 columns = 2
 
 [node name="EmailLabel" type="Label" parent="CenterContainer/VBoxContainer/Fields"]
-margin_top = 5.0
-margin_right = 100.0
-margin_bottom = 19.0
+margin_top = 3.0
+margin_right = 149.0
+margin_bottom = 23.0
 text = "Email:"
 valign = 1
 
 [node name="EmailField" type="LineEdit" parent="CenterContainer/VBoxContainer/Fields"]
-margin_left = 104.0
-margin_right = 300.0
-margin_bottom = 24.0
+margin_left = 153.0
+margin_right = 450.0
+margin_bottom = 26.0
 size_flags_horizontal = 3
 placeholder_text = "example@mail.com"
 
 [node name="PasswordLabel" type="Label" parent="CenterContainer/VBoxContainer/Fields"]
-margin_top = 33.0
-margin_right = 100.0
-margin_bottom = 47.0
+margin_top = 37.0
+margin_right = 149.0
+margin_bottom = 57.0
 text = "Password:"
 valign = 1
 
 [node name="PasswordField" type="LineEdit" parent="CenterContainer/VBoxContainer/Fields"]
-margin_left = 104.0
-margin_top = 28.0
-margin_right = 300.0
-margin_bottom = 52.0
+margin_left = 153.0
+margin_top = 34.0
+margin_right = 450.0
+margin_bottom = 60.0
 size_flags_horizontal = 3
 secret = true
 placeholder_text = "p@$$w0rd"
 
 [node name="AddressLabel" type="Label" parent="CenterContainer/VBoxContainer/Fields"]
-margin_top = 61.0
-margin_right = 100.0
-margin_bottom = 75.0
+margin_top = 71.0
+margin_right = 149.0
+margin_bottom = 91.0
 text = "Server Address:"
 valign = 1
 
 [node name="AddressField" type="LineEdit" parent="CenterContainer/VBoxContainer/Fields"]
-margin_left = 104.0
-margin_top = 56.0
-margin_right = 300.0
-margin_bottom = 80.0
+margin_left = 153.0
+margin_top = 68.0
+margin_right = 450.0
+margin_bottom = 94.0
 size_flags_horizontal = 3
 placeholder_text = "127.0.0.1"
 
 [node name="PortLabel" type="Label" parent="CenterContainer/VBoxContainer/Fields"]
-margin_top = 89.0
-margin_right = 100.0
-margin_bottom = 103.0
+margin_top = 105.0
+margin_right = 149.0
+margin_bottom = 125.0
 text = "Server Port:"
 valign = 1
 
 [node name="PortField" type="LineEdit" parent="CenterContainer/VBoxContainer/Fields"]
-margin_left = 104.0
-margin_top = 84.0
-margin_right = 300.0
-margin_bottom = 108.0
+margin_left = 153.0
+margin_top = 102.0
+margin_right = 450.0
+margin_bottom = 128.0
 size_flags_horizontal = 3
 placeholder_text = "8000"
 
 [node name="LoginButton" type="Button" parent="CenterContainer/VBoxContainer"]
-margin_top = 152.0
-margin_right = 300.0
-margin_bottom = 172.0
+margin_top = 178.0
+margin_right = 450.0
+margin_bottom = 202.0
+grow_horizontal = 0
 text = "Login"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="RegisterSceneButton" type="Button" parent="CenterContainer/VBoxContainer"]
-margin_top = 187.0
-margin_right = 300.0
-margin_bottom = 207.0
+margin_top = 217.0
+margin_right = 450.0
+margin_bottom = 241.0
 text = "Don't have an account?"
 flat = true
 

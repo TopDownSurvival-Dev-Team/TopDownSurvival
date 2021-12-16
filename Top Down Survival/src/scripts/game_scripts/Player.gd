@@ -113,6 +113,8 @@ func pick_up():
 
 func on_gui_focus_entered():
     moveable = false
+    animated_sprite.play("idle")
+    attack_timer.stop()
 
 
 func on_gui_focus_exited():

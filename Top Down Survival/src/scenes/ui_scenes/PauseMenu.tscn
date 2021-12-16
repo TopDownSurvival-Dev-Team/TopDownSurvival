@@ -1,0 +1,64 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://src/dynamic_fonts/Pixellari_25.tres" type="DynamicFont" id=1]
+[ext_resource path="res://src/scripts/ui_scripts/PauseMenu.gd" type="Script" id=2]
+[ext_resource path="res://src/themes/MainTheme.tres" type="Theme" id=3]
+
+[node name="PauseMenu" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 3 )
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Background" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.117647, 0.152941, 0.160784, 0.392157 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="V" type="VBoxContainer" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -100.0
+margin_top = -300.0
+margin_right = 100.0
+margin_bottom = 300.0
+grow_horizontal = 2
+rect_min_size = Vector2( 200, 0 )
+custom_constants/separation = 10
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ResumeButton" type="Button" parent="V"]
+margin_top = 245.0
+margin_right = 200.0
+margin_bottom = 275.0
+custom_fonts/font = ExtResource( 1 )
+text = "Resume Game"
+
+[node name="MenuButton" type="Button" parent="V"]
+margin_top = 285.0
+margin_right = 200.0
+margin_bottom = 315.0
+custom_fonts/font = ExtResource( 1 )
+text = "Quit to Menu"
+
+[node name="QuitButton" type="Button" parent="V"]
+margin_top = 325.0
+margin_right = 200.0
+margin_bottom = 355.0
+custom_fonts/font = ExtResource( 1 )
+text = "Quit Game"
+
+[connection signal="pressed" from="V/ResumeButton" to="." method="_on_ResumeButton_pressed"]
+[connection signal="pressed" from="V/MenuButton" to="." method="_on_MenuButton_pressed"]
+[connection signal="pressed" from="V/QuitButton" to="." method="_on_QuitButton_pressed"]

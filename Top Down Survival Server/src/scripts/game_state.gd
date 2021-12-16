@@ -190,11 +190,11 @@ func spawn_tree_s(tree_position: Vector2):
 
 func despawn_tree_s(scene_id: int):
     var tree = trees.get_node(str(scene_id))
+    trees.remove_child(tree)
+    tree.queue_free()
 
     if tree and Network.get_peer_count() > 0:
         rpc("despawn_tree", scene_id)
-        trees.remove_child(tree)
-        tree.queue_free()
 
 
 func on_tree_break(tree: GameTree):
@@ -247,11 +247,11 @@ func despawn_item_s(item_id: String, scene_id: int):
     var item_type = GameData.item_data[item_id]["name"]
     var scene_name = str(item_type) + "-" + str(scene_id)
     var item = items.get_node(scene_name)
+    items.remove_child(item)
+    item.queue_free()
 
     if item and Network.get_peer_count() > 0:
         rpc("despawn_item", item_id, scene_id)
-        items.remove_child(item)
-        item.queue_free()
 
 
 func on_item_picked_up(item: Item, player_id: int):
