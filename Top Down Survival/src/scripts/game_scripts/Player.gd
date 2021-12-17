@@ -1,5 +1,7 @@
 extends KinematicBody2D
 
+const WALKING_SFX = preload("res://assets/sounds/sfx/player/walking/walking.mp3")
+
 const MAX_VELOCITY = Vector2(150, 150)
 const ACCELERATION = 3000
 const FRICTION = 0.8
@@ -15,6 +17,7 @@ onready var player_label = $Label
 onready var camera = $Camera2D
 onready var animated_sprite = $AnimatedSprite
 onready var attack_timer = $AttackTimer
+onready var audio_player = $AudioStreamPlayer2D
 
 
 func _input(event: InputEvent):
@@ -36,6 +39,7 @@ func _input(event: InputEvent):
 func _ready():
     player_label.set_as_toplevel(true)
     set_player_label()
+    audio_player.stop()
 
 
 func _physics_process(_delta: float):
@@ -49,11 +53,18 @@ func _physics_process(_delta: float):
             look_at(get_global_mouse_position())
         update_label_position()
 
-        rpc_unreliable_id(1, "update_player", global_transform, animated_sprite.animation)
+        if velocity != Vector2.ZERO:
+            rpc_unreliable_id(1, "update_player", global_transform, animated_sprite.animation)
+
+            if not audio_player.is_playing():
+                audio_player.play()
 
 
 remote func remote_update(transform: Transform2D, current_animation: String):
     if not is_network_master():
+        if not audio_player.is_playing():
+                audio_player.play()
+
         global_transform = transform
         update_label_position()
 

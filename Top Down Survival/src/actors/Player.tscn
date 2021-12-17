@@ -67,6 +67,8 @@ shape = SubResource( 3 )
 process_mode = 0
 wait_time = 0.2
 
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+
 [connection signal="body_entered" from="AttackArea" to="." method="_on_AttackArea_body_entered"]
 [connection signal="body_exited" from="AttackArea" to="." method="_on_AttackArea_body_exited"]
 [connection signal="body_entered" from="PickUpArea" to="." method="_on_PickUpArea_body_entered"]
