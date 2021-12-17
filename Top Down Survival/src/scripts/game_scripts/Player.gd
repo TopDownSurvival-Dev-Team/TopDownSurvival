@@ -1,6 +1,6 @@
 extends KinematicBody2D
 
-const WALKING_SFX = preload("res://assets/sounds/sfx/player/walking/walking.mp3")
+const WALKING_SFX = preload("res://assets/sounds/sfx/player/walking/walking.wav")
 
 const MAX_VELOCITY = Vector2(150, 150)
 const ACCELERATION = 3000
@@ -53,16 +53,18 @@ func _physics_process(_delta: float):
             look_at(get_global_mouse_position())
         update_label_position()
 
-        if velocity != Vector2.ZERO:
+        if abs(velocity.x) > 5 or abs(velocity.y) > 5:
             rpc_unreliable_id(1, "update_player", global_transform, animated_sprite.animation)
 
             if not audio_player.is_playing():
+                audio_player.set_stream(WALKING_SFX)
                 audio_player.play()
 
 
 remote func remote_update(transform: Transform2D, current_animation: String):
     if not is_network_master():
         if not audio_player.is_playing():
+                audio_player.set_stream(WALKING_SFX)
                 audio_player.play()
 
         global_transform = transform
