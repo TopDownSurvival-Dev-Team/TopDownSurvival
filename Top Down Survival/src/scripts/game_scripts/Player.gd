@@ -41,32 +41,38 @@ func _ready():
 
 
 func _physics_process(_delta: float):
-    if is_network_master():
-        camera.current = true
+    if abs(velocity.x) > 50 or abs(velocity.y) > 50:
+        if not walking_sfx.is_playing():
+            walking_sfx.play()
 
-        velocity = get_velocity(velocity)
-        velocity = move_and_slide(velocity)
+    if not is_network_master():
+        return
 
-        if moveable:
-            look_at(get_global_mouse_position())
-        update_label_position()
+    camera.current = true
 
-        if abs(velocity.x) > 50 or abs(velocity.y) > 50:
-            rpc_unreliable_id(1, "update_player", global_transform, animated_sprite.animation)
+    velocity = get_velocity(velocity)
+    velocity = move_and_slide(velocity)
 
-            if not walking_sfx.is_playing():
-                walking_sfx.play()
+    if moveable:
+        look_at(get_global_mouse_position())
+    update_label_position()
+
+    rpc_unreliable_id(1, "update_player", global_transform, animated_sprite.animation)
 
 
 remote func remote_update(transform: Transform2D, current_animation: String):
-    if not is_network_master():
-        if not walking_sfx.is_playing():
-                walking_sfx.play()
+    if is_network_master():
+        return
 
-        global_transform = transform
-        update_label_position()
+    velocity = Vector2(
+        transform.x.x - global_transform.x.x,
+        transform.y.y - global_transform.y.y
+    )
 
-        animated_sprite.play(current_animation)
+    global_transform = transform
+    update_label_position()
+
+    animated_sprite.play(current_animation)
 
 
 func get_velocity(current_velocity: Vector2):
