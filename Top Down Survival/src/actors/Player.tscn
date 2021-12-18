@@ -70,7 +70,7 @@ wait_time = 0.2
 
 [node name="WalkingSFX" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 3 )
-max_distance = 750.0
+max_distance = 1000.0
 attenuation = 2.0
 
 [connection signal="body_entered" from="AttackArea" to="." method="_on_AttackArea_body_entered"]
