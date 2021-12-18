@@ -50,8 +50,7 @@ remote func despawn_tree(tree_id: int):
     var tree = trees.get_node(str(tree_id))
 
     if tree:
-        trees.remove_child(tree)
-        tree.queue_free()
+        tree.destroy()
 
 
 
