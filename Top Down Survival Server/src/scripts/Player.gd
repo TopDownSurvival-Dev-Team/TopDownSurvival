@@ -1,5 +1,9 @@
 extends Node2D
 
-remote func update_player(_transform, current_animation):
+var velocity = Vector2.ZERO
+
+
+remote func update_player(_transform, _velocity, current_animation):
     transform = _transform
-    rpc_unreliable("remote_update", _transform, current_animation)
+    velocity = _velocity
+    rpc_unreliable("remote_update", transform, velocity, current_animation)

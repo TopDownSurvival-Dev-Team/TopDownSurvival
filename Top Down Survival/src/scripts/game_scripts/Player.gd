@@ -57,19 +57,15 @@ func _physics_process(_delta: float):
         look_at(get_global_mouse_position())
     update_label_position()
 
-    rpc_unreliable_id(1, "update_player", global_transform, animated_sprite.animation)
+    rpc_unreliable_id(1, "update_player", global_transform, velocity, animated_sprite.animation)
 
 
-remote func remote_update(transform: Transform2D, current_animation: String):
+remote func remote_update(_transform: Transform2D, _velocity: Vector2, current_animation: String):
     if is_network_master():
         return
 
-    velocity = Vector2(
-        transform.x.x - global_transform.x.x,
-        transform.y.y - global_transform.y.y
-    )
-
-    global_transform = transform
+    global_transform = _transform
+    velocity = _velocity
     update_label_position()
 
     animated_sprite.play(current_animation)
