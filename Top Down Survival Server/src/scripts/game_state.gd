@@ -116,9 +116,10 @@ func generate_world():
 
 func send_world_to(id):
     print("Sending players to " + str(id))
-    for player_id in Network.players.keys():
+    for player in players.get_children():
+        var player_id = player.name.to_int()
         if player_id != id:
-            rpc_id(id, "spawn_player", player_id)
+            rpc_id(id, "spawn_player", player_id, player.global_position)
 
 
     print("Sending natural structures to " + str(id))
