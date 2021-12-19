@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://src/scripts/game_state.gd" type="Script" id=1]
 [ext_resource path="res://src/scripts/ChatBox.gd" type="Script" id=2]
 [ext_resource path="res://src/scripts/Inventory.gd" type="Script" id=3]
+[ext_resource path="res://src/scripts/ServerStats.gd" type="Script" id=4]
 
 [node name="World" type="Node2D" groups=["World"]]
 script = ExtResource( 1 )
@@ -26,6 +27,48 @@ wait_time = 300.0
 autostart = true
 
 [node name="PlayerSpawn" type="Position2D" parent="."]
+
+[node name="ServerStatsLayer" type="CanvasLayer" parent="."]
+
+[node name="ServerStats" type="Control" parent="ServerStatsLayer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NoticeContainer" type="VBoxContainer" parent="ServerStatsLayer/ServerStats"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -20.0
+margin_top = -20.0
+margin_right = 20.0
+margin_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VersionLabel" type="Label" parent="ServerStatsLayer/ServerStats/NoticeContainer"]
+margin_top = 4.0
+margin_right = 394.0
+margin_bottom = 18.0
+text = "v0.0-something"
+align = 1
+valign = 1
+
+[node name="NoticeLabel" type="Label" parent="ServerStatsLayer/ServerStats/NoticeContainer"]
+margin_top = 22.0
+margin_right = 394.0
+margin_bottom = 36.0
+text = "This is pre-release software. Expect some bugs to be present."
+align = 1
+valign = 1
 
 [connection signal="item_dropped" from="HUD/Inventory" to="." method="on_item_dropped"]
 [connection signal="timeout" from="AutoSaveTimer" to="." method="save_world"]
