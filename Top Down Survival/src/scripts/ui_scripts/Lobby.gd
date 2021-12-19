@@ -1,6 +1,7 @@
 extends Control
 
 const REGISTER_SCENE = "res://src/scenes/ui_scenes/Register.tscn"
+const VERSION_FILE = "res://version.txt"
 
 onready var email_field = $CenterContainer/VBoxContainer/Fields/EmailField
 onready var password_field = $CenterContainer/VBoxContainer/Fields/PasswordField
@@ -11,11 +12,19 @@ onready var login_button = $CenterContainer/VBoxContainer/LoginButton
 onready var status_label = $CenterContainer/VBoxContainer/StatusLabel
 onready var animation_player = $AnimationPlayer
 
+onready var version_label = $NoticeContainer/VersionLabel
+
 
 func _ready():
     address_field.text = Network.DEFAULT_IP
     port_field.text = str(Network.DEFAULT_PORT)
     status_label.visible = false
+
+    var f = File.new()
+    f.open(VERSION_FILE, File.READ)
+    var version_number = f.get_line()
+    f.close()
+    version_label.set_text("v%s" % version_number)
 
     # Connect signals
     Gateway.connect("gateway_connection_success", self, "connected_to_gateway")

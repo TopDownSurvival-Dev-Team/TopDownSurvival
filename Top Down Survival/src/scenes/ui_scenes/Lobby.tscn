@@ -179,5 +179,38 @@ valign = 1
 "anims/Game Connecting Animation" = SubResource( 2 )
 "anims/Gateway Connecting Animation" = ExtResource( 3 )
 
+[node name="NoticeContainer" type="VBoxContainer" parent="."]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -276.0
+margin_top = -44.0
+margin_right = 276.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VersionLabel" type="Label" parent="NoticeContainer"]
+margin_right = 552.0
+margin_bottom = 20.0
+text = "v0.0-something"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NoticeLabel" type="Label" parent="NoticeContainer"]
+margin_top = 24.0
+margin_right = 552.0
+margin_bottom = 44.0
+text = "This is pre-release software. Expect some bugs to be present."
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [connection signal="pressed" from="CenterContainer/VBoxContainer/LoginButton" to="." method="_on_LoginButton_pressed"]
 [connection signal="pressed" from="CenterContainer/VBoxContainer/RegisterSceneButton" to="." method="_on_RegisterSceneButton_pressed"]
