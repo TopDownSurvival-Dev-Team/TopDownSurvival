@@ -55,12 +55,6 @@ jobs:
           godot -v --export "Linux/X11" "exports/Linux/${CLIENT_PATH}.x86_64"
           zip -r exports/Linux.zip exports/Linux
           
-      - name: Web Build
-        run: |
-          mkdir -v -p "${CLIENT_PATH}/exports/HTML5"
-          cd "${CLIENT_PATH}"
-          godot -v --export "HTML5" "exports/HTML5/index.html"
-          
       - name: Publish MacOS Build
         uses: josephbmanley/butler-publish-itchio-action@master
         env:
@@ -90,12 +84,6 @@ jobs:
           ITCH_USER: "mysterycoder456"
           PACKAGE: "Top Down Survival/exports/Linux.zip"
           VERSION_FILE: "Top Down Survival/version.txt"
-          
-      - name: Publish Web Build to GH Pages
-        uses: JamesIves/github-pages-deploy-action@4.1.7
-        with:
-          branch: gh-pages
-          folder: "Top Down Survival/exports/HTML5"
           
   export-server:
     # The type of runner that the job will run on
