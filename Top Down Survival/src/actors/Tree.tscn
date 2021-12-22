@@ -47,12 +47,14 @@ one_shot = true
 stream = ExtResource( 3 )
 max_distance = 1000.0
 attenuation = 2.0
+area_mask = 0
 
 [node name="BreakSFX" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 4 )
 volume_db = 10.0
 max_distance = 1000.0
 attenuation = 2.0
+area_mask = 0
 
 [connection signal="timeout" from="HealthBarShowTimer" to="." method="_on_HealthBarShowTimer_timeout"]
 [connection signal="finished" from="BreakSFX" to="." method="_on_BreakSFX_finished"]

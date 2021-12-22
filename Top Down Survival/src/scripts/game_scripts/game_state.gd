@@ -74,8 +74,7 @@ remote func spawn_item(item_id: String, quantity: int, scene_id: int, item_posit
 remote func despawn_item(item_id: String, scene_id: int):
     var item_type = GameData.item_data[item_id]["name"]
     var scene_name = str(item_type) + "-" + str(scene_id)
-    var item = items.get_node(scene_name)
+    var item: Item = items.get_node(scene_name)
 
     if item:
-        items.remove_child(item)
-        item.queue_free()
+        item.destroy()
