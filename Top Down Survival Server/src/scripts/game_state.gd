@@ -133,7 +133,7 @@ func send_world_to(id):
         var item_info = item.name.split("-", false, 1)
         var scene_id = item_info[1].to_int()
 
-        rpc_id(id, "spawn_item", item.item_id, item.quantity, scene_id, item.global_position)
+        rpc_id(id, "spawn_item", item.item_id, item.quantity, scene_id, item.global_position, false)
 
 
 
