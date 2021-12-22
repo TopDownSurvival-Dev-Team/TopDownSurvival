@@ -55,7 +55,7 @@ remote func despawn_tree(tree_id: int):
 
 
 
-remote func spawn_item(item_id: String, quantity: int, scene_id: int, item_position: Vector2):
+remote func spawn_item(item_id: String, quantity: int, scene_id: int, item_position: Vector2, dropped: bool):
     var item_type = GameData.item_data[item_id]["name"]
     var new_item_scene = load("res://src/actors/items/%s.tscn" % item_type)
 
@@ -63,7 +63,7 @@ remote func spawn_item(item_id: String, quantity: int, scene_id: int, item_posit
         var scene_name = str(item_type) + "-" + str(scene_id)
         var new_item: Item = new_item_scene.instance()
 
-        new_item.init(scene_name, item_id, quantity)
+        new_item.init(scene_name, item_id, quantity, dropped)
         items.add_child(new_item, true)
         new_item.global_position = item_position
 
