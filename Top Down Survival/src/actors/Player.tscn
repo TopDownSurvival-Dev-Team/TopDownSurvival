@@ -73,6 +73,7 @@ stream = ExtResource( 3 )
 volume_db = -8.0
 max_distance = 1000.0
 attenuation = 2.0
+bus = "SFX"
 area_mask = 0
 
 [connection signal="body_entered" from="AttackArea" to="." method="_on_AttackArea_body_entered"]
