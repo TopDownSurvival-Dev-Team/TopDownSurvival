@@ -43,6 +43,8 @@ func _ready():
 func _physics_process(_delta: float):
     if abs(velocity.x) > 50 or abs(velocity.y) > 50:
         if not walking_sfx.is_playing():
+            # To not make it sound monotonous
+            walking_sfx.pitch_scale = 1 + rand_range(-0.1, 0.1)
             walking_sfx.play()
 
     if not is_network_master():

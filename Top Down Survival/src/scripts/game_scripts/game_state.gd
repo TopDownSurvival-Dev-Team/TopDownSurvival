@@ -9,6 +9,10 @@ onready var trees = $Trees
 onready var items = $Items
 
 
+func _ready():
+    randomize()
+
+
 
 
 remote func spawn_player(player_id: int, player_position: Vector2):
