@@ -27,6 +27,8 @@ remote func damage(damage_amount: int):
     health_bar.visible = true
     health_bar_show_timer.start()
 
+    # To not make it sound monotonous
+    damage_sfx.pitch_scale = 1 + rand_range(-0.125, 0.125)
     damage_sfx.play()
 
 
