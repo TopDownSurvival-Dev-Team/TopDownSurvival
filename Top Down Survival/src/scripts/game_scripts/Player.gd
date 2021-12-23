@@ -16,6 +16,8 @@ onready var camera = $Camera2D
 onready var animated_sprite = $AnimatedSprite
 onready var attack_timer = $AttackTimer
 
+onready var walking_sfx = $WalkingSFX
+
 
 func _input(event: InputEvent):
     if not is_network_master() or not moveable:
@@ -39,25 +41,34 @@ func _ready():
 
 
 func _physics_process(_delta: float):
-    if is_network_master():
-        camera.current = true
+    if abs(velocity.x) > 50 or abs(velocity.y) > 50:
+        if not walking_sfx.is_playing():
+            walking_sfx.play()
 
-        velocity = get_velocity(velocity)
-        velocity = move_and_slide(velocity)
-
-        if moveable:
-            look_at(get_global_mouse_position())
-        update_label_position()
-
-        rpc_unreliable_id(1, "update_player", global_transform, animated_sprite.animation)
-
-
-remote func remote_update(transform: Transform2D, current_animation: String):
     if not is_network_master():
-        global_transform = transform
-        update_label_position()
+        return
 
-        animated_sprite.play(current_animation)
+    camera.current = true
+
+    velocity = get_velocity(velocity)
+    velocity = move_and_slide(velocity)
+
+    if moveable:
+        look_at(get_global_mouse_position())
+    update_label_position()
+
+    rpc_unreliable_id(1, "update_player", global_transform, velocity, animated_sprite.animation)
+
+
+remote func remote_update(_transform: Transform2D, _velocity: Vector2, current_animation: String):
+    if is_network_master():
+        return
+
+    global_transform = _transform
+    velocity = _velocity
+    update_label_position()
+
+    animated_sprite.play(current_animation)
 
 
 func get_velocity(current_velocity: Vector2):

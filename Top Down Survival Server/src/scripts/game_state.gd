@@ -65,7 +65,7 @@ func load_world(world_data: Array):
 
             _:
                 var quantity = entity_info["quantity"]
-                spawn_item_s(entity_type, quantity, entity_pos)
+                spawn_item_s(entity_type, quantity, entity_pos, false)
 
     print("Loaded world!")
 
@@ -133,7 +133,7 @@ func send_world_to(id):
         var item_info = item.name.split("-", false, 1)
         var scene_id = item_info[1].to_int()
 
-        rpc_id(id, "spawn_item", item.item_id, item.quantity, scene_id, item.global_position)
+        rpc_id(id, "spawn_item", item.item_id, item.quantity, scene_id, item.global_position, false)
 
 
 
@@ -200,7 +200,7 @@ func despawn_tree_s(scene_id: int):
 
 func on_tree_break(tree: GameTree):
     # Spawn wood at current position
-    spawn_item_s(tree.ITEM_DROP, tree.wood_quantity, tree.global_position)
+    spawn_item_s(tree.ITEM_DROP, tree.wood_quantity, tree.global_position, false)
 
     # Despawn tree
     despawn_tree_s(tree.name.to_int())
@@ -208,7 +208,7 @@ func on_tree_break(tree: GameTree):
 
 
 
-func spawn_item_s(item_id: String, quantity: int, item_position: Vector2):
+func spawn_item_s(item_id: String, quantity: int, item_position: Vector2, dropped: bool):
     # Limit number of item nodes currently existing
     if items.get_child_count() >= MAX_ITEM_COUNT:
         var remove_item: Item = items.get_child(0)
@@ -241,7 +241,7 @@ func spawn_item_s(item_id: String, quantity: int, item_position: Vector2):
     new_item.global_position = item_position
 
     if Network.get_peer_count() > 0:
-        rpc("spawn_item", item_id, quantity, scene_id, item_position)
+        rpc("spawn_item", item_id, quantity, scene_id, item_position, dropped)
 
 
 func despawn_item_s(item_id: String, scene_id: int):
@@ -275,4 +275,4 @@ func on_item_dropped(item_id: String, quantity: int, player_id: int):
     )
 
     var item_position = player_position + player_direction * 64
-    spawn_item_s(item_id, quantity, item_position)
+    spawn_item_s(item_id, quantity, item_position, true)

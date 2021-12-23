@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://src/sprite_frames/Player.tres" type="SpriteFrames" id=1]
 [ext_resource path="res://src/scripts/game_scripts/Player.gd" type="Script" id=2]
+[ext_resource path="res://assets/sounds/sfx/player/walking/walking.wav" type="AudioStream" id=3]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 27.0
@@ -65,7 +66,14 @@ shape = SubResource( 3 )
 
 [node name="AttackTimer" type="Timer" parent="."]
 process_mode = 0
-wait_time = 0.2
+wait_time = 0.3
+
+[node name="WalkingSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 3 )
+volume_db = -8.0
+max_distance = 1000.0
+attenuation = 2.0
+area_mask = 0
 
 [connection signal="body_entered" from="AttackArea" to="." method="_on_AttackArea_body_entered"]
 [connection signal="body_exited" from="AttackArea" to="." method="_on_AttackArea_body_exited"]

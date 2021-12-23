@@ -61,13 +61,13 @@ region = Rect2( 832, 0, 64, 64 )
 
 [resource]
 animations = [ {
+"frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ), SubResource( 9 ), SubResource( 10 ), SubResource( 11 ), SubResource( 12 ), SubResource( 13 ), SubResource( 14 ) ],
+"loop": true,
+"name": "attack",
+"speed": 25.0
+}, {
 "frames": [ ExtResource( 1 ) ],
 "loop": true,
 "name": "idle",
 "speed": 5.0
-}, {
-"frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ), SubResource( 9 ), SubResource( 10 ), SubResource( 11 ), SubResource( 12 ), SubResource( 13 ), SubResource( 14 ) ],
-"loop": true,
-"name": "attack",
-"speed": 35.0
 } ]
