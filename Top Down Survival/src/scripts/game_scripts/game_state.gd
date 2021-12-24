@@ -2,8 +2,10 @@ extends Node2D
 
 const PLAYER_SCENE = preload("res://src/actors/Player.tscn")
 const TREE_SCENE  = preload("res://src/actors/Tree.tscn")
+const GROUND_TILE_ID = 0
 
 onready var hud = $HUD
+onready var blocks = $Blocks
 onready var players = $Players
 onready var trees = $Trees
 onready var items = $Items
@@ -82,3 +84,17 @@ remote func despawn_item(item_id: String, scene_id: int):
 
     if item:
         item.destroy()
+
+
+
+
+remote func spawn_block(block_name: String, world_position: Vector2):
+    var block_name_lower = block_name.to_lower()
+    var tile_id = blocks.tile_set.find_tile_by_name(block_name_lower)
+    var tile_set_pos = blocks.world_to_map(world_position)
+    blocks.set_cellv(tile_set_pos, tile_id)
+
+
+remote func despawn_block(world_position: Vector2):
+    var tile_set_pos = blocks.world_to_map(world_position)
+    blocks.set_cellv(tile_set_pos, GROUND_TILE_ID)
