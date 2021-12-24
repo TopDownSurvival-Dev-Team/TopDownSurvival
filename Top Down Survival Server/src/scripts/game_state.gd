@@ -17,6 +17,8 @@ onready var trees = $Trees
 onready var items = $Items
 onready var player_spawn = $PlayerSpawn
 
+# TODO: add blocks data saving and loading
+
 
 func _ready():
     print("Game world started!")
@@ -276,3 +278,22 @@ func on_item_dropped(item_id: String, quantity: int, player_id: int):
 
     var item_position = player_position + player_direction * 64
     spawn_item_s(item_id, quantity, item_position, true)
+
+
+
+
+func spawn_block_s(block_name: String, world_position: Vector2):
+    rpc("spawn_block", block_name, world_position)
+
+
+func despawn_block_s(world_position: Vector2):
+    rpc("despawn_block", world_position)
+
+
+remote func request_block_change(block_name: String, world_position: Vector2, destroy: bool):
+    # TODO: Add checks to prevent cheating
+
+    if destroy:
+        despawn_block_s(world_position)
+    else:
+        spawn_block_s(block_name, world_position)
