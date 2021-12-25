@@ -4,6 +4,7 @@
 
 [node name="ItemPickUpSFX" type="AudioStreamPlayer2D"]
 stream = ExtResource( 1 )
+volume_db = -4.0
 max_distance = 625.0
 attenuation = 2.0
 bus = "SFX"
