@@ -292,13 +292,18 @@ func despawn_block_s(world_position: Vector2):
 
 remote func request_block_change(block_id: String, world_position: Vector2, destroy: bool):
     var sender_id = get_tree().get_rpc_sender_id()
+    var player_uid = Network.players[sender_id]["firebase_uid"]
     var player_position = players.get_node(str(sender_id)).global_position
 
+    # Make sure the position is within player's reach
     if world_position.distance_to(player_position) <= GameData.PLAYER_REACH:
         if destroy:
             despawn_block_s(world_position)
         else:
-            # TODO: Check if player has the item in inventory
             var item_data = GameData.item_data[block_id]
-            if item_data["type"] == "Block":
+            var current_quantity = Database.get_item_quantity(player_uid, block_id)
+
+            # Verify the item is placeable and the player has it in their inventory
+            if item_data["type"] == "Block" and current_quantity:
+                inventory.remove_item_s(sender_id, block_id, 1)
                 spawn_block_s(item_data["name"], world_position)
