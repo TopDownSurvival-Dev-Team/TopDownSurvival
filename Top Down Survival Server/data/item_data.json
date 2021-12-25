@@ -7,6 +7,6 @@
     "10002": {
         "name": "test_item",
         "category": "Resource",
-        "type": "Block"
+        "type": "Collectible"
     }
 }

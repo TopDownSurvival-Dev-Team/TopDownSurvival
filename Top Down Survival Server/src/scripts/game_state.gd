@@ -290,10 +290,15 @@ func despawn_block_s(world_position: Vector2):
     rpc("despawn_block", world_position)
 
 
-remote func request_block_change(block_name: String, world_position: Vector2, destroy: bool):
-    # TODO: Add checks to prevent cheating
+remote func request_block_change(block_id: String, world_position: Vector2, destroy: bool):
+    var sender_id = get_tree().get_rpc_sender_id()
+    var player_position = players.get_node(str(sender_id)).global_position
 
-    if destroy:
-        despawn_block_s(world_position)
-    else:
-        spawn_block_s(block_name, world_position)
+    if world_position.distance_to(player_position) <= GameData.PLAYER_REACH:
+        if destroy:
+            despawn_block_s(world_position)
+        else:
+            # TODO: Check if player has the item in inventory
+            var item_data = GameData.item_data[block_id]
+            if item_data["type"] == "Block":
+                spawn_block_s(item_data["name"], world_position)

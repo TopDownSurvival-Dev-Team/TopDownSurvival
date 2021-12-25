@@ -1,8 +1,9 @@
 extends Node
 
 var item_data: Dictionary
+var player_reach: int
 
 
-remote func send_item_data(data):
-	# Receive the item data from server
-	item_data = data
+remote func send_game_data(_item_data: Dictionary, _player_reach: int):
+    item_data = _item_data
+    player_reach = _player_reach

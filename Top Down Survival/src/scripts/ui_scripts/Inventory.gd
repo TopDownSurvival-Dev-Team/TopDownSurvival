@@ -2,6 +2,8 @@ extends Control
 
 const INVENTORY_ROW_SCENE = preload("res://src/scenes/ui_scenes/templates/InventoryRow.tscn")
 
+var selected_item_id: String
+
 onready var row_container = $V/SC/RowContainer
 
 
@@ -12,6 +14,11 @@ func _ready():
         row.queue_free()
 
     rpc_id(1, "fetch_inventory_s")
+
+
+func _input(event: InputEvent):
+    if event.is_action_pressed("drop"):
+        rpc_id(1, "on_item_dropped_s", selected_item_id, 1)
 
 
 remote func fetch_inventory(inventory_data: Array):
@@ -25,7 +32,7 @@ remote func add_item(item_id: String, quantity: int):
     var new_inv_row = INVENTORY_ROW_SCENE.instance()
     new_inv_row.init(item_id, quantity)
     row_container.add_child(new_inv_row)
-    new_inv_row.connect("item_dropped", self, "on_item_dropped")
+    new_inv_row.connect("item_selected", self, "on_item_selected")
 
 
 remote func remove_item(item_id: String):
@@ -39,5 +46,5 @@ remote func update_item(item_id: String, quantity: int):
     inv_row.set_quantity(quantity)
 
 
-func on_item_dropped(item_id, quantity):
-    rpc_id(1, "on_item_dropped_s", item_id, quantity)
+func on_item_selected(item_id):
+    selected_item_id = item_id

@@ -4,6 +4,8 @@ const PLAYER_SCENE = preload("res://src/actors/Player.tscn")
 const TREE_SCENE  = preload("res://src/actors/Tree.tscn")
 const GROUND_TILE_ID = 0
 
+var master_player_ready = false
+
 onready var hud = $HUD
 onready var blocks = $Blocks
 onready var players = $Players
@@ -13,6 +15,28 @@ onready var items = $Items
 
 func _ready():
     randomize()
+
+
+func _input(event: InputEvent):
+    # TODO: Make blocks take time to break
+    if not master_player_ready:
+        return
+
+    var mouse_position = get_global_mouse_position()
+    var master_player = $Players.get_node(str(Network.local_player_id))
+    var player_distance = mouse_position.distance_to(master_player.global_position)
+
+    if player_distance <= GameData.player_reach:
+        if event.is_action_pressed("attack"):
+            rpc_id(1, "request_block_change", "", mouse_position, true)
+
+        elif event.is_action_pressed("use"):
+            var item_id = hud.inventory.selected_item_id
+            if item_id:
+                var item_data = GameData.item_data[item_id]
+
+                if item_data["type"] == "Block":
+                    rpc_id(1, "request_block_change", item_id, mouse_position, false)
 
 
 
@@ -28,6 +52,7 @@ remote func spawn_player(player_id: int, player_position: Vector2):
     new_player.global_position = player_position
 
     if new_player.is_network_master():
+        master_player_ready = true
         hud.connect("focus_entered", new_player, "on_gui_focus_entered")
         hud.connect("focus_exited", new_player, "on_gui_focus_exited")
 
@@ -91,10 +116,10 @@ remote func despawn_item(item_id: String, scene_id: int):
 remote func spawn_block(block_name: String, world_position: Vector2):
     var block_name_lower = block_name.to_lower()
     var tile_id = blocks.tile_set.find_tile_by_name(block_name_lower)
-    var tile_set_pos = blocks.world_to_map(world_position)
+    var tile_set_pos = blocks.world_to_map(world_position / blocks.scale)
     blocks.set_cellv(tile_set_pos, tile_id)
 
 
 remote func despawn_block(world_position: Vector2):
-    var tile_set_pos = blocks.world_to_map(world_position)
+    var tile_set_pos = blocks.world_to_map(world_position / blocks.scale)
     blocks.set_cellv(tile_set_pos, GROUND_TILE_ID)

@@ -1,14 +1,14 @@
 extends Control
 
-signal item_dropped(item_id, quantity)
+signal item_selected(item_id)
 
 export var preview: bool = false
 var item_id: String
 var quantity: int
 var item_name: String
 
-onready var info_label = $H/H/Info
-onready var icon = $H/H/Icon
+onready var info_label = $H/Info
+onready var icon = $H/Icon
 
 
 func init(_item_id: String, _quantity: int):
@@ -35,6 +35,6 @@ func set_quantity(new_quantity: int):
     info_label.text = "%s (x%s)" % [item_name, quantity]
 
 
-func _on_DropButton_pressed():
-    emit_signal("item_dropped", item_id, 1)
-    # TODO: Add a way to control how many items are dropped
+func _on_InventoryRow_gui_input(event: InputEvent):
+    if event.is_action_pressed("attack"):
+        emit_signal("item_selected", item_id)
