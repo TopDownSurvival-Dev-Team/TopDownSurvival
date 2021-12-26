@@ -67,7 +67,7 @@ func load_world(world_data: Array):
 
             "block":
                 var world_position = blocks.map_to_world(entity_pos) * blocks.scale
-                spawn_block_s(entity_info["block_name"], world_position)
+                spawn_block_s(entity_info["block_id"], world_position)
 
             _:
                 var quantity = entity_info["quantity"]
@@ -98,7 +98,7 @@ func save_world():
             "entity_type": "block",
             "position": block_pos,
             "entity_info": {
-                "block_name": block_data[block_pos]
+                "block_id": block_data[block_pos]
             }
         }
         world_data.append(data)
@@ -146,9 +146,9 @@ func send_world_to(id):
 
     print("Sending man-made structures to " + str(id))
     for block_pos in block_data:
-        var block_name = block_data[block_pos]
+        var block_id = block_data[block_pos]
         var world_position = blocks.map_to_world(block_pos) * blocks.scale
-        rpc_id(id, "spawn_block", block_name, world_position)
+        rpc_id(id, "spawn_block", block_id, world_position)
 
     print("Sending items to " + str(id))
     for item in items.get_children():
@@ -301,12 +301,12 @@ func on_item_dropped(item_id: String, quantity: int, player_id: int):
 
 
 
-func spawn_block_s(block_name: String, world_position: Vector2):
+func spawn_block_s(block_id: String, world_position: Vector2):
     var map_position = blocks.world_to_map(world_position / blocks.scale)
-    block_data[map_position] = block_name
+    block_data[map_position] = block_id
 
     if Network.get_peer_count() > 0:
-        rpc("spawn_block", block_name, world_position)
+        rpc("spawn_block", block_id, world_position)
 
 
 func despawn_block_s(world_position: Vector2):
@@ -325,12 +325,17 @@ remote func request_block_change(block_id: String, world_position: Vector2, dest
     # Make sure the position is within player's reach
     if world_position.distance_to(player_position) <= GameData.PLAYER_REACH:
         if destroy:
-            despawn_block_s(world_position)
+            var map_position = blocks.world_to_map(world_position / blocks.scale)
+            var destroyed_block_id = block_data.get(map_position)
+
+            if destroyed_block_id:
+                despawn_block_s(world_position)
+                inventory.add_item_s(sender_id, destroyed_block_id, 1)
         else:
             var item_data = GameData.item_data[block_id]
             var current_quantity = Database.get_item_quantity(player_uid, block_id)
 
             # Verify the item is placeable and the player has it in their inventory
             if item_data["type"] == "Block" and current_quantity:
+                spawn_block_s(block_id, world_position)
                 inventory.remove_item_s(sender_id, block_id, 1)
-                spawn_block_s(item_data["name"], world_position)

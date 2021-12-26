@@ -113,9 +113,8 @@ remote func despawn_item(item_id: String, scene_id: int):
 
 
 
-remote func spawn_block(block_name: String, world_position: Vector2):
-    var block_name_lower = block_name.to_lower()
-    var tile_id = blocks.tile_set.find_tile_by_name(block_name_lower)
+remote func spawn_block(block_id: String, world_position: Vector2):
+    var tile_id = blocks.tile_set.find_tile_by_name(block_id)
     var tile_set_pos = blocks.world_to_map(world_position / blocks.scale)
     blocks.set_cellv(tile_set_pos, tile_id)
 
