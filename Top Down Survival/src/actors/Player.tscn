@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://src/sprite_frames/Player.tres" type="SpriteFrames" id=1]
 [ext_resource path="res://src/scripts/game_scripts/Player.gd" type="Script" id=2]
 [ext_resource path="res://assets/sounds/sfx/player/walking/walking.wav" type="AudioStream" id=3]
+[ext_resource path="res://src/dynamic_fonts/Pixellari_17.tres" type="DynamicFont" id=4]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 27.0
@@ -36,6 +37,7 @@ grow_horizontal = 2
 grow_vertical = 2
 rect_min_size = Vector2( 120, 20 )
 rect_pivot_offset = Vector2( 60, 20 )
+custom_fonts/font = ExtResource( 4 )
 text = "Player Name"
 align = 1
 valign = 1
