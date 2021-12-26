@@ -24,11 +24,11 @@ collision_mask = 0
 format = 1
 script = ExtResource( 5 )
 
-[node name="Players" type="Node" parent="."]
-
 [node name="Trees" type="Node" parent="."]
 
 [node name="Items" type="Node" parent="."]
+
+[node name="Players" type="Node" parent="."]
 
 [node name="AutoSaveTimer" type="Timer" parent="."]
 wait_time = 300.0
