@@ -4,10 +4,11 @@
 [ext_resource path="res://src/scripts/ui_scripts/templates/InventoryRow.gd" type="Script" id=3]
 [ext_resource path="res://src/dynamic_fonts/Pixellari_20.tres" type="DynamicFont" id=4]
 
-[node name="InventoryRow" type="Control"]
+[node name="InventoryRow" type="Button"]
 anchor_right = 1.0
 rect_min_size = Vector2( 0, 32 )
 size_flags_horizontal = 3
+flat = true
 script = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -41,4 +42,4 @@ custom_fonts/font = ExtResource( 4 )
 text = "Item Name (x1)"
 valign = 1
 
-[connection signal="gui_input" from="." to="." method="_on_InventoryRow_gui_input"]
+[connection signal="pressed" from="." to="." method="_on_InventoryRow_pressed"]

@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://src/dynamic_fonts/Pixellari_25.tres" type="DynamicFont" id=1]
 [ext_resource path="res://src/scripts/ui_scripts/Inventory.gd" type="Script" id=2]
 [ext_resource path="res://src/scenes/ui_scenes/templates/InventoryRow.tscn" type="PackedScene" id=3]
+[ext_resource path="res://src/themes/MainTheme.tres" type="Theme" id=4]
 
 [node name="Inventory" type="Control"]
 anchor_left = 0.687
@@ -13,6 +14,7 @@ margin_left = 0.511963
 margin_top = -3.05176e-05
 grow_horizontal = 0
 grow_vertical = 0
+theme = ExtResource( 4 )
 script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false

@@ -35,6 +35,5 @@ func set_quantity(new_quantity: int):
     info_label.text = "%s (x%s)" % [item_name, quantity]
 
 
-func _on_InventoryRow_gui_input(event: InputEvent):
-    if event.is_action_pressed("attack"):
-        emit_signal("item_selected", item_id)
+func _on_InventoryRow_pressed():
+    emit_signal("item_selected", item_id)

@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=8 format=2]
+[gd_resource type="Theme" load_steps=9 format=2]
 
 [ext_resource path="res://src/dynamic_fonts/Pixellari_20.tres" type="DynamicFont" id=1]
 
@@ -9,6 +9,11 @@ corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id=7]
+bg_color = Color( 0.6, 0.6, 0.6, 0 )
+shadow_color = Color( 0.4, 0.552941, 0.662745, 0.501961 )
+shadow_size = 4
 
 [sub_resource type="StyleBoxFlat" id=1]
 content_margin_top = 4.0
@@ -59,6 +64,7 @@ corner_radius_bottom_left = 5
 [resource]
 default_font = ExtResource( 1 )
 Button/styles/disabled = SubResource( 4 )
+Button/styles/focus = SubResource( 7 )
 Button/styles/hover = SubResource( 1 )
 Button/styles/normal = SubResource( 2 )
 Button/styles/pressed = SubResource( 3 )

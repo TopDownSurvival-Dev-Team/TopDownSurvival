@@ -328,9 +328,11 @@ remote func request_block_change(block_id: String, world_position: Vector2, dest
             var map_position = blocks.world_to_map(world_position / blocks.scale)
             var destroyed_block_id = block_data.get(map_position)
 
+            # Add the destroyed block to player's inventory
             if destroyed_block_id:
                 despawn_block_s(world_position)
                 inventory.add_item_s(sender_id, destroyed_block_id, 1)
+
         else:
             var item_data = GameData.item_data[block_id]
             var current_quantity = Database.get_item_quantity(player_uid, block_id)
