@@ -304,7 +304,6 @@ func on_item_dropped(item_id: String, quantity: int, player_id: int):
 func spawn_block_s(block_name: String, world_position: Vector2):
     var map_position = blocks.world_to_map(world_position / blocks.scale)
     block_data[map_position] = block_name
-    print(map_position)
 
     if Network.get_peer_count() > 0:
         rpc("spawn_block", block_name, world_position)
@@ -313,7 +312,6 @@ func spawn_block_s(block_name: String, world_position: Vector2):
 func despawn_block_s(world_position: Vector2):
     var map_position = blocks.world_to_map(world_position / blocks.scale)
     block_data.erase(map_position)
-    print(map_position)
 
     if Network.get_peer_count() > 0:
         rpc("despawn_block", world_position)
