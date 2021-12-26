@@ -10,14 +10,14 @@ const TREE_POS_RANGE = Vector2(5000, 5000)
 const MAX_ITEM_COUNT = 99
 
 var world_loaded = false
+var block_data = {}
 
 onready var inventory = $HUD/Inventory
+onready var blocks = $Blocks
 onready var players = $Players
 onready var trees = $Trees
 onready var items = $Items
 onready var player_spawn = $PlayerSpawn
-
-# TODO: add blocks data saving and loading
 
 
 func _ready():
@@ -65,6 +65,10 @@ func load_world(world_data: Array):
             "tree":
                 spawn_tree_s(entity_pos)
 
+            "block":
+                var world_position = blocks.map_to_world(entity_pos) * blocks.scale
+                spawn_block_s(entity_info["block_name"], world_position)
+
             _:
                 var quantity = entity_info["quantity"]
                 spawn_item_s(entity_type, quantity, entity_pos, false)
@@ -86,6 +90,16 @@ func save_world():
             "entity_type": "tree",
             "position": tree.global_position,
             "entity_info": {}
+        }
+        world_data.append(data)
+
+    for block_pos in block_data:
+        var data = {
+            "entity_type": "block",
+            "position": block_pos,
+            "entity_info": {
+                "block_name": block_data[block_pos]
+            }
         }
         world_data.append(data)
 
@@ -117,24 +131,29 @@ func generate_world():
 
 
 func send_world_to(id):
+    print("Syncing TileMaps")
+    blocks.sync_tilemap_s(id)
+
     print("Sending players to " + str(id))
     for player in players.get_children():
         var player_id = player.name.to_int()
         if player_id != id:
             rpc_id(id, "spawn_player", player_id, player.global_position)
 
-
     print("Sending natural structures to " + str(id))
     for tree in trees.get_children():
         rpc_id(id, "spawn_tree", int(tree.name), tree.global_position)
 
+    print("Sending man-made structures to " + str(id))
+    for block_pos in block_data:
+        var block_name = block_data[block_pos]
+        var world_position = blocks.map_to_world(block_pos) * blocks.scale
+        rpc_id(id, "spawn_block", block_name, world_position)
 
     print("Sending items to " + str(id))
     for item in items.get_children():
-        # Get item info
         var item_info = item.name.split("-", false, 1)
         var scene_id = item_info[1].to_int()
-
         rpc_id(id, "spawn_item", item.item_id, item.quantity, scene_id, item.global_position, false)
 
 
@@ -283,11 +302,21 @@ func on_item_dropped(item_id: String, quantity: int, player_id: int):
 
 
 func spawn_block_s(block_name: String, world_position: Vector2):
-    rpc("spawn_block", block_name, world_position)
+    var map_position = blocks.world_to_map(world_position / blocks.scale)
+    block_data[map_position] = block_name
+    print(map_position)
+
+    if Network.get_peer_count() > 0:
+        rpc("spawn_block", block_name, world_position)
 
 
 func despawn_block_s(world_position: Vector2):
-    rpc("despawn_block", world_position)
+    var map_position = blocks.world_to_map(world_position / blocks.scale)
+    block_data.erase(map_position)
+    print(map_position)
+
+    if Network.get_peer_count() > 0:
+        rpc("despawn_block", world_position)
 
 
 remote func request_block_change(block_id: String, world_position: Vector2, destroy: bool):

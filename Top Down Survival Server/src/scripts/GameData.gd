@@ -2,6 +2,7 @@ extends Node
 
 const DATA_PATH = "res://data"
 const PLAYER_REACH = 128
+
 var item_data: Dictionary
 
 

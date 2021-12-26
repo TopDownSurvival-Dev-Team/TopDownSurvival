@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://src/scripts/game_state.gd" type="Script" id=1]
 [ext_resource path="res://src/scripts/ChatBox.gd" type="Script" id=2]
 [ext_resource path="res://src/scripts/Inventory.gd" type="Script" id=3]
 [ext_resource path="res://src/scripts/ServerStats.gd" type="Script" id=4]
+[ext_resource path="res://src/scripts/Blocks.gd" type="Script" id=5]
 
 [node name="World" type="Node2D" groups=["World"]]
 script = ExtResource( 1 )
@@ -15,6 +16,13 @@ script = ExtResource( 2 )
 
 [node name="Inventory" type="Node" parent="HUD" groups=["Inventory"]]
 script = ExtResource( 3 )
+
+[node name="Blocks" type="TileMap" parent="."]
+scale = Vector2( 0.5, 0.5 )
+collision_layer = 0
+collision_mask = 0
+format = 1
+script = ExtResource( 5 )
 
 [node name="Players" type="Node" parent="."]
 
