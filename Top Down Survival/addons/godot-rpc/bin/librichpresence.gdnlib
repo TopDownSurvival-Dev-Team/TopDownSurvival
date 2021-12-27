@@ -1,0 +1,20 @@
+[general]
+
+singleton=false
+load_once=true
+symbol_prefix="godot_"
+reloadable=false
+
+[entry]
+
+OSX.64="res://addons/godot-rpc/bin/osx/librichpresence.dylib"
+Windows.64="res://addons/godot-rpc/bin/win64/librichpresence.dll"
+Windows.32="res://addons/godot-rpc/bin/win32/librichpresence.dll"
+X11.64="res://addons/godot-rpc/bin/linux64/librichpresence.so"
+
+[dependencies]
+
+OSX.64=[  ]
+Windows.64=[  ]
+Windows.32=[  ]
+X11.64=[  ]
