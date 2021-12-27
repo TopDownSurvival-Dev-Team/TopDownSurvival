@@ -35,6 +35,10 @@ FullscreenHandler="*res://src/autoload_scripts/FullscreenHandler.gd"
 
 window/size/fullscreen=true
 
+[editor_plugins]
+
+enabled=PoolStringArray( "res://addons/godot-rpc/plugin.cfg" )
+
 [importer_defaults]
 
 texture={
