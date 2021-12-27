@@ -26,6 +26,7 @@ config/icon="res://icon.png"
 
 [autoload]
 
+RPCManager="*res://src/autoload_scripts/RPCManager.gd"
 Network="*res://src/autoload_scripts/network.gd"
 GameData="*res://src/autoload_scripts/GameData.gd"
 Gateway="*res://src/autoload_scripts/Gateway.gd"
@@ -37,7 +38,7 @@ window/size/fullscreen=true
 
 [editor_plugins]
 
-enabled=PoolStringArray( "res://addons/godot-rpc/plugin.cfg" )
+enabled=PoolStringArray(  )
 
 [importer_defaults]
 

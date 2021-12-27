@@ -34,6 +34,8 @@ func _ready():
     Network.connect("server_connection_failed", self, "failed_to_connect_to_game")
     Network.connect("invalid_token_supplied", self, "invalid_token")
 
+    RPCManager.set_activity_lobby()
+
 
 func make_fields_editable(value: bool):
     email_field.editable = value
