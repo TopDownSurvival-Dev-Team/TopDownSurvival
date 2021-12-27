@@ -26,3 +26,21 @@ func set_activity_lobby():
 
     else:
         print_debug("Trying to interact with Discord without connecting!")
+
+
+func set_activity_game(server_address: String, username: String, current_players: int, max_players: int):
+    if connected:
+        var activity = GodotcordActivity.new()
+        activity.state = "Playing on %s" % server_address
+        activity.details = "Logged in as %s" % username
+        activity.start = Network.game_start_time
+        activity.large_image = "playing"
+        activity.large_text = "In Game"
+        activity.party_id = server_address
+        activity.party_current = current_players
+        activity.party_max = max_players
+        activity.join_secret = "bro idk what this is supposed to be"
+        GodotcordActivityManager.set_activity(activity)
+
+    else:
+        print_debug("Trying to interact with Discord without connecting!")
