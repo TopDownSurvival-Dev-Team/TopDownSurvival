@@ -7,6 +7,7 @@ var connected: bool
 
 func _ready():
     connected = Godotcord.init(CLIENT_ID, Godotcord.CreateFlags_NO_REQUIRE_DISCORD) != ERR_CANT_CONNECT
+    print("Connected to Discord Client: %s" % connected)
 
 
 func _process(_delta):
@@ -24,9 +25,6 @@ func set_activity_lobby():
         activity.large_text = "Idle in Lobby"
         GodotcordActivityManager.set_activity(activity)
 
-    else:
-        print_debug("Trying to interact with Discord without connecting!")
-
 
 func set_activity_game(server_address: String, username: String, current_players: int, max_players: int):
     if connected:
@@ -41,6 +39,3 @@ func set_activity_game(server_address: String, username: String, current_players
         activity.party_max = max_players
         activity.join_secret = "bro idk what this is supposed to be"
         GodotcordActivityManager.set_activity(activity)
-
-    else:
-        print_debug("Trying to interact with Discord without connecting!")
