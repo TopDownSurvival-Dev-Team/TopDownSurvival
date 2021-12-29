@@ -1,7 +1,7 @@
 name: "Release Beta"
 
 env:
-  GODOT_VERSION: 3.4.1
+  GODOT_VERSION: 3.4.2
   CLIENT_PATH: "Top Down Survival"
   SERVER_PATH: "Top Down Survival Server"
 
@@ -20,7 +20,7 @@ jobs:
     runs-on: ubuntu-latest
     
     container:
-      image: barichello/godot-ci:3.4.1
+      image: barichello/godot-ci:3.4.2
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -89,7 +89,7 @@ jobs:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
     container:
-      image: barichello/godot-ci:3.4.1
+      image: barichello/godot-ci:3.4.2
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:

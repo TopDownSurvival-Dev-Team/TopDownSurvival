@@ -1,7 +1,6 @@
 extends Control
 
 const REGISTER_SCENE = "res://src/scenes/ui_scenes/Register.tscn"
-const VERSION_FILE = "res://version.txt"
 
 onready var email_field = $CenterContainer/VBoxContainer/Fields/EmailField
 onready var password_field = $CenterContainer/VBoxContainer/Fields/PasswordField
@@ -16,15 +15,10 @@ onready var version_label = $NoticeContainer/VersionLabel
 
 
 func _ready():
-    address_field.text = Network.DEFAULT_IP
-    port_field.text = str(Network.DEFAULT_PORT)
+    address_field.set_text(Network.DEFAULT_IP)
+    port_field.set_text(str(Network.DEFAULT_PORT))
+    version_label.set_text("v%s" % GameData.client_version)
     status_label.visible = false
-
-    var f = File.new()
-    f.open(VERSION_FILE, File.READ)
-    var version_number = f.get_line()
-    f.close()
-    version_label.set_text("v%s" % version_number)
 
     # Connect signals
     Gateway.connect("gateway_connection_success", self, "connected_to_gateway")
@@ -33,6 +27,8 @@ func _ready():
     Gateway.connect("login_failure", self, "failed_to_login")
     Network.connect("server_connection_failed", self, "failed_to_connect_to_game")
     Network.connect("invalid_token_supplied", self, "invalid_token")
+
+    RPCManager.set_activity_lobby()
 
 
 func make_fields_editable(value: bool):
