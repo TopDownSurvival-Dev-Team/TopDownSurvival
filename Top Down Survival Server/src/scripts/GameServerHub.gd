@@ -52,7 +52,7 @@ func _connection_successful():
 func _connection_failed():
     if connection_attempts >= 3:
         print("Unable to connect to Game Server Hub, exiting...")
-        get_tree().quit()
+        get_tree().notification(MainLoop.NOTIFICATION_WM_QUIT_REQUEST)
     else:
         print("Failed to connect to Game Server Hub. Trying again...")
         connect_to_hub()
@@ -99,4 +99,4 @@ remote func receive_verification_info(token: String, player_info: Dictionary):
 remote func duplicate_connection():
     # FIXME
     print("Duplicate connection! Exiting...")
-    get_tree().quit()
+    get_tree().notification(MainLoop.NOTIFICATION_WM_QUIT_REQUEST)

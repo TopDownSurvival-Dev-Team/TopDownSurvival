@@ -22,6 +22,7 @@ onready var player_spawn = $PlayerSpawn
 
 func _ready():
     print("Game world started!")
+    get_tree().set_auto_accept_quit(false)
 
     # Randomize RNG seed
     randomize()
@@ -51,6 +52,7 @@ func _ready():
 func _notification(what):
     if what == MainLoop.NOTIFICATION_WM_QUIT_REQUEST and world_loaded:
         save_world()
+        get_tree().quit()
 
 
 func load_world(world_data: Array):
