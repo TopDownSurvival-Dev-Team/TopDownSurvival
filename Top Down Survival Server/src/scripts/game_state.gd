@@ -150,7 +150,7 @@ func send_world_to(id):
     for block_pos in block_data:
         var block_id = block_data[block_pos]
         var world_position = blocks.map_to_world(block_pos) * blocks.scale
-        rpc_id(id, "spawn_block", block_id, world_position)
+        rpc_id(id, "spawn_block", block_id, world_position, false)
 
     print("Sending items to " + str(id))
     for item in items.get_children():
