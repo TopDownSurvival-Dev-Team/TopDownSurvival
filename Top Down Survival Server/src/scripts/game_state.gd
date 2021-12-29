@@ -69,7 +69,7 @@ func load_world(world_data: Array):
 
             "block":
                 var world_position = blocks.map_to_world(entity_pos) * blocks.scale
-                spawn_block_s(entity_info["block_id"], world_position)
+                spawn_block_s(entity_info["block_id"], world_position, false)
 
             _:
                 var quantity = entity_info["quantity"]
@@ -303,12 +303,12 @@ func on_item_dropped(item_id: String, quantity: int, player_id: int):
 
 
 
-func spawn_block_s(block_id: String, world_position: Vector2):
+func spawn_block_s(block_id: String, world_position: Vector2, player_placed: bool):
     var map_position = blocks.world_to_map(world_position / blocks.scale)
     block_data[map_position] = block_id
 
     if Network.get_peer_count() > 0:
-        rpc("spawn_block", block_id, world_position)
+        rpc("spawn_block", block_id, world_position, player_placed)
 
 
 func despawn_block_s(world_position: Vector2):
@@ -345,5 +345,5 @@ remote func request_block_change(block_id: String, world_position: Vector2, dest
 
                 # Verify the item is placeable and the player has it in their inventory
                 if item_data["type"] == "Block" and current_quantity:
-                    spawn_block_s(block_id, world_position)
+                    spawn_block_s(block_id, world_position, true)
                     inventory.remove_item_s(sender_id, block_id, 1)

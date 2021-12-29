@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/break.wav-0aa6a10c5797591cdd0db56f4deb7ade.sample"
+
+[deps]
+
+source_file="res://assets/sounds/sfx/blocks/break/break.wav"
+dest_files=[ "res://.import/break.wav-0aa6a10c5797591cdd0db56f4deb7ade.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

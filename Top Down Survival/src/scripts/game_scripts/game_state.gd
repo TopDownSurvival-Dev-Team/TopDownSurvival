@@ -2,6 +2,8 @@ extends Node2D
 
 const PLAYER_SCENE = preload("res://src/actors/Player.tscn")
 const TREE_SCENE  = preload("res://src/actors/Tree.tscn")
+const BLOCK_PLACE_SFX = preload("res://src/audio_streams/BlockPlaceSFX.tscn")
+const BLOCK_BREAK_SFX = preload("res://src/audio_streams/BlockBreakSFX.tscn")
 const GROUND_TILE_ID = 0
 
 var master_player_ready = false
@@ -113,12 +115,23 @@ remote func despawn_item(item_id: String, scene_id: int):
 
 
 
-remote func spawn_block(block_id: String, world_position: Vector2):
+remote func spawn_block(block_id: String, world_position: Vector2, player_placed: bool):
     var tile_id = blocks.tile_set.find_tile_by_name(block_id)
     var tile_set_pos = blocks.world_to_map(world_position / blocks.scale)
     blocks.set_cellv(tile_set_pos, tile_id)
+
+    if player_placed:
+        var sfx = BLOCK_PLACE_SFX.instance()
+        sfx.global_position = world_position
+        add_child(sfx)
+        sfx.play()
 
 
 remote func despawn_block(world_position: Vector2):
     var tile_set_pos = blocks.world_to_map(world_position / blocks.scale)
     blocks.set_cellv(tile_set_pos, GROUND_TILE_ID)
+
+    var sfx = BLOCK_BREAK_SFX.instance()
+    sfx.global_position = world_position
+    add_child(sfx)
+    sfx.play()
