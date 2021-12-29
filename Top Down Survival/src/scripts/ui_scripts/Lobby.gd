@@ -61,6 +61,7 @@ func accept_join_invite(join_secret: String):
         address_field.set_text(secret_split[0])
         port_field.set_text(secret_split[1])
     else:
+        # TODO: Show a pop up
         print_debug("Tried to join a game with different version.\nCurrent version: %s, Requested version: %s" % [GameData.client_version, version])
 
 
