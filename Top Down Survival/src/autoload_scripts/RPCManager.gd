@@ -26,12 +26,12 @@ func set_activity_lobby():
         GodotcordActivityManager.set_activity(activity)
 
 
-func set_activity_game(server_address: String, username: String, current_players: int, max_players: int):
+func set_activity_game(server_address: String, server_port: int, username: String, current_players: int, max_players: int):
     var singleplayer = server_address in ["127.0.0.1", "localhost"]
 
     if connected:
         var activity = GodotcordActivity.new()
-        activity.state = ("Playing Singleplayer" if singleplayer else "Playing on %s" % server_address) + " v%s" % GameData.client_version
+        activity.state = "Playing v%s" % GameData.client_version
         activity.details = "Logged in as %s" % username
         activity.start = Network.game_start_time
         activity.large_image = "playing"
@@ -39,5 +39,5 @@ func set_activity_game(server_address: String, username: String, current_players
         activity.party_id = "" if singleplayer else server_address
         activity.party_current = -1 if singleplayer else current_players
         activity.party_max = -1 if singleplayer else max_players
-        activity.join_secret = "" if singleplayer else GameData.client_version
+        activity.join_secret = "" if singleplayer else "%s:%s:%s" % [server_address, server_port, GameData.client_version]
         GodotcordActivityManager.set_activity(activity)

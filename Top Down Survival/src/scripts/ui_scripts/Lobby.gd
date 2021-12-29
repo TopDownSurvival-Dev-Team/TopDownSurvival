@@ -27,6 +27,7 @@ func _ready():
     Gateway.connect("login_failure", self, "failed_to_login")
     Network.connect("server_connection_failed", self, "failed_to_connect_to_game")
     Network.connect("invalid_token_supplied", self, "invalid_token")
+    GodotcordActivityManager.connect("activity_join", self, "accept_join_invite")
 
     RPCManager.set_activity_lobby()
 
@@ -50,6 +51,17 @@ func attempt_to_login():
 func attempt_to_join_game(token: String):
     animation_player.play("Game Connecting Animation")
     Network.connect_to_server(address_field.text, int(port_field.text), token)
+
+
+func accept_join_invite(join_secret: String):
+    var secret_split = join_secret.split(":", true, 2)
+    var version = secret_split[2]
+
+    if version == GameData.client_version:
+        address_field.set_text(secret_split[0])
+        port_field.set_text(secret_split[1])
+    else:
+        print_debug("Tried to join a game with different version.\nCurrent version: %s, Requested version: %s" % [GameData.client_version, version])
 
 
 func connected_to_gateway():
