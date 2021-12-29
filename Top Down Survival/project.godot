@@ -26,11 +26,12 @@ config/icon="res://icon.png"
 
 [autoload]
 
+FullscreenHandler="*res://src/autoload_scripts/FullscreenHandler.gd"
+CredentialsManager="*res://src/autoload_scripts/CredentialsManager.gd"
 RPCManager="*res://src/autoload_scripts/RPCManager.gd"
-Network="*res://src/autoload_scripts/network.gd"
 GameData="*res://src/autoload_scripts/GameData.gd"
 Gateway="*res://src/autoload_scripts/Gateway.gd"
-FullscreenHandler="*res://src/autoload_scripts/FullscreenHandler.gd"
+Network="*res://src/autoload_scripts/network.gd"
 
 [display]
 
