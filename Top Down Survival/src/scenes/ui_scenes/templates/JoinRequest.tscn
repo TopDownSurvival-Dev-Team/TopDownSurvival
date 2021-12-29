@@ -2,13 +2,14 @@
 
 [ext_resource path="res://assets/glyphs/green_check_mark/green_check_mark.png" type="Texture" id=1]
 [ext_resource path="res://assets/glyphs/red_cross_mark/red_cross_mark.png" type="Texture" id=2]
-[ext_resource path="res://src/dynamic_fonts/Pixellari_20.tres" type="DynamicFont" id=3]
+[ext_resource path="res://src/scripts/ui_scripts/templates/JoinRequest.gd" type="Script" id=3]
 [ext_resource path="res://assets/glyphs/green_check_mark/green_check_mark_pressed.png" type="Texture" id=4]
 [ext_resource path="res://assets/glyphs/red_cross_mark/red_cross_mark_pressed.png" type="Texture" id=5]
 
 [node name="JoinRequest" type="Control"]
 anchor_right = 1.0
 rect_min_size = Vector2( 0, 50 )
+script = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -37,7 +38,6 @@ margin_right = 926.0
 margin_bottom = 32.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_fonts/font = ExtResource( 3 )
 text = "Someone wants to join your game"
 valign = 1
 
@@ -64,3 +64,6 @@ texture_normal = ExtResource( 2 )
 texture_pressed = ExtResource( 5 )
 expand = true
 stretch_mode = 5
+
+[connection signal="pressed" from="H/Accept" to="." method="_on_Accept_pressed"]
+[connection signal="pressed" from="H/Decline" to="." method="_on_Decline_pressed"]

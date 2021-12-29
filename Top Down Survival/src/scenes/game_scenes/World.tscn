@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://src/scripts/game_scripts/game_state.gd" type="Script" id=1]
 [ext_resource path="res://src/tile_sets/Blocks.tres" type="TileSet" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://src/scenes/ui_scenes/PauseMenu.tscn" type="PackedScene" id=5]
 [ext_resource path="res://src/scripts/ui_scripts/HUD.gd" type="Script" id=6]
 [ext_resource path="res://src/scripts/game_scripts/Blocks.gd" type="Script" id=7]
+[ext_resource path="res://src/scenes/ui_scenes/JoinRequestsList.tscn" type="PackedScene" id=8]
 
 [node name="World" type="Node2D"]
 script = ExtResource( 1 )
@@ -17,6 +18,8 @@ script = ExtResource( 6 )
 [node name="ChatBox" parent="HUD" instance=ExtResource( 3 )]
 
 [node name="Inventory" parent="HUD" instance=ExtResource( 4 )]
+
+[node name="JoinRequestsList" parent="HUD" instance=ExtResource( 8 )]
 
 [node name="PauseMenu" parent="HUD" instance=ExtResource( 5 )]
 visible = false
