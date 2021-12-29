@@ -336,10 +336,14 @@ remote func request_block_change(block_id: String, world_position: Vector2, dest
                 inventory.add_item_s(sender_id, destroyed_block_id, 1)
 
         else:
-            var item_data = GameData.item_data[block_id]
-            var current_quantity = Database.get_item_quantity(player_uid, block_id)
+            var map_position = blocks.world_to_map(world_position / blocks.scale)
 
-            # Verify the item is placeable and the player has it in their inventory
-            if item_data["type"] == "Block" and current_quantity:
-                spawn_block_s(block_id, world_position)
-                inventory.remove_item_s(sender_id, block_id, 1)
+            # Don't do anything if theres already a block at the position
+            if not block_data.get(map_position):
+                var item_data = GameData.item_data[block_id]
+                var current_quantity = Database.get_item_quantity(player_uid, block_id)
+
+                # Verify the item is placeable and the player has it in their inventory
+                if item_data["type"] == "Block" and current_quantity:
+                    spawn_block_s(block_id, world_position)
+                    inventory.remove_item_s(sender_id, block_id, 1)
