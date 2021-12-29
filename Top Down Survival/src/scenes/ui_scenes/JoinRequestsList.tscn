@@ -1,0 +1,23 @@
+[gd_scene format=2]
+
+[node name="JoinRequestsList" type="Control"]
+anchor_left = 0.756
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = -0.144043
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SC" type="ScrollContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="V" type="VBoxContainer" parent="SC"]
+margin_right = 250.0
+margin_bottom = 300.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
