@@ -20,7 +20,7 @@ func send_message():
         print("Sending chat message: " + message_text)
 
         rpc_id(1, "send_message_s", message_text)
-#		add_message(message_text, "Player", "FFFFFF")
+        # add_message(message_text, "Player", "FFFFFF")
 
         input_field.text = ""
         input_field.release_focus()
