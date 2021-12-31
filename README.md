@@ -1,12 +1,17 @@
 # Top Down Survival
+
 As the name suggests, this is a Top Down Survival game. It's a multiplayer game
 so you need friends to play. Art work inspired by [Zombs.io](https://zombs.io)
 
-This game also uses [Godotcord](https://github.com/Drachenfrucht1/godotcord) to integrate Discord's GameSDK. If you're only going to export the game on your own, you can use the pre-built export templates provided in `Top Down Survival/bin/export_templates`. However, if you're going to make modifications to the game you'll have to rebuild the Godot editor with the Godotcord editor module.
-
 ## How to run the game?
-The game is made with Godot Engine, so you need to install that to play it
-(or you can just download the prebuilt binaries in the releases section).
+
+This game also uses [Godotcord](https://github.com/Drachenfrucht1/godotcord) to
+integrate Discord's GameSDK, so make sure to install it if you're going to make
+modifications or export the game on your own.
+
+If you're just here to play the game and nothing else, you can download the
+pre-built binaries from the Releases tab or from the
+[itch.io page](https://mysterycoder456.itch.io/top-down-survival).
 
 **NOTE:** Please do not use local IP addresses to connect to a server (usually
 starting with `192.168`). However, if you're hosting the client and server on
