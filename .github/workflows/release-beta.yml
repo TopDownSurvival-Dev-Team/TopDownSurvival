@@ -38,6 +38,7 @@ jobs:
           unzip ${GODOT_VERSION}.zip
           cp "${GODOT_VERSION}/Godotcord-${GODOT_VERSION}-headless" ./godot
           cp discord_libs/libdiscord_game_sdk.so .
+          chmod +x ./godot
       
       - name: MacOS Build
         run: |
@@ -120,6 +121,7 @@ jobs:
           unzip ${GODOT_VERSION}.zip
           cp "${GODOT_VERSION}/Godotcord-${GODOT_VERSION}-headless" ./godot
           cp discord_libs/libdiscord_game_sdk.so .
+          chmod +x ./godot
       
       - name: MacOS Build
         run: |
