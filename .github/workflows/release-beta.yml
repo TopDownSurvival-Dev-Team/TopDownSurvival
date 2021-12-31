@@ -36,17 +36,18 @@ jobs:
         run: |
           wget "https://gdcord.topdownsurvival.tk/${GODOT_VERSION}.zip"
           unzip ${GODOT_VERSION}.zip
-          alias godot="${GODOT_VERSION}/Godotcord-${GODOT_VERSION}-headless"
-          cp discord_libs/libdiscord_game_sdk.so ${GODOT_VERSION}
+          cp "${GODOT_VERSION}/Godotcord-${GODOT_VERSION}-headless" ./godot
+          cp discord_libs/libdiscord_game_sdk.so .
+          chmod +x ./godot
       
       - name: MacOS Build
         run: |
           mkdir -v -p "${CLIENT_PATH}/exports"
           cd "${CLIENT_PATH}"
-          godot -v --export "MacOS" exports/MacOS.zip
+          ../godot -v --export "MacOS" exports/MacOS.zip
           cd exports
           unzip MacOS.zip
-          cp discord_libs/discord_game_sdk.dylib "${CLIENT_PATH}.app/Contents/MacOS"
+          cp ../../discord_libs/discord_game_sdk.dylib "${CLIENT_PATH}.app/Contents/MacOS"
           rm MacOS.zip
           zip -r MacOS.zip "${CLIENT_PATH}.app"
       
@@ -54,17 +55,17 @@ jobs:
         run: |
           mkdir -v -p "${CLIENT_PATH}/exports/Windows"
           cd "${CLIENT_PATH}"
-          godot -v --export "Windows Desktop" "exports/Windows/${CLIENT_PATH}.exe"
-          cp discord_libs/discord_game_sdk.dll exports/Windows
-          cp discord_libs/discord_game_sdk.dll.lib exports/Windows
+          ../godot -v --export "Windows Desktop" "exports/Windows/${CLIENT_PATH}.exe"
+          cp ../discord_libs/discord_game_sdk.dll exports/Windows
+          cp ../discord_libs/discord_game_sdk.dll.lib exports/Windows
           zip -r exports/Windows.zip exports/Windows
       
       - name: Linux Build
         run: |
           mkdir -v -p "${CLIENT_PATH}/exports/Linux"
           cd "${CLIENT_PATH}"
-          godot -v --export "Linux/X11" "exports/Linux/${CLIENT_PATH}.x86_64"
-          cp discord_libs/libdiscord_game_sdk.so exports/Linux
+          ../godot -v --export "Linux/X11" "exports/Linux/${CLIENT_PATH}.x86_64"
+          cp ../discord_libs/libdiscord_game_sdk.so exports/Linux
           zip -r exports/Linux.zip exports/Linux
           
       - name: Publish MacOS Build
@@ -75,7 +76,7 @@ jobs:
           ITCH_GAME: "top-down-survival"
           ITCH_USER: "mysterycoder456"
           PACKAGE: "Top Down Survival/exports/MacOS.zip"
-          VERSION_FILE: "Top Down Survival/version.txt"
+          VERSION_FILE: '"Top Down Survival/version.txt"'
           
       - name: Publish Windows Build
         uses: josephbmanley/butler-publish-itchio-action@master
@@ -85,7 +86,7 @@ jobs:
           ITCH_GAME: "top-down-survival"
           ITCH_USER: "mysterycoder456"
           PACKAGE: "Top Down Survival/exports/Windows.zip"
-          VERSION_FILE: "Top Down Survival/version.txt"
+          VERSION_FILE: '"Top Down Survival/version.txt"'
           
       - name: Publish Linux Build
         uses: josephbmanley/butler-publish-itchio-action@master
@@ -95,11 +96,14 @@ jobs:
           ITCH_GAME: "top-down-survival"
           ITCH_USER: "mysterycoder456"
           PACKAGE: "Top Down Survival/exports/Linux.zip"
-          VERSION_FILE: "Top Down Survival/version.txt"
+          VERSION_FILE: '"Top Down Survival/version.txt"'
           
   export-server:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
+    
+    container:
+      image: barichello/godot-ci:3.4.2
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -109,17 +113,10 @@ jobs:
         with:
           lfs: true
           
-      - name : Download Discord Libs
+      - name: Setup
         run: |
-          wget https://gdcord.topdownsurvival.tk/discord_libs.zip
-          unzip discord_libs.zip
-      
-      - name: Setup Godot Executable
-        run: |
-          wget "https://gdcord.topdownsurvival.tk/${GODOT_VERSION}.zip"
-          unzip ${GODOT_VERSION}.zip
-          alias godot="${GODOT_VERSION}/Godotcord-${GODOT_VERSION}-headless"
-          cp discord_libs/libdiscord_game_sdk.so ${GODOT_VERSION}
+          mkdir -v -p ~/.local/share/godot/templates
+          mv /root/.local/share/godot/templates/${GODOT_VERSION}.stable ~/.local/share/godot/templates/${GODOT_VERSION}.stable
       
       - name: MacOS Build
         run: |
@@ -149,7 +146,7 @@ jobs:
           ITCH_GAME: "top-down-survival"
           ITCH_USER: "mysterycoder456"
           PACKAGE: "Top Down Survival Server/exports/MacOS.zip"
-          VERSION_FILE: "Top Down Survival Server/version.txt"
+          VERSION_FILE: '"Top Down Survival Server/version.txt"'
           
       - name: Publish Windows Build
         uses: josephbmanley/butler-publish-itchio-action@master
@@ -159,7 +156,7 @@ jobs:
           ITCH_GAME: "top-down-survival"
           ITCH_USER: "mysterycoder456"
           PACKAGE: "Top Down Survival Server/exports/Windows.zip"
-          VERSION_FILE: "Top Down Survival Server/version.txt"
+          VERSION_FILE: '"Top Down Survival Server/version.txt"'
           
       - name: Publish Linux Build
         uses: josephbmanley/butler-publish-itchio-action@master
@@ -169,4 +166,4 @@ jobs:
           ITCH_GAME: "top-down-survival"
           ITCH_USER: "mysterycoder456"
           PACKAGE: "Top Down Survival Server/exports/Linux.zip"
-          VERSION_FILE: "Top Down Survival Server/version.txt"
+          VERSION_FILE: '"Top Down Survival Server/version.txt"'
