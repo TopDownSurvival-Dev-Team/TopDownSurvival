@@ -73,7 +73,7 @@ func accept_join_invite(join_secret: String):
         attempt_to_login()
 
     else:
-        # TODO: Show a pop up
+        status_label.set_text("Cannot join server with\ndifferent version: %s" % version)
         print_debug("Tried to join a game with different version.\nCurrent version: %s, Requested version: %s" % [GameData.client_version, version])
 
 
