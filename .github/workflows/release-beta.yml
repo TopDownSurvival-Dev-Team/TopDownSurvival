@@ -39,6 +39,7 @@ jobs:
           cp "${GODOT_VERSION}/Godotcord-${GODOT_VERSION}-headless" ./godot
           cp discord_libs/libdiscord_game_sdk.so .
           chmod +x ./godot
+          cp "${CLIENT_PATH}/version.txt" .
       
       - name: MacOS Build
         run: |
@@ -117,6 +118,7 @@ jobs:
         run: |
           mkdir -v -p ~/.local/share/godot/templates
           mv /root/.local/share/godot/templates/${GODOT_VERSION}.stable ~/.local/share/godot/templates/${GODOT_VERSION}.stable
+          cp "${SERVER_PATH}/version.txt" .
       
       - name: MacOS Build
         run: |
