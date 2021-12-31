@@ -75,7 +75,7 @@ jobs:
           CHANNEL: macos-beta
           ITCH_GAME: top-down-survival
           ITCH_USER: mysterycoder456
-          PACKAGE: Top\ Down\ Survival/exports/MacOS.zip
+          PACKAGE: Top Down Survival/exports/MacOS.zip
           VERSION_FILE: Top\ Down\ Survival/version.txt
           
       - name: Publish Windows Build
@@ -85,7 +85,7 @@ jobs:
           CHANNEL: windows-beta
           ITCH_GAME: top-down-survival
           ITCH_USER: mysterycoder456
-          PACKAGE: Top\ Down\ Survival/exports/Windows.zip
+          PACKAGE: Top Down Survival/exports/Windows.zip
           VERSION_FILE: Top\ Down\ Survival/version.txt
           
       - name: Publish Linux Build
@@ -95,7 +95,7 @@ jobs:
           CHANNEL: linux-beta
           ITCH_GAME: top-down-survival
           ITCH_USER: mysterycoder456
-          PACKAGE: Top\ Down\ Survival/exports/Linux.zip
+          PACKAGE: Top Down Survival/exports/Linux.zip
           VERSION_FILE: Top\ Down\ Survival/version.txt
           
   export-server:
@@ -145,7 +145,7 @@ jobs:
           CHANNEL: macos-server-beta
           ITCH_GAME: top-down-survival
           ITCH_USER: mysterycoder456
-          PACKAGE: Top\ Down\ Survival\ Server/exports/MacOS.zip
+          PACKAGE: Top Down Survival Server/exports/MacOS.zip
           VERSION_FILE: Top\ Down\ Survival\ Server/version.txt
           
       - name: Publish Windows Build
@@ -155,7 +155,7 @@ jobs:
           CHANNEL: windows-server-beta
           ITCH_GAME: top-down-survival
           ITCH_USER: mysterycoder456
-          PACKAGE: Top\ Down\ Survival\ Server/exports/Windows.zip
+          PACKAGE: Top Down Survival Server/exports/Windows.zip
           VERSION_FILE: Top\ Down\ Survival\ Server/version.txt
           
       - name: Publish Linux Build
@@ -165,5 +165,5 @@ jobs:
           CHANNEL: linux-server-beta
           ITCH_GAME: top-down-survival
           ITCH_USER: mysterycoder456
-          PACKAGE: Top\ Down\ Survival\ Server/exports/Linux.zip
+          PACKAGE: Top Down Survival Server/exports/Linux.zip
           VERSION_FILE: Top\ Down\ Survival\ Server/version.txt
