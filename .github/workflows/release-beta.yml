@@ -47,7 +47,7 @@ jobs:
           ../godot -v --export "MacOS" exports/MacOS.zip
           cd exports
           unzip MacOS.zip
-          cp discord_libs/discord_game_sdk.dylib "${CLIENT_PATH}.app/Contents/MacOS"
+          cp ../../discord_libs/discord_game_sdk.dylib "${CLIENT_PATH}.app/Contents/MacOS"
           rm MacOS.zip
           zip -r MacOS.zip "${CLIENT_PATH}.app"
       
@@ -56,8 +56,8 @@ jobs:
           mkdir -v -p "${CLIENT_PATH}/exports/Windows"
           cd "${CLIENT_PATH}"
           ../godot -v --export "Windows Desktop" "exports/Windows/${CLIENT_PATH}.exe"
-          cp discord_libs/discord_game_sdk.dll exports/Windows
-          cp discord_libs/discord_game_sdk.dll.lib exports/Windows
+          cp ../discord_libs/discord_game_sdk.dll exports/Windows
+          cp ../discord_libs/discord_game_sdk.dll.lib exports/Windows
           zip -r exports/Windows.zip exports/Windows
       
       - name: Linux Build
@@ -65,7 +65,7 @@ jobs:
           mkdir -v -p "${CLIENT_PATH}/exports/Linux"
           cd "${CLIENT_PATH}"
           ../godot -v --export "Linux/X11" "exports/Linux/${CLIENT_PATH}.x86_64"
-          cp discord_libs/libdiscord_game_sdk.so exports/Linux
+          cp ../discord_libs/libdiscord_game_sdk.so exports/Linux
           zip -r exports/Linux.zip exports/Linux
           
       - name: Publish MacOS Build
