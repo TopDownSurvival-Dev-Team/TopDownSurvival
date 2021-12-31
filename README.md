@@ -1,7 +1,7 @@
 # Top Down Survival
 
-As the name suggests, this is a Top Down Survival game. It's a multiplayer game
-so you need friends to play. Art work inspired by [Zombs.io](https://zombs.io)
+As the name suggests, this is a top down survival game. It's a multiplayer game
+made with the Godot Engine. Art work inspired by [Zombs.io](https://zombs.io)
 
 ## How to run the game?
 
