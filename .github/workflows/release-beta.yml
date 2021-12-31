@@ -72,31 +72,31 @@ jobs:
         uses: josephbmanley/butler-publish-itchio-action@master
         env:
           BUTLER_CREDENTIALS: ${{ secrets.ITCH_API_KEY }}
-          CHANNEL: "macos-beta"
-          ITCH_GAME: "top-down-survival"
-          ITCH_USER: "mysterycoder456"
-          PACKAGE: "Top Down Survival/exports/MacOS.zip"
-          VERSION_FILE: '"Top Down Survival/version.txt"'
+          CHANNEL: macos-beta
+          ITCH_GAME: top-down-survival
+          ITCH_USER: mysterycoder456
+          PACKAGE: Top\ Down\ Survival/exports/MacOS.zip
+          VERSION_FILE: Top\ Down\ Survival/version.txt
           
       - name: Publish Windows Build
         uses: josephbmanley/butler-publish-itchio-action@master
         env:
           BUTLER_CREDENTIALS: ${{ secrets.ITCH_API_KEY }}
-          CHANNEL: "windows-beta"
-          ITCH_GAME: "top-down-survival"
-          ITCH_USER: "mysterycoder456"
-          PACKAGE: "Top Down Survival/exports/Windows.zip"
-          VERSION_FILE: '"Top Down Survival/version.txt"'
+          CHANNEL: windows-beta
+          ITCH_GAME: top-down-survival
+          ITCH_USER: mysterycoder456
+          PACKAGE: Top\ Down\ Survival/exports/Windows.zip
+          VERSION_FILE: Top\ Down\ Survival/version.txt
           
       - name: Publish Linux Build
         uses: josephbmanley/butler-publish-itchio-action@master
         env:
           BUTLER_CREDENTIALS: ${{ secrets.ITCH_API_KEY }}
-          CHANNEL: "linux-beta"
-          ITCH_GAME: "top-down-survival"
-          ITCH_USER: "mysterycoder456"
-          PACKAGE: "Top Down Survival/exports/Linux.zip"
-          VERSION_FILE: '"Top Down Survival/version.txt"'
+          CHANNEL: linux-beta
+          ITCH_GAME: top-down-survival
+          ITCH_USER: mysterycoder456
+          PACKAGE: Top\ Down\ Survival/exports/Linux.zip
+          VERSION_FILE: Top\ Down\ Survival/version.txt
           
   export-server:
     # The type of runner that the job will run on
@@ -142,28 +142,28 @@ jobs:
         uses: josephbmanley/butler-publish-itchio-action@master
         env:
           BUTLER_CREDENTIALS: ${{ secrets.ITCH_API_KEY }}
-          CHANNEL: "macos-server-beta"
-          ITCH_GAME: "top-down-survival"
-          ITCH_USER: "mysterycoder456"
-          PACKAGE: "Top Down Survival Server/exports/MacOS.zip"
-          VERSION_FILE: '"Top Down Survival Server/version.txt"'
+          CHANNEL: macos-server-beta
+          ITCH_GAME: top-down-survival
+          ITCH_USER: mysterycoder456
+          PACKAGE: Top\ Down\ Survival\ Server/exports/MacOS.zip
+          VERSION_FILE: Top\ Down\ Survival\ Server/version.txt
           
       - name: Publish Windows Build
         uses: josephbmanley/butler-publish-itchio-action@master
         env:
           BUTLER_CREDENTIALS: ${{ secrets.ITCH_API_KEY }}
-          CHANNEL: "windows-server-beta"
-          ITCH_GAME: "top-down-survival"
-          ITCH_USER: "mysterycoder456"
-          PACKAGE: "Top Down Survival Server/exports/Windows.zip"
-          VERSION_FILE: '"Top Down Survival Server/version.txt"'
+          CHANNEL: windows-server-beta
+          ITCH_GAME: top-down-survival
+          ITCH_USER: mysterycoder456
+          PACKAGE: Top\ Down\ Survival\ Server/exports/Windows.zip
+          VERSION_FILE: Top\ Down\ Survival\ Server/version.txt
           
       - name: Publish Linux Build
         uses: josephbmanley/butler-publish-itchio-action@master
         env:
           BUTLER_CREDENTIALS: ${{ secrets.ITCH_API_KEY }}
-          CHANNEL: "linux-server-beta"
-          ITCH_GAME: "top-down-survival"
-          ITCH_USER: "mysterycoder456"
-          PACKAGE: "Top Down Survival Server/exports/Linux.zip"
-          VERSION_FILE: '"Top Down Survival Server/version.txt"'
+          CHANNEL: linux-server-beta
+          ITCH_GAME: top-down-survival
+          ITCH_USER: mysterycoder456
+          PACKAGE: Top\ Down\ Survival\ Server/exports/Linux.zip
+          VERSION_FILE: Top\ Down\ Survival\ Server/version.txt
