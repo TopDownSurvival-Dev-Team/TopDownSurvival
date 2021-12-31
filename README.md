@@ -5,9 +5,11 @@ made with the Godot Engine. Art work inspired by [Zombs.io](https://zombs.io)
 
 ## How to run the game?
 
-This game also uses [Godotcord](https://github.com/Drachenfrucht1/godotcord) to
-integrate Discord's GameSDK, so make sure to install it if you're going to make
-modifications or export the game on your own.
+The game's client uses [Godotcord](https://github.com/Drachenfrucht1/godotcord)
+to integrate Discord's GameSDK, so make sure to install it if you're going to
+make modifications or export the game on your own. There are pre-built export
+templates in `Top Down Survival/bin` which you can access after running
+`git lfs pull`.
 
 If you're just here to play the game and nothing else, you can download the
 pre-built binaries from the Releases tab or from the
