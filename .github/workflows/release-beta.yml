@@ -36,11 +36,11 @@ jobs:
         run: |
           wget "https://gdcord.topdownsurvival.tk/${GODOT_VERSION}.zip"
           unzip ${GODOT_VERSION}.zip
-          cp discord_libs/libdiscord_game_sdk.so ${GODOT_VERSION}
+          cp "${GODOT_VERSION}/Godotcord-${GODOT_VERSION}-headless" ./godot
+          cp discord_libs/libdiscord_game_sdk.so .
       
       - name: MacOS Build
         run: |
-          alias godot="${GODOT_VERSION}/Godotcord-${GODOT_VERSION}-headless"
           mkdir -v -p "${CLIENT_PATH}/exports"
           cd "${CLIENT_PATH}"
           godot -v --export "MacOS" exports/MacOS.zip
@@ -52,7 +52,6 @@ jobs:
       
       - name: Windows Build
         run: |
-          alias godot="${GODOT_VERSION}/Godotcord-${GODOT_VERSION}-headless"
           mkdir -v -p "${CLIENT_PATH}/exports/Windows"
           cd "${CLIENT_PATH}"
           godot -v --export "Windows Desktop" "exports/Windows/${CLIENT_PATH}.exe"
@@ -62,7 +61,6 @@ jobs:
       
       - name: Linux Build
         run: |
-          alias godot="${GODOT_VERSION}/Godotcord-${GODOT_VERSION}-headless"
           mkdir -v -p "${CLIENT_PATH}/exports/Linux"
           cd "${CLIENT_PATH}"
           godot -v --export "Linux/X11" "exports/Linux/${CLIENT_PATH}.x86_64"
@@ -120,19 +118,17 @@ jobs:
         run: |
           wget "https://gdcord.topdownsurvival.tk/${GODOT_VERSION}.zip"
           unzip ${GODOT_VERSION}.zip
-          alias godot="${GODOT_VERSION}/Godotcord-${GODOT_VERSION}-headless"
-          cp discord_libs/libdiscord_game_sdk.so ${GODOT_VERSION}
+          cp "${GODOT_VERSION}/Godotcord-${GODOT_VERSION}-headless" ./godot
+          cp discord_libs/libdiscord_game_sdk.so .
       
       - name: MacOS Build
         run: |
-          alias godot="${GODOT_VERSION}/Godotcord-${GODOT_VERSION}-headless"
           mkdir -v -p "${SERVER_PATH}/exports"
           cd "${SERVER_PATH}"
           godot -v --export "MacOS" exports/MacOS.zip
       
       - name: Windows Build
         run: |
-          alias godot="${GODOT_VERSION}/Godotcord-${GODOT_VERSION}-headless"
           mkdir -v -p "${SERVER_PATH}/exports/Windows"
           cd "${SERVER_PATH}"
           godot -v --export "Windows Desktop" "exports/Windows/${SERVER_PATH}.exe"
@@ -140,7 +136,6 @@ jobs:
       
       - name: Linux Build
         run: |
-          alias godot="${GODOT_VERSION}/Godotcord-${GODOT_VERSION}-headless"
           mkdir -v -p "${SERVER_PATH}/exports/Linux"
           cd "${SERVER_PATH}"
           godot -v --export "Linux/X11" "exports/Linux/${SERVER_PATH}.x86_64"
