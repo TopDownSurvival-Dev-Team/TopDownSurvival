@@ -5,7 +5,7 @@ signal player_left_game(player_id)
 
 var network = NetworkedMultiplayerENet.new()
 var port = 8000
-var max_players = 4
+var max_players = 10
 
 var players = {}
 var ready_players = []
@@ -62,7 +62,9 @@ remote func request_game_data(token: String):
     if player_info:
         players[id] = player_info
         rset("players", players)
+        rpc("update_discord_rpc", get_peer_count(), max_players)
         emit_signal("player_joined_game", id)
+
     else:
         print("Kicking player %s because they did not verify their token" % id)
         network.disconnect_peer(id)

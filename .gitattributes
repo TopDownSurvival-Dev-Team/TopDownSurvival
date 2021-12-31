@@ -1,0 +1,5 @@
+Top[[:space:]]Down[[:space:]]Survival/bin/export_templates/linux_x11_64_debug filter=lfs diff=lfs merge=lfs -text
+Top[[:space:]]Down[[:space:]]Survival/bin/export_templates/linux_x11_64_release filter=lfs diff=lfs merge=lfs -text
+Top[[:space:]]Down[[:space:]]Survival/bin/export_templates/osx.zip filter=lfs diff=lfs merge=lfs -text
+Top[[:space:]]Down[[:space:]]Survival/bin/export_templates/windows_64_debug.exe filter=lfs diff=lfs merge=lfs -text
+Top[[:space:]]Down[[:space:]]Survival/bin/export_templates/windows_64_release.exe filter=lfs diff=lfs merge=lfs -text

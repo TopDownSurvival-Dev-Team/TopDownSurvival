@@ -1,6 +1,8 @@
 extends Node
 
 const DATA_PATH = "res://data"
+const PLAYER_REACH = 128
+
 var item_data: Dictionary
 
 
@@ -13,8 +15,8 @@ func _ready():
     file.close()
 
     # Connect signals
-    Network.connect("player_joined_game", self, "send_game_data")
+    Network.connect("player_joined_game", self, "send_game_data_s")
 
 
-func send_game_data(player_id: int):
-    rpc_id(player_id, "send_item_data", item_data)
+func send_game_data_s(player_id: int):
+    rpc_id(player_id, "send_game_data", item_data, PLAYER_REACH)

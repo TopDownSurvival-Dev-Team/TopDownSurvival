@@ -1,7 +1,9 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://assets/tree/tree.png" type="Texture" id=1]
 [ext_resource path="res://src/scripts/game_scripts/Tree.gd" type="Script" id=2]
+[ext_resource path="res://assets/sounds/sfx/tree/damage/damage.wav" type="AudioStream" id=3]
+[ext_resource path="res://assets/sounds/sfx/tree/break/break.wav" type="AudioStream" id=4]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 48.8599
@@ -9,9 +11,7 @@ radius = 48.8599
 [sub_resource type="StyleBoxFlat" id=2]
 bg_color = Color( 0.203922, 0.713726, 0.141176, 1 )
 
-[node name="Tree" type="StaticBody2D" groups=[
-"Attackable",
-]]
+[node name="Tree" type="StaticBody2D" groups=["Attackable"]]
 light_mask = 0
 z_index = 2
 collision_layer = 4
@@ -43,4 +43,20 @@ __meta__ = {
 wait_time = 3.0
 one_shot = true
 
+[node name="DamageSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 3 )
+max_distance = 1000.0
+attenuation = 2.0
+bus = "SFX"
+area_mask = 0
+
+[node name="BreakSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 4 )
+volume_db = 10.0
+max_distance = 1000.0
+attenuation = 2.0
+bus = "SFX"
+area_mask = 0
+
 [connection signal="timeout" from="HealthBarShowTimer" to="." method="_on_HealthBarShowTimer_timeout"]
+[connection signal="finished" from="BreakSFX" to="." method="_on_BreakSFX_finished"]

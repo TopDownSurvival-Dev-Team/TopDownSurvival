@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://assets/sounds/sfx/blocks/place/place.wav" type="AudioStream" id=1]
+
+[node name="BlockPlaceSFX" type="AudioStreamPlayer2D"]
+stream = ExtResource( 1 )
+max_distance = 625.0
+attenuation = 2.0
+bus = "SFX"
+area_mask = 0

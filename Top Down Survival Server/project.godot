@@ -37,6 +37,10 @@ Database="*res://src/scripts/Database.gd"
 GameData="*res://src/scripts/GameData.gd"
 GameServerHub="*res://src/scripts/GameServerHub.gd"
 
+[network]
+
+ssl/certificates="res://assets/certificates/TopDownSurvival-Gateway-Cert.crt"
+
 [physics]
 
 common/enable_pause_aware_picking=true

@@ -1,13 +1,13 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://src/scripts/ui_scripts/Register.gd" type="Script" id=1]
 [ext_resource path="res://src/animations/Gateway Connecting Animation.tres" type="Animation" id=2]
+[ext_resource path="res://src/themes/MainTheme.tres" type="Theme" id=3]
 
-[node name="Register" type="Control" groups=[
-"Register",
-]]
+[node name="Register" type="Control" groups=["Register"]]
 anchor_right = 1.0
 anchor_bottom = 1.0
+theme = ExtResource( 3 )
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -16,7 +16,7 @@ __meta__ = {
 [node name="Background" type="ColorRect" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-color = Color( 0.0431373, 0.431373, 0.101961, 1 )
+color = Color( 0.117647, 0.152941, 0.160784, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -29,88 +29,89 @@ __meta__ = {
 }
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
-margin_left = 362.0
-margin_top = 210.0
-margin_right = 662.0
-margin_bottom = 389.0
+margin_left = 287.0
+margin_top = 200.0
+margin_right = 737.0
+margin_bottom = 399.0
 grow_horizontal = 2
 grow_vertical = 2
-rect_min_size = Vector2( 300, 0 )
+rect_min_size = Vector2( 450, 0 )
 custom_constants/separation = 15
 alignment = 1
 
 [node name="RegisterTitle" type="Label" parent="CenterContainer/VBoxContainer"]
-margin_right = 300.0
-margin_bottom = 14.0
+margin_right = 450.0
+margin_bottom = 20.0
 text = "Register"
 align = 1
 valign = 1
 uppercase = true
 
 [node name="Fields" type="GridContainer" parent="CenterContainer/VBoxContainer"]
-margin_top = 29.0
-margin_right = 300.0
-margin_bottom = 109.0
+margin_top = 35.0
+margin_right = 450.0
+margin_bottom = 129.0
+custom_constants/vseparation = 8
 columns = 2
 
 [node name="UsernameLabel" type="Label" parent="CenterContainer/VBoxContainer/Fields"]
-margin_top = 5.0
-margin_right = 70.0
-margin_bottom = 19.0
+margin_top = 3.0
+margin_right = 94.0
+margin_bottom = 23.0
 text = "Username:"
 valign = 1
 
 [node name="UsernameField" type="LineEdit" parent="CenterContainer/VBoxContainer/Fields"]
-margin_left = 74.0
-margin_right = 300.0
-margin_bottom = 24.0
+margin_left = 98.0
+margin_right = 450.0
+margin_bottom = 26.0
 size_flags_horizontal = 3
 placeholder_text = "gamer420"
 
 [node name="EmailLabel" type="Label" parent="CenterContainer/VBoxContainer/Fields"]
-margin_top = 33.0
-margin_right = 70.0
-margin_bottom = 47.0
+margin_top = 37.0
+margin_right = 94.0
+margin_bottom = 57.0
 text = "Email:"
 valign = 1
 
 [node name="EmailField" type="LineEdit" parent="CenterContainer/VBoxContainer/Fields"]
-margin_left = 74.0
-margin_top = 28.0
-margin_right = 300.0
-margin_bottom = 52.0
+margin_left = 98.0
+margin_top = 34.0
+margin_right = 450.0
+margin_bottom = 60.0
 size_flags_horizontal = 3
 placeholder_text = "example@mail.com"
 
 [node name="PasswordLabel" type="Label" parent="CenterContainer/VBoxContainer/Fields"]
-margin_top = 61.0
-margin_right = 70.0
-margin_bottom = 75.0
+margin_top = 71.0
+margin_right = 94.0
+margin_bottom = 91.0
 text = "Password:"
 valign = 1
 
 [node name="PasswordField" type="LineEdit" parent="CenterContainer/VBoxContainer/Fields"]
-margin_left = 74.0
-margin_top = 56.0
-margin_right = 300.0
-margin_bottom = 80.0
+margin_left = 98.0
+margin_top = 68.0
+margin_right = 450.0
+margin_bottom = 94.0
 size_flags_horizontal = 3
 secret = true
 placeholder_text = "p@$$w0rd"
 
 [node name="RegisterButton" type="Button" parent="CenterContainer/VBoxContainer"]
-margin_top = 124.0
-margin_right = 300.0
-margin_bottom = 144.0
+margin_top = 144.0
+margin_right = 450.0
+margin_bottom = 164.0
 text = "Register"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="LoginSceneButton" type="Button" parent="CenterContainer/VBoxContainer"]
-margin_top = 159.0
-margin_right = 300.0
-margin_bottom = 179.0
+margin_top = 179.0
+margin_right = 450.0
+margin_bottom = 199.0
 text = "Already have an account?"
 flat = true
 __meta__ = {

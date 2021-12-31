@@ -10,6 +10,10 @@ const WORLD_SCENE_PATH = "res://src/scenes/game_scenes/World.tscn"
 
 var network: NetworkedMultiplayerENet
 var local_player_id = 0
+var game_start_time: int
+
+var address: String
+var port: int
 var token: String
 var token_verified = false
 
@@ -30,7 +34,9 @@ func _ready():
     _error = get_tree().connect("server_disconnected", self, "_server_disconnected")
 
 
-func connect_to_server(address: String, port: int, _token: String):
+func connect_to_server(_address: String, _port: int, _token: String):
+    address = _address
+    port = _port
     token = _token
 
     network = NetworkedMultiplayerENet.new()
@@ -82,9 +88,15 @@ remote func token_verified_successfully():
     print("Token verified")
     token_verified = true
     local_player_id = get_tree().get_network_unique_id()
+    game_start_time = OS.get_unix_time()
 
     # Start game world
     print("Starting game")
     var _error = get_tree().change_scene(WORLD_SCENE_PATH)
 
     rpc_id(1, "request_game_data", token)
+
+
+remote func update_discord_rpc(current_players: int, max_players: int):
+    var username = players[local_player_id]["username"]
+    RPCManager.set_activity_game(address, port, username, current_players, max_players)

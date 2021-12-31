@@ -1,5 +1,7 @@
 extends Control
 
+signal item_selected(item_id)
+
 export var preview: bool = false
 var item_id: String
 var quantity: int
@@ -31,3 +33,7 @@ func _ready():
 func set_quantity(new_quantity: int):
     quantity = new_quantity
     info_label.text = "%s (x%s)" % [item_name, quantity]
+
+
+func _on_InventoryRow_pressed():
+    emit_signal("item_selected", item_id)

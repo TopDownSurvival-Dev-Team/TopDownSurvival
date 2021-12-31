@@ -2,7 +2,7 @@ extends Node
 
 var network: NetworkedMultiplayerENet
 var game_server_api: MultiplayerAPI
-const HUB_ADDRESS = "tds-gateway.ddns.net"  # Same as gateway address
+const HUB_ADDRESS = "gateway.topdownsurvival.tk"  # Same as gateway address
 const HUB_PORT = 8002
 const TOKEN_EXPIRE_TIME = 10
 var cert = load("res://assets/certificates/TopDownSurvival-Gateway-Cert.crt")
@@ -35,7 +35,6 @@ func connect_to_hub():
 
     # Setup DTLS encryption
     network.set_dtls_enabled(true)
-    network.set_dtls_verify_enabled(false)  # using self signed certs for now
     network.set_dtls_certificate(cert)
 
     # Setup custom MultiplayerAPI
@@ -53,7 +52,7 @@ func _connection_successful():
 func _connection_failed():
     if connection_attempts >= 3:
         print("Unable to connect to Game Server Hub, exiting...")
-        get_tree().quit()
+        get_tree().notification(MainLoop.NOTIFICATION_WM_QUIT_REQUEST)
     else:
         print("Failed to connect to Game Server Hub. Trying again...")
         connect_to_hub()
@@ -100,4 +99,4 @@ remote func receive_verification_info(token: String, player_info: Dictionary):
 remote func duplicate_connection():
     # FIXME
     print("Duplicate connection! Exiting...")
-    get_tree().quit()
+    get_tree().notification(MainLoop.NOTIFICATION_WM_QUIT_REQUEST)

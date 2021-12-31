@@ -1,7 +1,7 @@
 extends Node
 
 const SQLite = preload("res://addons/godot-sqlite/bin/gdsqlite.gdns")
-const DB_PATH = "res://data/database"
+const DB_PATH = "user://database"
 
 var db = SQLite.new()
 
@@ -34,6 +34,44 @@ func create_tables():
             entity_info	TEXT NOT NULL DEFAULT "{}"
         )
     """)
+
+    db.query("""
+        CREATE TABLE IF NOT EXISTS player_positions (
+            player_uid	TEXT NOT NULL,
+            x_position	INTEGER NOT NULL,
+            y_position	INTEGER NOT NULL
+        )
+    """)
+
+
+func get_player_position(player_uid: String):  # Vector2 or null
+    db.query("""
+        SELECT x_position, y_position
+        FROM player_positions
+        WHERE player_uid = \"%s\"
+    """ % player_uid)
+    
+    if db.query_result:
+        var x = db.query_result[0]["x_position"]
+        var y = db.query_result[0]["y_position"]
+        return Vector2(x, y)
+    return null
+
+
+func set_player_position(player_uid: String, position: Vector2):
+    var current_pos = get_player_position(player_uid)
+
+    if current_pos:
+        db.query("""
+            UPDATE player_positions
+            SET x_position = %s, y_position = %s
+            WHERE player_uid = \"%s\"
+        """ % [position.x, position.y, player_uid])
+    else:
+        db.query("""
+            INSERT INTO player_positions
+            VALUES (\"%s\", %s, %s)
+        """ % [player_uid, position.x, position.y])
 
 
 func get_world_data() -> Array:
@@ -75,9 +113,16 @@ func get_inventory(player_uid: String) -> Array:
 
 func create_new_item(player_uid: String, item_id: String, quantity: int):
     db.query("""
-        INSERT INTO inventories (player_uid, item_id, quantity)
+        INSERT INTO inventories
         VALUES (\"%s\", \"%s\", %s)
     """ % [player_uid, item_id, quantity])
+
+
+func remove_item(player_uid: String, item_id: String):
+    db.query("""
+        DELETE FROM inventories
+        WHERE player_uid = \"%s\" AND item_id = \"%s\"
+    """ % [player_uid, item_id])
 
 
 func get_item_quantity(player_uid: String, item_id: String):  # int or null

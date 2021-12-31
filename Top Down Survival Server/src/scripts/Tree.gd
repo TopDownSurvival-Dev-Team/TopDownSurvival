@@ -3,8 +3,8 @@ class_name GameTree
 
 signal on_break(tree)
 
-const MAX_WOOD_DROP = 5
-const MIN_WOOD_DROP = 2
+const MAX_WOOD_DROP = 6
+const MIN_WOOD_DROP = 3
 const ITEM_DROP = "10001"
 
 var health = 100
