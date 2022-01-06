@@ -31,13 +31,14 @@ __meta__ = {
 [node name="V" type="VBoxContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_left = 3.0
 margin_top = 3.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Label" type="Label" parent="V"]
-margin_right = 320.0
+margin_right = 317.0
 margin_bottom = 26.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -50,7 +51,7 @@ valign = 1
 
 [node name="SC" type="ScrollContainer" parent="V"]
 margin_top = 30.0
-margin_right = 320.0
+margin_right = 317.0
 margin_bottom = 150.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -60,34 +61,34 @@ __meta__ = {
 }
 
 [node name="RowContainer" type="VBoxContainer" parent="V/SC"]
-margin_right = 308.0
+margin_right = 305.0
 margin_bottom = 140.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Inv1" parent="V/SC/RowContainer" instance=ExtResource( 3 )]
 anchor_right = 0.0
-margin_right = 308.0
+margin_right = 305.0
 margin_bottom = 32.0
 preview = true
 
 [node name="Inv2" parent="V/SC/RowContainer" instance=ExtResource( 3 )]
 anchor_right = 0.0
 margin_top = 36.0
-margin_right = 308.0
+margin_right = 305.0
 margin_bottom = 68.0
 preview = true
 
 [node name="Inv3" parent="V/SC/RowContainer" instance=ExtResource( 3 )]
 anchor_right = 0.0
 margin_top = 72.0
-margin_right = 308.0
+margin_right = 305.0
 margin_bottom = 104.0
 preview = true
 
 [node name="Inv4" parent="V/SC/RowContainer" instance=ExtResource( 3 )]
 anchor_right = 0.0
 margin_top = 108.0
-margin_right = 308.0
+margin_right = 305.0
 margin_bottom = 140.0
 preview = true

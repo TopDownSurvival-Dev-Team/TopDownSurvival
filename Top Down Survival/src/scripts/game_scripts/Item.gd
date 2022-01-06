@@ -11,7 +11,7 @@ var dropped: bool
 var pick_up_sfx = PICK_UP_SFX_SCENE.instance()
 var drop_sfx = DROP_SFX_SCENE.instance()
 
-onready var collision_shape = get_node("CollisionShape2D")
+onready var collision_shape = $Collider
 
 
 func init(scene_name: String, _item_id: String, _quantity: int, _dropped: bool):

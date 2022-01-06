@@ -247,7 +247,7 @@ func spawn_item_s(item_id: String, quantity: int, item_position: Vector2, droppe
     var new_item = ITEM_SCENE.instance()
 
     # Gather item info
-    var item_type = GameData.item_data[item_id]["name"]
+    var item_type = GameData.item_data[item_id]["name"].capitalize().replace(" ", "")
     var scene_id = randi() % MAX_ITEM_COUNT
     var scene_name = str(item_type) + "-" + str(scene_id)
 
@@ -268,7 +268,7 @@ func spawn_item_s(item_id: String, quantity: int, item_position: Vector2, droppe
 
 
 func despawn_item_s(item_id: String, scene_id: int):
-    var item_type = GameData.item_data[item_id]["name"]
+    var item_type = GameData.item_data[item_id]["name"].capitalize().replace(" ", "")
     var scene_name = str(item_type) + "-" + str(scene_id)
     var item = items.get_node(scene_name)
     items.remove_child(item)
