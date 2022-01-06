@@ -24,7 +24,7 @@ func _ready():
 
     info_label.text = "%s (x%s)" % [item_name, quantity]
 
-    var lower_name = item_name.to_lower()
+    var lower_name = item_name.to_lower().split(" ").join("_")
     var image_path = "res://assets/items/%s/%s.png" % [lower_name, lower_name]
     var image = load(image_path)
     icon.texture = image
