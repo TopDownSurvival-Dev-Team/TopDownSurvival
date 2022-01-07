@@ -1,8 +1,7 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://assets/items/test_item/test_item.png" type="Texture" id=1]
 [ext_resource path="res://src/scripts/ui_scripts/templates/InventoryRow.gd" type="Script" id=3]
-[ext_resource path="res://src/dynamic_fonts/Pixellari_20.tres" type="DynamicFont" id=4]
 
 [node name="InventoryRow" type="Button"]
 anchor_right = 1.0
@@ -39,7 +38,6 @@ margin_bottom = 32.0
 rect_min_size = Vector2( 0, 32 )
 size_flags_horizontal = 3
 size_flags_vertical = 5
-custom_fonts/font = ExtResource( 4 )
 text = "Item Name (x1)"
 valign = 1
 
