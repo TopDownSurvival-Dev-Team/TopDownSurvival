@@ -26,8 +26,8 @@ func _ready():
     while file_name != "":
         if not dir.current_is_dir():
             file.open("%s/%s" % [RECIPE_DATA_PATH, file_name], File.READ)
-            recipe_data.resize(len(recipe_data) + 1)
             var recipe_level = file_name.replace("level_", "").replace(".json", "").to_int()
+            recipe_data.resize(max(len(recipe_data), recipe_level + 1))
             var recipes = parse_json(file.get_as_text())
             recipe_data[recipe_level] = recipes
             file.close()
