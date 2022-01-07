@@ -1,0 +1,68 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://src/scenes/ui_scenes/Inventory.tscn" type="PackedScene" id=1]
+[ext_resource path="res://src/scripts/ui_scripts/CraftingMenu.gd" type="Script" id=2]
+[ext_resource path="res://src/themes/MainTheme.tres" type="Theme" id=3]
+[ext_resource path="res://src/dynamic_fonts/Pixellari_25.tres" type="DynamicFont" id=4]
+
+[node name="CraftingMenu" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 3 )
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 0.392157 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="H" type="HBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Inventory" parent="H" instance=ExtResource( 1 )]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 0.0
+margin_top = 0.0
+margin_right = 510.0
+margin_bottom = 600.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Recipes" type="VBoxContainer" parent="H"]
+margin_left = 514.0
+margin_right = 1024.0
+margin_bottom = 600.0
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="H/Recipes"]
+margin_right = 510.0
+margin_bottom = 26.0
+custom_fonts/font = ExtResource( 4 )
+text = "Recipes"
+align = 1
+valign = 1
+
+[node name="SC" type="ScrollContainer" parent="H/Recipes"]
+margin_top = 30.0
+margin_right = 510.0
+margin_bottom = 600.0
+size_flags_vertical = 3
+
+[node name="V" type="VBoxContainer" parent="H/Recipes/SC"]
+margin_right = 510.0
+margin_bottom = 570.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
