@@ -18,7 +18,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 rect_min_size = Vector2( 0, 50 )
 size_flags_horizontal = 3
-custom_constants/separation = 10
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -32,15 +31,15 @@ expand = true
 stretch_mode = 5
 
 [node name="V" type="VBoxContainer" parent="H"]
-margin_left = 60.0
-margin_right = 964.0
+margin_left = 54.0
+margin_right = 970.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 0, 50 )
 size_flags_horizontal = 3
 custom_constants/separation = 0
 
 [node name="ItemNameLabel" type="Label" parent="H/V"]
-margin_right = 904.0
+margin_right = 916.0
 margin_bottom = 25.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -49,7 +48,7 @@ valign = 1
 
 [node name="IngredientsLabel" type="Label" parent="H/V"]
 margin_top = 25.0
-margin_right = 904.0
+margin_right = 916.0
 margin_bottom = 50.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
