@@ -1,7 +1,6 @@
 extends Node
 
 const CREDS_FILE = "user://credentials.json"
-var aes = AESContext.new()
 
 
 func _ready():
