@@ -127,44 +127,52 @@ margin_right = 507.0
 margin_bottom = 564.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+custom_constants/separation = 15
 
 [node name="RecipeRow" parent="H/Recipes/SC/V" instance=ExtResource( 5 )]
 anchor_right = 0.0
+anchor_bottom = 0.0
 margin_right = 507.0
-margin_bottom = 32.0
+margin_bottom = 50.0
 
 [node name="RecipeRow2" parent="H/Recipes/SC/V" instance=ExtResource( 5 )]
 anchor_right = 0.0
-margin_top = 36.0
+anchor_bottom = 0.0
+margin_top = 65.0
 margin_right = 507.0
-margin_bottom = 68.0
+margin_bottom = 115.0
 
 [node name="RecipeRow3" parent="H/Recipes/SC/V" instance=ExtResource( 5 )]
 anchor_right = 0.0
-margin_top = 72.0
+anchor_bottom = 0.0
+margin_top = 130.0
 margin_right = 507.0
-margin_bottom = 104.0
+margin_bottom = 180.0
 
 [node name="RecipeRow4" parent="H/Recipes/SC/V" instance=ExtResource( 5 )]
 anchor_right = 0.0
-margin_top = 108.0
+anchor_bottom = 0.0
+margin_top = 195.0
 margin_right = 507.0
-margin_bottom = 140.0
+margin_bottom = 245.0
 
 [node name="RecipeRow5" parent="H/Recipes/SC/V" instance=ExtResource( 5 )]
 anchor_right = 0.0
-margin_top = 144.0
+anchor_bottom = 0.0
+margin_top = 260.0
 margin_right = 507.0
-margin_bottom = 176.0
+margin_bottom = 310.0
 
 [node name="RecipeRow6" parent="H/Recipes/SC/V" instance=ExtResource( 5 )]
 anchor_right = 0.0
-margin_top = 180.0
+anchor_bottom = 0.0
+margin_top = 325.0
 margin_right = 507.0
-margin_bottom = 212.0
+margin_bottom = 375.0
 
 [node name="RecipeRow7" parent="H/Recipes/SC/V" instance=ExtResource( 5 )]
 anchor_right = 0.0
-margin_top = 216.0
+anchor_bottom = 0.0
+margin_top = 390.0
 margin_right = 507.0
-margin_bottom = 248.0
+margin_bottom = 440.0
