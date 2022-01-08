@@ -122,7 +122,7 @@ grow_horizontal = 2
 grow_vertical = 2
 rect_min_size = Vector2( 3, 0 )
 size_flags_vertical = 3
-color = Color( 0, 0, 0, 1 )
+color = Color( 0, 0, 0, 0.392157 )
 
 [node name="Recipes" type="VBoxContainer" parent="H"]
 margin_left = 311.0

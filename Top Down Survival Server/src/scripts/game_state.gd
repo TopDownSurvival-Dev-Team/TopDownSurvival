@@ -13,6 +13,8 @@ var world_loaded = false
 var block_data = {}
 
 onready var inventory = $HUD/Inventory
+onready var crafting_menu = $HUD/CraftingMenu
+
 onready var blocks = $Blocks
 onready var players = $Players
 onready var trees = $Trees
@@ -337,9 +339,10 @@ remote func request_block_change(block_id: String, world_position: Vector2, dest
 
         else:
             var map_position = blocks.world_to_map(world_position / blocks.scale)
+            var existing_block = block_data.get(map_position)
 
             # Don't do anything if theres already a block at the position
-            if not block_data.get(map_position):
+            if not existing_block:
                 var item_data = GameData.item_data[block_id]
                 var current_quantity = Database.get_item_quantity(player_uid, block_id)
 
@@ -347,3 +350,10 @@ remote func request_block_change(block_id: String, world_position: Vector2, dest
                 if item_data["type"] == "Block" and current_quantity:
                     spawn_block_s(block_id, world_position, true)
                     inventory.remove_item_s(sender_id, block_id, 1)
+
+            else:  # Check if player clicked on a crafting block
+                var item_data = GameData.item_data[existing_block]
+
+                if item_data["category"] == "Crafting":
+                    var crafting_level = item_data["crafting_level"]
+                    crafting_menu.show_menu_s(sender_id, crafting_level)

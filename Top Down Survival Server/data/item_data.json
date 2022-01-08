@@ -12,6 +12,7 @@
     "10002": {
         "name": "Crafting Bench",
         "category": "Crafting",
-        "type": "Block"
+        "type": "Block",
+        "crafting_level": 0
     }
 }

@@ -12,6 +12,16 @@ func _ready():
     clear_all_items()
 
 
+func _input(event: InputEvent):
+    if visible and event.is_action_pressed("ui_cancel"):
+        close_menu()
+
+
+func close_menu():
+    rpc_id(1, "close_menu_s")
+    visible = false
+
+
 func clear_all_items():
     for node in inventory_container.get_children():
         inventory_container.remove_child(node)
@@ -33,6 +43,8 @@ remote func show_menu(inventory_data: Array, recipes: Dictionary):
     for item_id in recipes:
         var ingredients = recipes[item_id]
         add_recipe_item(item_id, ingredients)
+
+    visible = true
 
 
 func add_inventory_item(item_id: String, quantity: int):
