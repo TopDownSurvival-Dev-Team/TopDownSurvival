@@ -7,8 +7,14 @@
 [ext_resource path="res://src/scenes/ui_scenes/templates/RecipeRow.tscn" type="PackedScene" id=5]
 
 [node name="CraftingMenu" type="Control"]
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchor_left = 0.068
+anchor_top = 0.083
+anchor_right = 0.932
+anchor_bottom = 0.917
+margin_left = 0.367996
+margin_top = 0.199997
+margin_right = -0.368042
+margin_bottom = -0.200012
 theme = ExtResource( 3 )
 script = ExtResource( 2 )
 __meta__ = {
@@ -35,12 +41,12 @@ __meta__ = {
 }
 
 [node name="Inventory" type="VBoxContainer" parent="H"]
-margin_right = 507.0
-margin_bottom = 594.0
-size_flags_horizontal = 3
+margin_right = 300.0
+margin_bottom = 494.0
+rect_min_size = Vector2( 300, 0 )
 
 [node name="Label" type="Label" parent="H/Inventory"]
-margin_right = 507.0
+margin_right = 300.0
 margin_bottom = 26.0
 custom_fonts/font = ExtResource( 4 )
 text = "Inventory"
@@ -49,66 +55,83 @@ valign = 1
 
 [node name="SC" type="ScrollContainer" parent="H/Inventory"]
 margin_top = 30.0
-margin_right = 507.0
-margin_bottom = 594.0
+margin_right = 300.0
+margin_bottom = 494.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="V" type="VBoxContainer" parent="H/Inventory/SC"]
-margin_right = 507.0
-margin_bottom = 564.0
+margin_right = 300.0
+margin_bottom = 464.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="InventoryRow" parent="H/Inventory/SC/V" instance=ExtResource( 1 )]
 anchor_right = 0.0
-margin_right = 507.0
+margin_right = 300.0
 margin_bottom = 32.0
+preview = true
 
 [node name="InventoryRow2" parent="H/Inventory/SC/V" instance=ExtResource( 1 )]
 anchor_right = 0.0
 margin_top = 36.0
-margin_right = 507.0
+margin_right = 300.0
 margin_bottom = 68.0
+preview = true
 
 [node name="InventoryRow3" parent="H/Inventory/SC/V" instance=ExtResource( 1 )]
 anchor_right = 0.0
 margin_top = 72.0
-margin_right = 507.0
+margin_right = 300.0
 margin_bottom = 104.0
+preview = true
 
 [node name="InventoryRow4" parent="H/Inventory/SC/V" instance=ExtResource( 1 )]
 anchor_right = 0.0
 margin_top = 108.0
-margin_right = 507.0
+margin_right = 300.0
 margin_bottom = 140.0
+preview = true
 
 [node name="InventoryRow5" parent="H/Inventory/SC/V" instance=ExtResource( 1 )]
 anchor_right = 0.0
 margin_top = 144.0
-margin_right = 507.0
+margin_right = 300.0
 margin_bottom = 176.0
+preview = true
 
 [node name="InventoryRow6" parent="H/Inventory/SC/V" instance=ExtResource( 1 )]
 anchor_right = 0.0
 margin_top = 180.0
-margin_right = 507.0
+margin_right = 300.0
 margin_bottom = 212.0
+preview = true
 
 [node name="InventoryRow7" parent="H/Inventory/SC/V" instance=ExtResource( 1 )]
 anchor_right = 0.0
 margin_top = 216.0
-margin_right = 507.0
+margin_right = 300.0
 margin_bottom = 248.0
+preview = true
+
+[node name="Divider" type="ColorRect" parent="H"]
+margin_left = 304.0
+margin_right = 307.0
+margin_bottom = 494.0
+grow_horizontal = 2
+grow_vertical = 2
+rect_min_size = Vector2( 3, 0 )
+size_flags_vertical = 3
+color = Color( 0, 0, 0, 1 )
 
 [node name="Recipes" type="VBoxContainer" parent="H"]
-margin_left = 511.0
-margin_right = 1018.0
-margin_bottom = 594.0
+margin_left = 311.0
+margin_right = 878.0
+margin_bottom = 494.0
 size_flags_horizontal = 3
 
 [node name="Label" type="Label" parent="H/Recipes"]
-margin_right = 507.0
+margin_right = 567.0
 margin_bottom = 26.0
 custom_fonts/font = ExtResource( 4 )
 text = "Recipes"
@@ -117,14 +140,14 @@ valign = 1
 
 [node name="SC" type="ScrollContainer" parent="H/Recipes"]
 margin_top = 30.0
-margin_right = 507.0
-margin_bottom = 594.0
+margin_right = 567.0
+margin_bottom = 494.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="V" type="VBoxContainer" parent="H/Recipes/SC"]
-margin_right = 507.0
-margin_bottom = 564.0
+margin_right = 567.0
+margin_bottom = 464.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 12
@@ -132,47 +155,54 @@ custom_constants/separation = 12
 [node name="RecipeRow" parent="H/Recipes/SC/V" instance=ExtResource( 5 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_right = 507.0
+margin_right = 567.0
 margin_bottom = 50.0
+preview = true
 
 [node name="RecipeRow2" parent="H/Recipes/SC/V" instance=ExtResource( 5 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_top = 62.0
-margin_right = 507.0
+margin_right = 567.0
 margin_bottom = 112.0
+preview = true
 
 [node name="RecipeRow3" parent="H/Recipes/SC/V" instance=ExtResource( 5 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_top = 124.0
-margin_right = 507.0
+margin_right = 567.0
 margin_bottom = 174.0
+preview = true
 
 [node name="RecipeRow4" parent="H/Recipes/SC/V" instance=ExtResource( 5 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_top = 186.0
-margin_right = 507.0
+margin_right = 567.0
 margin_bottom = 236.0
+preview = true
 
 [node name="RecipeRow5" parent="H/Recipes/SC/V" instance=ExtResource( 5 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_top = 248.0
-margin_right = 507.0
+margin_right = 567.0
 margin_bottom = 298.0
+preview = true
 
 [node name="RecipeRow6" parent="H/Recipes/SC/V" instance=ExtResource( 5 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_top = 310.0
-margin_right = 507.0
+margin_right = 567.0
 margin_bottom = 360.0
+preview = true
 
 [node name="RecipeRow7" parent="H/Recipes/SC/V" instance=ExtResource( 5 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_top = 372.0
-margin_right = 507.0
+margin_right = 567.0
 margin_bottom = 422.0
+preview = true
