@@ -3,8 +3,6 @@ extends CanvasLayer
 signal focus_entered
 signal focus_exited
 
-onready var inventory = $Inventory
-
 
 func _ready():
     for node in get_children():
