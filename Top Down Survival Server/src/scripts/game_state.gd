@@ -290,6 +290,9 @@ func on_item_picked_up(item: Item, player_id: int):
 
 
 func on_item_dropped(item_id: String, quantity: int, player_id: int):
+    if not item_id:
+        return
+
     var player: Node2D = players.get_node(str(player_id))
     var player_position = player.global_position
 
@@ -342,7 +345,7 @@ remote func request_block_change(block_id: String, world_position: Vector2, dest
             var existing_block = block_data.get(map_position)
 
             # Don't do anything if theres already a block at the position
-            if not existing_block:
+            if not existing_block and block_id:
                 var item_data = GameData.item_data[block_id]
                 var current_quantity = Database.get_item_quantity(player_uid, block_id)
 
@@ -352,8 +355,8 @@ remote func request_block_change(block_id: String, world_position: Vector2, dest
                     inventory.remove_item_s(sender_id, block_id, 1)
 
             else:  # Check if player clicked on a crafting block
-                var item_data = GameData.item_data[existing_block]
+                var item_data = GameData.item_data.get(existing_block)
 
-                if item_data["category"] == "Crafting":
+                if item_data and item_data["category"] == "Crafting":
                     var crafting_level = item_data["crafting_level"]
                     crafting_menu.show_menu_s(sender_id, crafting_level)

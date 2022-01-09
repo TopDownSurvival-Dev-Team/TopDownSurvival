@@ -2,7 +2,7 @@ extends Control
 
 const INVENTORY_ROW_SCENE = preload("res://src/scenes/ui_scenes/templates/InventoryRow.tscn")
 
-var selected_item_id: String
+var selected_item_id = ""
 
 onready var row_container = $V/SC/RowContainer
 

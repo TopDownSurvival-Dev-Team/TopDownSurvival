@@ -34,11 +34,7 @@ func _input(event: InputEvent):
 
         elif event.is_action_pressed("use"):
             var item_id = hud.inventory.selected_item_id
-            if item_id:
-                var item_data = GameData.item_data[item_id]
-
-                if item_data["type"] == "Block":
-                    rpc_id(1, "request_block_change", item_id, mouse_position, false)
+            rpc_id(1, "request_block_change", item_id, mouse_position, false)
 
 
 
