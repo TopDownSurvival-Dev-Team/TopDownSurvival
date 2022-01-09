@@ -57,9 +57,11 @@ size_flags_vertical = 3
 text = "(Ingredient 1 x69, Ingredient 2 x420)"
 valign = 1
 
-[node name="Button" type="Button" parent="H"]
+[node name="CraftButton" type="Button" parent="H"]
 margin_left = 974.0
 margin_right = 1024.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 50, 50 )
 text = "Craft"
+
+[connection signal="pressed" from="H/CraftButton" to="." method="_on_CraftButton_pressed"]

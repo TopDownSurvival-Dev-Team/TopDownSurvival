@@ -41,6 +41,7 @@ func remove_item_s(player_id: int, item_id: String, quantity: int):
 
     if current_quantity:
         current_quantity -= quantity
+
         if current_quantity > 0:
             Database.set_item_quantity(player_uid, item_id, current_quantity)
             rpc_id(player_id, "update_item", item_id, current_quantity)

@@ -47,7 +47,7 @@ remote func show_menu(inventory_data: Array, recipes: Dictionary):
     visible = true
 
 
-func add_inventory_item(item_id: String, quantity: int):
+remote func add_inventory_item(item_id: String, quantity: int):
     var new_inv_row = INVENTORY_ROW_SCENE.instance()
     new_inv_row.init(item_id, quantity)
     inventory_container.add_child(new_inv_row)
@@ -68,3 +68,8 @@ func add_recipe_item(item_id: String, ingredients: Dictionary):
     var new_recipe_row = RECIPE_ROW_SCENE.instance()
     new_recipe_row.init(item_id, ingredients)
     recipe_container.add_child(new_recipe_row)
+    new_recipe_row.connect("craft_button_pressed", self, "on_item_craft")
+
+
+func on_item_craft(item_id: String):
+    rpc_id(1, "craft_item_s", item_id)

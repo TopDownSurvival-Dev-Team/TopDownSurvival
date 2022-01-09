@@ -1,5 +1,7 @@
 extends Control
 
+signal craft_button_pressed(item_id)
+
 export var preview: bool = false
 var item_id: String
 var ingredients: Dictionary
@@ -33,3 +35,7 @@ func _ready():
     var image_path = "res://assets/items/%s/%s.png" % [lower_name, lower_name]
     var image = load(image_path)
     icon.texture = image
+
+
+func _on_CraftButton_pressed():
+    emit_signal("craft_button_pressed", item_id)
