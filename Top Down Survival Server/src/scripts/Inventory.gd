@@ -11,11 +11,15 @@ remote func fetch_inventory_s():
     rpc_id(id, "fetch_inventory", inventory_data)
 
 
-remote func on_item_dropped_s(item_id, quantity):
-    if quantity > 0:
+remote func on_item_dropped_s(item_id: String, quantity: int):
+    if item_id and quantity > 0:
         var id = get_tree().get_rpc_sender_id()
-        remove_item_s(id, item_id, quantity)
-        emit_signal("item_dropped", item_id, quantity, id)
+        var player_uid = Network.players[id]["firebase_uid"]
+        var current_quantity = Database.get_item_quantity(player_uid, item_id)
+
+        if current_quantity and current_quantity >= quantity:
+            remove_item_s(id, item_id, quantity)
+            emit_signal("item_dropped", item_id, quantity, id)
 
 
 func add_item_s(player_id: int, item_id: String, quantity: int):

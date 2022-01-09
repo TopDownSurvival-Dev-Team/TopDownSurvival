@@ -290,9 +290,6 @@ func on_item_picked_up(item: Item, player_id: int):
 
 
 func on_item_dropped(item_id: String, quantity: int, player_id: int):
-    if not item_id:
-        return
-
     var player: Node2D = players.get_node(str(player_id))
     var player_position = player.global_position
 
