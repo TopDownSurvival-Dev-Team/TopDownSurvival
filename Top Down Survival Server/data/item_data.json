@@ -14,5 +14,11 @@
         "category": "Crafting",
         "type": "Block",
         "crafting_level": 0
+    },
+    "10003": {
+        "name": "Chest",
+        "category": "Storage",
+        "type": "Block",
+        "crafting_level": 0
     }
 }
