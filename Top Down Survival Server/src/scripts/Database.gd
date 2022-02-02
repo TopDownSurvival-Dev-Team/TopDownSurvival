@@ -43,6 +43,23 @@ func create_tables():
         )
     """)
 
+    db.query("""
+        CREATE TABLE IF NOT EXISTS containers (
+            id	INTEGER,
+            x_position	INTEGER NOT NULL,
+            y_position	INTEGER NOT NULL,
+            PRIMARY KEY("id")
+        )
+    """)
+
+    db.query("""
+        CREATE TABLE IF NOT EXISTS container_items (
+            container_id	INTEGER,
+            item_id	TEXT NOT NULL,
+            quantity	INTEGER NOT NULL
+        )
+    """)
+
 
 func get_player_position(player_uid: String):  # Vector2 or null
     db.query("""
