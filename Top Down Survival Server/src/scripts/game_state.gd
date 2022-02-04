@@ -364,6 +364,9 @@ remote func request_block_change(
 				if item_data["type"] == "Block" and current_quantity:
 					spawn_block_s(block_id, world_position, true)
 					inventory.remove_item_s(sender_id, block_id, 1)
+					
+					if item_data["category"] == "Storage":
+						Database.create_new_container(map_position)
 
 			else:  # Check if player clicked on a crafting block
 				var item_data = GameData.item_data.get(existing_block)

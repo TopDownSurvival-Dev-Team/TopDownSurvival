@@ -218,6 +218,20 @@ func set_item_quantity(player_uid: String, item_id: String, quantity: int):
 	)
 
 
+func create_new_container(map_position: Vector2):
+	var id = ("%s%s" % [OS.get_unix_time(), randi() % 999]).to_int()
+
+	db.query(
+		(
+			"""
+		INSERT INTO containers
+		VALUES (%s, %s, %s)
+	"""
+			% [id, map_position.x, map_position.y]
+		)
+	)
+
+
 func get_container_id(map_position: Vector2):  # int or null
 	db.query(
 		(
@@ -231,7 +245,7 @@ func get_container_id(map_position: Vector2):  # int or null
 	)
 
 	if db.query_result:
-		return db.query_result[0]
+		return db.query_result[0]["id"]
 	return null
 
 
