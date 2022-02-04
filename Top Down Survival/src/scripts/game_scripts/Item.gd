@@ -15,34 +15,34 @@ onready var collision_shape = $Collider
 
 
 func init(scene_name: String, _item_id: String, _quantity: int, _dropped: bool):
-    name = scene_name
-    item_id = _item_id
-    quantity = _quantity
-    dropped = _dropped
+	name = scene_name
+	item_id = _item_id
+	quantity = _quantity
+	dropped = _dropped
 
 
 func _ready():
-    add_child(pick_up_sfx)
-    pick_up_sfx.global_position = global_position
-    pick_up_sfx.connect("finished", self, "_on_ItemPickUpSFX_finished")
+	add_child(pick_up_sfx)
+	pick_up_sfx.global_position = global_position
+	pick_up_sfx.connect("finished", self, "_on_ItemPickUpSFX_finished")
 
-    add_child(drop_sfx)
-    drop_sfx.global_position = global_position
+	add_child(drop_sfx)
+	drop_sfx.global_position = global_position
 
-    if dropped:
-        drop_sfx.play()
+	if dropped:
+		drop_sfx.play()
 
 
 func request_pick_up():
-    rpc_id(1, "pick_up_s")
+	rpc_id(1, "pick_up_s")
 
 
 func destroy():
-    visible = false
-    collision_shape.set_disabled(true)
-    pick_up_sfx.play()
+	visible = false
+	collision_shape.set_disabled(true)
+	pick_up_sfx.play()
 
 
 func _on_ItemPickUpSFX_finished():
-    get_parent().remove_child(self)
-    queue_free()
+	get_parent().remove_child(self)
+	queue_free()

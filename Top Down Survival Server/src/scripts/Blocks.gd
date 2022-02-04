@@ -5,4 +5,4 @@ extends TileMap
 
 
 func sync_tilemap_s(player_id: int):
-    rpc_id(player_id, "sync_tilemap", cell_size, scale)
+	rpc_id(player_id, "sync_tilemap", cell_size, scale)
