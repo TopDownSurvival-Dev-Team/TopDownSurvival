@@ -345,8 +345,14 @@ remote func request_block_change(
 
 			# Add the destroyed block to player's inventory
 			if destroyed_block_id:
+				var item_data = GameData.item_data[destroyed_block_id]
+
 				despawn_block_s(world_position)
 				inventory.add_item_s(sender_id, destroyed_block_id, 1)
+
+				if item_data["category"] == "Storage":
+					var container_id = Database.get_container_id(map_position)
+					Database.delete_container(container_id)
 
 		else:
 			var map_position = blocks.world_to_map(

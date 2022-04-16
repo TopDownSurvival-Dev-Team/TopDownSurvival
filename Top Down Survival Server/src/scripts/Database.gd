@@ -52,7 +52,7 @@ func create_tables():
 	db.query(
 		"""
 		CREATE TABLE IF NOT EXISTS containers (
-			id	INTEGER,
+			id	BIGINT,
 			x_position	INTEGER NOT NULL,
 			y_position	INTEGER NOT NULL,
 			PRIMARY KEY("id")
@@ -63,7 +63,7 @@ func create_tables():
 	db.query(
 		"""
 		CREATE TABLE IF NOT EXISTS container_items (
-			container_id	INTEGER,
+			container_id	BIGINT,
 			item_id	TEXT NOT NULL,
 			quantity	INTEGER NOT NULL
 		)
@@ -206,42 +206,44 @@ func get_item_quantity(player_uid: String, item_id: String):  # int or null
 
 
 func set_item_quantity(player_uid: String, item_id: String, quantity: int):
-	db.query(
-		(
-			"""
+	db.query("""
 		UPDATE inventories
 		SET quantity = %s
 		WHERE player_uid = \"%s\" AND item_id = \"%s\"
-	"""
-			% [quantity, player_uid, item_id]
-		)
+	""" % [quantity, player_uid, item_id]
 	)
 
 
 func create_new_container(map_position: Vector2):
-	var id = ("%s%s" % [OS.get_unix_time(), randi() % 999]).to_int()
+	var id = OS.get_unix_time() + randi() % 100
 
-	db.query(
-		(
-			"""
+	db.query("""
 		INSERT INTO containers
 		VALUES (%s, %s, %s)
-	"""
-			% [id, map_position.x, map_position.y]
-		)
+	""" % [id, map_position.x, map_position.y]
+	)
+
+
+func delete_container(container_id: int):
+	db.query("""
+		DELETE FROM containers
+		WHERE id = %s
+	""" % container_id
+	)
+	
+	db.query("""
+		DELETE FROM container_items
+		WHERE container_id = %s
+	""" % container_id
 	)
 
 
 func get_container_id(map_position: Vector2):  # int or null
-	db.query(
-		(
-			"""
+	db.query("""
 		SELECT id
 		FROM containers
 		WHERE x_position = %s AND y_position = %s
-	"""
-			% [map_position.x, map_position.y]
-		)
+	""" % [map_position.x, map_position.y]
 	)
 
 	if db.query_result:
@@ -250,14 +252,10 @@ func get_container_id(map_position: Vector2):  # int or null
 
 
 func get_container_items(container_id: int) -> Array:
-	db.query(
-		(
-			"""
+	db.query("""
 		SELECT item_id, quantity
 		FROM container_items
 		WHERE container_id = %s
-	"""
-			% container_id
-		)
+	""" % container_id
 	)
 	return db.query_result
