@@ -1,0 +1,100 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://src/dynamic_fonts/Pixellari_25.tres" type="DynamicFont" id=1]
+
+[node name="ContainerMenu" type="Control"]
+anchor_left = 0.068
+anchor_top = 0.083
+anchor_right = 0.932
+anchor_bottom = 0.917
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 0.588235 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="H" type="HBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 3.0
+margin_top = 3.0
+margin_right = -3.0
+margin_bottom = -3.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Inventory" type="VBoxContainer" parent="H"]
+margin_right = 433.0
+margin_bottom = 494.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="H/Inventory"]
+margin_right = 433.0
+margin_bottom = 26.0
+custom_fonts/font = ExtResource( 1 )
+text = "Inventory"
+align = 1
+valign = 1
+
+[node name="SC" type="ScrollContainer" parent="H/Inventory"]
+margin_top = 30.0
+margin_right = 433.0
+margin_bottom = 494.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="V" type="VBoxContainer" parent="H/Inventory/SC"]
+margin_right = 433.0
+margin_bottom = 464.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Divider" type="ColorRect" parent="H"]
+margin_left = 437.0
+margin_right = 440.0
+margin_bottom = 494.0
+rect_min_size = Vector2( 3, 0 )
+size_flags_vertical = 3
+color = Color( 0, 0, 0, 0.392157 )
+
+[node name="Container" type="VBoxContainer" parent="H"]
+margin_left = 444.0
+margin_right = 878.0
+margin_bottom = 494.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="H/Container"]
+margin_right = 434.0
+margin_bottom = 26.0
+custom_fonts/font = ExtResource( 1 )
+text = "Container Name"
+align = 1
+valign = 1
+
+[node name="SC" type="ScrollContainer" parent="H/Container"]
+margin_top = 30.0
+margin_right = 434.0
+margin_bottom = 494.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="V" type="VBoxContainer" parent="H/Container/SC"]
+margin_right = 434.0
+margin_bottom = 464.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
