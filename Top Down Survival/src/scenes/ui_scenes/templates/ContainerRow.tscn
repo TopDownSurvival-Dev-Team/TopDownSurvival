@@ -1,0 +1,41 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://assets/items/test_item/test_item.png" type="Texture" id=1]
+[ext_resource path="res://src/scripts/ui_scripts/templates/ContainerRow.gd" type="Script" id=2]
+
+[node name="ContainerRow" type="Control"]
+anchor_right = 1.0
+rect_min_size = Vector2( 0, 32 )
+script = ExtResource( 2 )
+
+[node name="H" type="HBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Icon" type="TextureRect" parent="H"]
+margin_right = 32.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 32, 32 )
+texture = ExtResource( 1 )
+expand = true
+stretch_mode = 5
+
+[node name="Info" type="Label" parent="H"]
+margin_left = 36.0
+margin_right = 956.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 0, 32 )
+size_flags_horizontal = 3
+size_flags_vertical = 5
+text = "Item Name (x1)"
+valign = 1
+
+[node name="MoveButton" type="Button" parent="H"]
+margin_left = 960.0
+margin_right = 1024.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 64, 32 )
+text = "Move"
