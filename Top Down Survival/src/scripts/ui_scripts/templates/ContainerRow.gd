@@ -1,5 +1,7 @@
 extends Control
 
+signal on_item_move(item_id, quantity)
+
 export var preview: bool = false
 var item_id: String
 var quantity: int
@@ -13,7 +15,7 @@ func init(_item_id: String, _quantity: int):
 	item_id = _item_id
 	quantity = _quantity
 	item_name = GameData.item_data[item_id]["name"]
-	name = "Inv%s" % item_id
+	name = "Item%s" % item_id
 
 
 func _ready():
@@ -31,3 +33,11 @@ func _ready():
 func set_quantity(new_quantity: int):
 	quantity = new_quantity
 	info_label.text = "%s (x%s)" % [item_name, quantity]
+
+
+func _on_MoveOneButton_pressed():
+	emit_signal("on_item_move", 1)
+
+
+func _on_MoveAllButton_pressed():
+	emit_signal("on_item_move", quantity)

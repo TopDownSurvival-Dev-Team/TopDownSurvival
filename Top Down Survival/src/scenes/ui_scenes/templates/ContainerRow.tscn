@@ -25,7 +25,7 @@ stretch_mode = 5
 
 [node name="Info" type="Label" parent="H"]
 margin_left = 36.0
-margin_right = 956.0
+margin_right = 872.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 0, 32 )
 size_flags_horizontal = 3
@@ -33,9 +33,19 @@ size_flags_vertical = 5
 text = "Item Name (x1)"
 valign = 1
 
-[node name="MoveButton" type="Button" parent="H"]
-margin_left = 960.0
+[node name="MoveOneButton" type="Button" parent="H"]
+margin_left = 876.0
+margin_right = 948.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 72, 32 )
+text = "Move 1"
+
+[node name="MoveAllButton" type="Button" parent="H"]
+margin_left = 952.0
 margin_right = 1024.0
 margin_bottom = 32.0
-rect_min_size = Vector2( 64, 32 )
-text = "Move"
+rect_min_size = Vector2( 72, 32 )
+text = "Move All"
+
+[connection signal="pressed" from="H/MoveOneButton" to="." method="_on_MoveOneButton_pressed"]
+[connection signal="pressed" from="H/MoveAllButton" to="." method="_on_MoveAllButton_pressed"]
