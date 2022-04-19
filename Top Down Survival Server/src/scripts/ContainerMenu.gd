@@ -11,9 +11,10 @@ func show_menu_s(
 
 		if container_id:
 			var player_uid = Network.players[player_id]["firebase_uid"]
-			var inventory = Database.get_inventory(player_uid)
-			var items = Database.get_container_items(container_id)
-			rpc_id(player_id, "show_menu", container_name, inventory, items)
+			var inventory_data = Database.get_inventory(player_uid)
+			var container_items = Database.get_container_items(container_id)
+
+			rpc_id(player_id, "show_menu", container_name, inventory_data, container_items)
 			currently_open_menus.append(player_id)
 
 

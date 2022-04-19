@@ -161,7 +161,7 @@ func get_inventory(player_uid: String) -> Array:
 			% player_uid
 		)
 	)
-	return db.query_result
+	return db.query_result.duplicate()
 
 
 func create_new_item(player_uid: String, item_id: String, quantity: int):
@@ -258,4 +258,4 @@ func get_container_items(container_id: int) -> Array:
 		WHERE container_id = %s
 	""" % container_id
 	)
-	return db.query_result
+	return db.query_result.duplicate()
