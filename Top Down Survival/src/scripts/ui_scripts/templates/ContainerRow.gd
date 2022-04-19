@@ -36,8 +36,8 @@ func set_quantity(new_quantity: int):
 
 
 func _on_MoveOneButton_pressed():
-	emit_signal("on_item_move", 1)
+	emit_signal("on_item_move", item_id, 1)
 
 
 func _on_MoveAllButton_pressed():
-	emit_signal("on_item_move", quantity)
+	emit_signal("on_item_move", item_id, quantity)

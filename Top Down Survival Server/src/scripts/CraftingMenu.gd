@@ -6,7 +6,7 @@ onready var inventory = get_parent().get_node("Inventory")
 
 
 func show_menu_s(player_id: int, crafting_level: int):
-	if not currently_open_menus.has(player_id):
+	if not player_id in currently_open_menus:
 		var player_uid = Network.players[player_id]["firebase_uid"]
 		var inventory_data = Database.get_inventory(player_uid)
 		var recipes = GameData.recipe_data[crafting_level]
@@ -25,10 +25,7 @@ remote func craft_item_s(item_id: String):
 	var player_uid = Network.players[player_id]["firebase_uid"]
 	var crafting_level = currently_open_menus.get(player_id)
 
-	if not (
-		crafting_level != null
-		and item_id in GameData.recipe_data[crafting_level]
-	):
+	if  crafting_level == null or not item_id in GameData.recipe_data[crafting_level]:
 		return
 
 	var required_ingredients = GameData.recipe_data[crafting_level][item_id]

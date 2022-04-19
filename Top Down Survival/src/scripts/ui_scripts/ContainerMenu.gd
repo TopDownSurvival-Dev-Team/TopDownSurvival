@@ -2,6 +2,7 @@ extends Control
 
 const CONTAINER_ROW_SCENE = preload("res://src/scenes/ui_scenes/templates/ContainerRow.tscn")
 
+onready var container_name_label = $H/Container/Label
 onready var inventory_container = $H/Inventory/SC/V
 onready var container_container = $H/Container/SC/V
 
@@ -32,16 +33,17 @@ func clear_all_items():
 
 
 remote func show_menu(container_name: String, inventory_data: Array, container_items: Array):
+	container_name_label.text = container_name
 	clear_all_items()
 
-	for item_info in inventory_data:
-		var item_id = item_info["item_id"]
-		var item_quantity = item_info["quantity"]
+	for inv_item in inventory_data:
+		var item_id = inv_item["item_id"]
+		var item_quantity = inv_item["quantity"]
 		add_inventory_item(item_id, item_quantity)
 
-	for item_info in container_items:
-		var item_id = item_info["item_id"]
-		var item_quantity = item_info["quantity"]
+	for cont_item in container_items:
+		var item_id = cont_item["item_id"]
+		var item_quantity = cont_item["quantity"]
 		add_container_item(item_id, item_quantity)
 
 	visible = true

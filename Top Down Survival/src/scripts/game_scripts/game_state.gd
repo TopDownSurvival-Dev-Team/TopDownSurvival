@@ -30,7 +30,7 @@ func _input(event: InputEvent):
 		master_player.global_position
 	)
 
-	if player_distance <= GameData.player_reach:
+	if player_distance <= GameData.player_reach and not hud.is_any_ui_visible():
 		if event.is_action_pressed("attack"):
 			rpc_id(1, "request_block_change", "", mouse_position, true)
 
