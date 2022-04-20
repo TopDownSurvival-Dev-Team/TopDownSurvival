@@ -323,8 +323,14 @@ remote func request_block_change(block_id: String, world_position: Vector2, dest
 
 				if item_data["category"] == "Storage":
 					var container_id = Database.get_container_id(map_position)
+					var container_items = Database.get_container_items(container_id)
+					
+					for item in container_items:
+						var offset = Vector2(randf() * 30 - 15, randf() * 30 - 15)
+						var item_pos = world_position + offset
+						spawn_item_s(item["item_id"], item["quantity"], item_pos, true)
+
 					Database.delete_container(container_id)
-					# TODO: Drop items when container is destroyed
 
 		else:
 			var map_position = blocks.world_to_map(world_position / blocks.scale)
