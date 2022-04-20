@@ -2,6 +2,8 @@ extends Node
 
 signal item_dropped(item_id, quantity, player_id)
 
+const STARTER_ITEMS = {"10002": 1, "10003": 4}
+
 
 remote func fetch_inventory_s():
 	var id = get_tree().get_rpc_sender_id()
@@ -9,6 +11,12 @@ remote func fetch_inventory_s():
 
 	var inventory_data = Database.get_inventory(player_uid)
 	rpc_id(id, "fetch_inventory", inventory_data)
+
+	# Give player starter items if joining for the first time
+	if not Database.get_player_position(player_uid):
+		for item_id in STARTER_ITEMS:
+			var quantity = STARTER_ITEMS.get(item_id)
+			add_item_s(id, item_id, quantity)
 
 
 remote func on_item_dropped_s(item_id: String, quantity: int):

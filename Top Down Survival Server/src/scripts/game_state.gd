@@ -353,6 +353,7 @@ remote func request_block_change(
 				if item_data["category"] == "Storage":
 					var container_id = Database.get_container_id(map_position)
 					Database.delete_container(container_id)
+					# TODO: Drop items when container is destroyed
 
 		else:
 			var map_position = blocks.world_to_map(
