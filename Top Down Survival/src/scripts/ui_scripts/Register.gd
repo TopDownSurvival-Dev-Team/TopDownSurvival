@@ -15,9 +15,7 @@ func _ready():
 	status_label.visible = false
 
 	# Connect signals
-	Gateway.connect(
-		"gateway_connection_failure", self, "failed_to_connect_to_gateway"
-	)
+	Gateway.connect("gateway_connection_failure", self, "failed_to_connect_to_gateway")
 	Gateway.connect("register_success", self, "registered_successfully")
 	Gateway.connect("register_failure", self, "failed_to_register")
 
@@ -34,9 +32,7 @@ func attempt_to_register():
 	status_label.visible = true
 	register_button.disabled = true
 
-	Gateway.register(
-		username_field.text, email_field.text, password_field.text
-	)
+	Gateway.register(username_field.text, email_field.text, password_field.text)
 
 
 func registered_successfully():

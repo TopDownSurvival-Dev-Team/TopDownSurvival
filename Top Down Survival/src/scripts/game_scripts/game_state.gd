@@ -26,9 +26,7 @@ func _input(event: InputEvent):
 
 	var mouse_position = get_global_mouse_position()
 	var master_player = $Players.get_node(str(Network.local_player_id))
-	var player_distance = mouse_position.distance_to(
-		master_player.global_position
-	)
+	var player_distance = mouse_position.distance_to(master_player.global_position)
 
 	if player_distance <= GameData.player_reach and not hud.is_any_ui_visible():
 		if event.is_action_pressed("attack"):
@@ -81,15 +79,9 @@ remote func despawn_tree(tree_id: int):
 
 
 remote func spawn_item(
-	item_id: String,
-	quantity: int,
-	scene_id: int,
-	item_position: Vector2,
-	dropped: bool
+	item_id: String, quantity: int, scene_id: int, item_position: Vector2, dropped: bool
 ):
-	var item_type = GameData.item_data[item_id]["name"].capitalize().replace(
-		" ", ""
-	)
+	var item_type = GameData.item_data[item_id]["name"].capitalize().replace(" ", "")
 	var new_item_scene = load("res://src/actors/items/%s.tscn" % item_type)
 
 	if new_item_scene:
@@ -105,9 +97,7 @@ remote func spawn_item(
 
 
 remote func despawn_item(item_id: String, scene_id: int):
-	var item_type = GameData.item_data[item_id]["name"].capitalize().replace(
-		" ", ""
-	)
+	var item_type = GameData.item_data[item_id]["name"].capitalize().replace(" ", "")
 	var scene_name = str(item_type) + "-" + str(scene_id)
 	var item: Item = items.get_node(scene_name)
 
@@ -115,9 +105,7 @@ remote func despawn_item(item_id: String, scene_id: int):
 		item.destroy()
 
 
-remote func spawn_block(
-	block_id: String, world_position: Vector2, player_placed: bool
-):
+remote func spawn_block(block_id: String, world_position: Vector2, player_placed: bool):
 	var tile_id = blocks.tile_set.find_tile_by_name(block_id)
 	var tile_set_pos = blocks.world_to_map(world_position / blocks.scale)
 	blocks.set_cellv(tile_set_pos, tile_id)

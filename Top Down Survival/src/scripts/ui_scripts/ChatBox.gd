@@ -27,16 +27,7 @@ func send_message():
 
 
 remote func add_message(message, sender, color):
-	var text = (
-		"\n[color=#"
-		+ color
-		+ "]"
-		+ "["
-		+ sender
-		+ "] "
-		+ message
-		+ "[/color]"
-	)
+	var text = "\n[color=#" + color + "]" + "[" + sender + "] " + message + "[/color]"
 	chat_log.bbcode_text += text
 
 

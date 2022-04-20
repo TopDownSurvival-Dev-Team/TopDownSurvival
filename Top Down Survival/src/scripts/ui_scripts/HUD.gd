@@ -16,11 +16,7 @@ func _ready():
 
 
 func is_any_ui_visible() -> bool:
-	return (
-		crafting_menu.visible or
-		container_menu.visible or
-		pause_menu.visible
-	)
+	return crafting_menu.visible or container_menu.visible or pause_menu.visible
 
 
 func on_focus_entered():

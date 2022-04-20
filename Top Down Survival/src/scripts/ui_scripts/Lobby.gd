@@ -24,18 +24,12 @@ func _ready():
 
 	# Connect signals
 	Gateway.connect("gateway_connection_success", self, "connected_to_gateway")
-	Gateway.connect(
-		"gateway_connection_failure", self, "failed_to_connect_to_gateway"
-	)
+	Gateway.connect("gateway_connection_failure", self, "failed_to_connect_to_gateway")
 	Gateway.connect("login_success", self, "attempt_to_join_game")
 	Gateway.connect("login_failure", self, "failed_to_login")
-	Network.connect(
-		"server_connection_failed", self, "failed_to_connect_to_game"
-	)
+	Network.connect("server_connection_failed", self, "failed_to_connect_to_game")
 	Network.connect("invalid_token_supplied", self, "invalid_token")
-	GodotcordActivityManager.connect(
-		"activity_join", self, "accept_join_invite"
-	)
+	GodotcordActivityManager.connect("activity_join", self, "accept_join_invite")
 
 	RPCManager.set_activity_lobby()
 
@@ -79,9 +73,7 @@ func accept_join_invite(join_secret: String):
 		attempt_to_login()
 
 	else:
-		status_label.set_text(
-			"Cannot join server with\ndifferent version: %s" % version
-		)
+		status_label.set_text("Cannot join server with\ndifferent version: %s" % version)
 		print_debug(
 			(
 				"Tried to join a game with different version.\nCurrent version: %s, Requested version: %s"

@@ -71,10 +71,7 @@ func load_world(world_data: Array):
 				spawn_tree_s(entity_pos)
 
 			"block":
-				var world_position = (
-					blocks.map_to_world(entity_pos)
-					* blocks.scale
-				)
+				var world_position = blocks.map_to_world(entity_pos) * blocks.scale
 				spawn_block_s(entity_info["block_id"], world_position, false)
 
 			_:
@@ -94,11 +91,7 @@ func save_world():
 		Database.set_player_position(player_uid, player.global_position)
 
 	for tree in trees.get_children():
-		var data = {
-			"entity_type": "tree",
-			"position": tree.global_position,
-			"entity_info": {}
-		}
+		var data = {"entity_type": "tree", "position": tree.global_position, "entity_info": {}}
 		world_data.append(data)
 
 	for block_pos in block_data:
@@ -158,15 +151,7 @@ func send_world_to(id):
 	for item in items.get_children():
 		var item_info = item.name.split("-", false, 1)
 		var scene_id = item_info[1].to_int()
-		rpc_id(
-			id,
-			"spawn_item",
-			item.item_id,
-			item.quantity,
-			scene_id,
-			item.global_position,
-			false
-		)
+		rpc_id(id, "spawn_item", item.item_id, item.quantity, scene_id, item.global_position, false)
 
 
 func spawn_player_s(id: int):
@@ -229,17 +214,13 @@ func despawn_tree_s(scene_id: int):
 
 func on_tree_break(tree: GameTree):
 	# Spawn wood at current position
-	spawn_item_s(
-		tree.ITEM_DROP, tree.wood_quantity, tree.global_position, false
-	)
+	spawn_item_s(tree.ITEM_DROP, tree.wood_quantity, tree.global_position, false)
 
 	# Despawn tree
 	despawn_tree_s(tree.name.to_int())
 
 
-func spawn_item_s(
-	item_id: String, quantity: int, item_position: Vector2, dropped: bool
-):
+func spawn_item_s(item_id: String, quantity: int, item_position: Vector2, dropped: bool):
 	# Limit number of item nodes currently existing
 	if items.get_child_count() >= MAX_ITEM_COUNT:
 		var remove_item: Item = items.get_child(0)
@@ -255,9 +236,7 @@ func spawn_item_s(
 	var new_item = ITEM_SCENE.instance()
 
 	# Gather item info
-	var item_type = GameData.item_data[item_id]["name"].capitalize().replace(
-		" ", ""
-	)
+	var item_type = GameData.item_data[item_id]["name"].capitalize().replace(" ", "")
 	var scene_id = randi() % MAX_ITEM_COUNT
 	var scene_name = str(item_type) + "-" + str(scene_id)
 
@@ -278,9 +257,7 @@ func spawn_item_s(
 
 
 func despawn_item_s(item_id: String, scene_id: int):
-	var item_type = GameData.item_data[item_id]["name"].capitalize().replace(
-		" ", ""
-	)
+	var item_type = GameData.item_data[item_id]["name"].capitalize().replace(" ", "")
 	var scene_name = str(item_type) + "-" + str(scene_id)
 	var item = items.get_node(scene_name)
 	items.remove_child(item)
@@ -310,9 +287,7 @@ func on_item_dropped(item_id: String, quantity: int, player_id: int):
 	spawn_item_s(item_id, quantity, item_position, true)
 
 
-func spawn_block_s(
-	block_id: String, world_position: Vector2, player_placed: bool
-):
+func spawn_block_s(block_id: String, world_position: Vector2, player_placed: bool):
 	var map_position = blocks.world_to_map(world_position / blocks.scale)
 	block_data[map_position] = block_id
 
@@ -328,9 +303,7 @@ func despawn_block_s(world_position: Vector2):
 		rpc("despawn_block", world_position)
 
 
-remote func request_block_change(
-	block_id: String, world_position: Vector2, destroy: bool
-):
+remote func request_block_change(block_id: String, world_position: Vector2, destroy: bool):
 	var sender_id = get_tree().get_rpc_sender_id()
 	var player_uid = Network.players[sender_id]["firebase_uid"]
 	var player_position = players.get_node(str(sender_id)).global_position
@@ -338,9 +311,7 @@ remote func request_block_change(
 	# Make sure the position is within player's reach
 	if world_position.distance_to(player_position) <= GameData.PLAYER_REACH:
 		if destroy:
-			var map_position = blocks.world_to_map(
-				world_position / blocks.scale
-			)
+			var map_position = blocks.world_to_map(world_position / blocks.scale)
 			var destroyed_block_id = block_data.get(map_position)
 
 			# Add the destroyed block to player's inventory
@@ -356,16 +327,12 @@ remote func request_block_change(
 					# TODO: Drop items when container is destroyed
 
 		else:
-			var map_position = blocks.world_to_map(
-				world_position / blocks.scale
-			)
+			var map_position = blocks.world_to_map(world_position / blocks.scale)
 			var existing_block = block_data.get(map_position)
 
 			if not existing_block and block_id:
 				var item_data = GameData.item_data[block_id]
-				var current_quantity = Database.get_item_quantity(
-					player_uid, block_id
-				)
+				var current_quantity = Database.get_item_quantity(player_uid, block_id)
 
 				# Verify the item is placeable and the player has it in their inventory
 				if item_data["type"] == "Block" and current_quantity:
@@ -382,12 +349,8 @@ remote func request_block_change(
 					match item_data["category"]:
 						"Crafting":
 							var crafting_level = item_data["crafting_level"]
-							crafting_menu.show_menu_s(
-								sender_id, crafting_level
-							)
+							crafting_menu.show_menu_s(sender_id, crafting_level)
 
 						"Storage":
 							var container_name = item_data["name"]
-							container_menu.show_menu_s(
-								sender_id, container_name, map_position
-							)
+							container_menu.show_menu_s(sender_id, container_name, map_position)

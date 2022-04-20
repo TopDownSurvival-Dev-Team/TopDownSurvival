@@ -123,8 +123,7 @@ func get_world_data() -> Array:
 	for entity_data in db.query_result:
 		var data = {
 			"entity_type": entity_data["entity_type"],
-			"position":
-			Vector2(entity_data["x_position"], entity_data["y_position"]),
+			"position": Vector2(entity_data["x_position"], entity_data["y_position"]),
 			"entity_info": parse_json(entity_data["entity_info"])
 		}
 		world_data.append(data)
@@ -206,44 +205,64 @@ func get_item_quantity(player_uid: String, item_id: String):  # int or null
 
 
 func set_item_quantity(player_uid: String, item_id: String, quantity: int):
-	db.query("""
+	db.query(
+		(
+			"""
 		UPDATE inventories
 		SET quantity = %s
 		WHERE player_uid = \"%s\" AND item_id = \"%s\"
-	""" % [quantity, player_uid, item_id]
+	"""
+			% [quantity, player_uid, item_id]
+		)
 	)
 
 
 func create_new_container(map_position: Vector2):
 	var id = OS.get_unix_time() + randi() % 100
 
-	db.query("""
+	db.query(
+		(
+			"""
 		INSERT INTO containers
 		VALUES (%s, %s, %s)
-	""" % [id, map_position.x, map_position.y]
+	"""
+			% [id, map_position.x, map_position.y]
+		)
 	)
 
 
 func delete_container(container_id: int):
-	db.query("""
+	db.query(
+		(
+			"""
 		DELETE FROM containers
 		WHERE id = %s
-	""" % container_id
+	"""
+			% container_id
+		)
 	)
-	
-	db.query("""
+
+	db.query(
+		(
+			"""
 		DELETE FROM container_items
 		WHERE container_id = %s
-	""" % container_id
+	"""
+			% container_id
+		)
 	)
 
 
 func get_container_id(map_position: Vector2):  # int or null
-	db.query("""
+	db.query(
+		(
+			"""
 		SELECT id
 		FROM containers
 		WHERE x_position = %s AND y_position = %s
-	""" % [map_position.x, map_position.y]
+	"""
+			% [map_position.x, map_position.y]
+		)
 	)
 
 	if db.query_result:
@@ -252,21 +271,30 @@ func get_container_id(map_position: Vector2):  # int or null
 
 
 func get_container_items(container_id: int) -> Array:
-	db.query("""
+	db.query(
+		(
+			"""
 		SELECT item_id, quantity
 		FROM container_items
 		WHERE container_id = %s
-	""" % container_id
+	"""
+			% container_id
+		)
 	)
 	return db.query_result.duplicate()
 
 
 func get_container_item_quantity(container_id: int, item_id: String):  # int or null
-	db.query("""
+	db.query(
+		(
+			"""
 		SELECT quantity
 		FROM container_items
 		WHERE container_id = %s AND item_id = \"%s\"
-	""" % [container_id, item_id])
+	"""
+			% [container_id, item_id]
+		)
+	)
 
 	if db.query_result:
 		return db.query_result[0]["quantity"]
@@ -274,22 +302,37 @@ func get_container_item_quantity(container_id: int, item_id: String):  # int or 
 
 
 func update_container_item(container_id: int, item_id: String, quantity: int):
-	db.query("""
+	db.query(
+		(
+			"""
 		UPDATE container_items
 		SET quantity = %s
 		WHERE container_id = %s AND item_id = \"%s\"
-	""" % [quantity, container_id, item_id])
+	"""
+			% [quantity, container_id, item_id]
+		)
+	)
 
 
 func add_container_item(container_id: int, item_id: String, quantity: int):
-	db.query("""
+	db.query(
+		(
+			"""
 		INSERT INTO container_items
 		VALUES (%s, \"%s\", %s)
-	""" % [container_id, item_id, quantity])
+	"""
+			% [container_id, item_id, quantity]
+		)
+	)
 
 
 func remove_container_item(container_id: int, item_id: String):
-	db.query("""
+	db.query(
+		(
+			"""
 		DELETE FROM container_items
 		WHERE container_id = %s AND item_id = \"%s\"
-	""" % [container_id, item_id])
+	"""
+			% [container_id, item_id]
+		)
+	)

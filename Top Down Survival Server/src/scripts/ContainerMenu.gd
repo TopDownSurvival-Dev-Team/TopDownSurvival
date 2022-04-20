@@ -5,9 +5,7 @@ var currently_open_menus = {}
 onready var inventory = get_parent().get_node("Inventory")
 
 
-func show_menu_s(
-	player_id: int, container_name: String, container_position: Vector2
-):
+func show_menu_s(player_id: int, container_name: String, container_position: Vector2):
 	if not player_id in currently_open_menus:
 		var container_id = Database.get_container_id(container_position)
 
@@ -97,9 +95,7 @@ func remove_inventory_item_s(player_id: int, item_id: String, quantity: int):
 		current_quantity -= quantity
 
 		if current_quantity > 0:
-			rpc_id(
-				player_id, "update_inventory_item", item_id, current_quantity
-			)
+			rpc_id(player_id, "update_inventory_item", item_id, current_quantity)
 		else:
 			rpc_id(player_id, "remove_inventory_item", item_id)
 

@@ -15,9 +15,7 @@ func _ready():
 	f.close()
 
 
-remote func send_game_data(
-	_item_data: Dictionary, _recipe_data: Array, _player_reach: int
-):
+remote func send_game_data(_item_data: Dictionary, _recipe_data: Array, _player_reach: int):
 	item_data = _item_data
 	recipe_data = _recipe_data
 	player_reach = _player_reach

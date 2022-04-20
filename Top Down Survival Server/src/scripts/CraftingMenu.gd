@@ -25,7 +25,7 @@ remote func craft_item_s(item_id: String):
 	var player_uid = Network.players[player_id]["firebase_uid"]
 	var crafting_level = currently_open_menus.get(player_id)
 
-	if  crafting_level == null or not item_id in GameData.recipe_data[crafting_level]:
+	if crafting_level == null or not item_id in GameData.recipe_data[crafting_level]:
 		return
 
 	var required_ingredients = GameData.recipe_data[crafting_level][item_id]
@@ -33,13 +33,8 @@ remote func craft_item_s(item_id: String):
 
 	for ingredient in required_ingredients:
 		var required_quantity = required_ingredients[ingredient]
-		var current_quantity = Database.get_item_quantity(
-			player_uid, ingredient
-		)
-		has_ingredients = (
-			has_ingredients
-			and current_quantity >= required_quantity
-		)
+		var current_quantity = Database.get_item_quantity(player_uid, ingredient)
+		has_ingredients = (has_ingredients and current_quantity >= required_quantity)
 
 		if not has_ingredients:
 			return
@@ -66,9 +61,7 @@ func remove_item_s(player_id: int, item_id: String, quantity: int):
 		current_quantity -= quantity
 
 		if current_quantity > 0:
-			rpc_id(
-				player_id, "update_inventory_item", item_id, current_quantity
-			)
+			rpc_id(player_id, "update_inventory_item", item_id, current_quantity)
 		else:
 			rpc_id(player_id, "remove_inventory_item", item_id)
 

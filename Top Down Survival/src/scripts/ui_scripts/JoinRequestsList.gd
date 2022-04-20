@@ -9,9 +9,7 @@ func _ready():
 		remove_child(node)
 		node.queue_free()
 
-	GodotcordActivityManager.connect(
-		"activity_join_request", self, "new_join_request"
-	)
+	GodotcordActivityManager.connect("activity_join_request", self, "new_join_request")
 
 
 func new_join_request(username: String, user_id: int):

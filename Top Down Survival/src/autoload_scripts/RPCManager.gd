@@ -51,9 +51,6 @@ func set_activity_game(
 		activity.join_secret = (
 			""
 			if singleplayer
-			else (
-				"%s:%s:%s"
-				% [server_address, server_port, GameData.client_version]
-			)
+			else ("%s:%s:%s" % [server_address, server_port, GameData.client_version])
 		)
 		GodotcordActivityManager.set_activity(activity)

@@ -21,7 +21,7 @@ func close_menu():
 	rpc_id(1, "close_menu_s")
 	visible = false
 
- 
+
 func clear_all_items():
 	for node in inventory_container.get_children():
 		inventory_container.remove_child(node)
@@ -49,7 +49,6 @@ remote func show_menu(container_name: String, inventory_data: Array, container_i
 	visible = true
 
 
-
 remote func add_inventory_item(item_id: String, quantity: int):
 	var new_inv_row = CONTAINER_ROW_SCENE.instance()
 	new_inv_row.init(item_id, quantity)
@@ -68,7 +67,6 @@ remote func update_inventory_item(item_id: String, quantity: int):
 	inv_row.set_quantity(quantity)
 
 
-
 remote func add_container_item(item_id: String, quantity: int):
 	var new_cont_row = CONTAINER_ROW_SCENE.instance()
 	new_cont_row.init(item_id, quantity)
@@ -85,7 +83,6 @@ remote func remove_container_item(item_id: String):
 remote func update_container_item(item_id: String, quantity: int):
 	var cont_row = container_container.get_node("Item%s" % item_id)
 	cont_row.set_quantity(quantity)
-
 
 
 func on_item_move_to_inventory(item_id: String, quantity: int):
