@@ -28,11 +28,26 @@ remote func close_menu_s():
 remote func move_item_to_inventory_s(item_id: String, quantity: int):
 	var player_id = get_tree().get_rpc_sender_id()
 	var player_uid = Network.players[player_id]["firebase_uid"]
+	var container_id = currently_open_menus.get(player_id)
 
-	if not player_id in currently_open_menus:
+	if not container_id:
 		return
 
-	# TODO
+	var container_quantity = Database.get_container_item_quantity(container_id, item_id)
+
+	if not container_quantity or container_quantity < quantity:
+		return
+
+	var new_container_quantity = container_quantity - quantity
+
+	if new_container_quantity:
+		Database.update_container_item(container_id, item_id, new_container_quantity)
+		rpc_id(player_id, "update_container_item", item_id, new_container_quantity)
+	else:
+		Database.remove_container_item(container_id, item_id)
+		rpc_id(player_id, "remove_container_item", item_id)
+
+	add_inventory_item_s(player_id, item_id, quantity)
 
 
 remote func move_item_to_container_s(item_id: String, quantity: int):
@@ -62,7 +77,15 @@ remote func move_item_to_container_s(item_id: String, quantity: int):
 
 
 func add_inventory_item_s(player_id: int, item_id: String, quantity: int):
-	rpc_id(player_id, "add_inventory_item", item_id, quantity)
+	var player_uid = Network.players[player_id]["firebase_uid"]
+	var current_quantity = Database.get_item_quantity(player_uid, item_id)
+
+	if current_quantity:
+		current_quantity += quantity
+		rpc_id(player_id, "update_inventory_item", item_id, current_quantity)
+	else:
+		rpc_id(player_id, "add_inventory_item", item_id, quantity)
+
 	inventory.add_item_s(player_id, item_id, quantity)
 
 

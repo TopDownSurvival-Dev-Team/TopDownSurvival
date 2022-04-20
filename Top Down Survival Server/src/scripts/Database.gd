@@ -286,3 +286,10 @@ func add_container_item(container_id: int, item_id: String, quantity: int):
 		INSERT INTO container_items
 		VALUES (%s, \"%s\", %s)
 	""" % [container_id, item_id, quantity])
+
+
+func remove_container_item(container_id: int, item_id: String):
+	db.query("""
+		DELETE FROM container_items
+		WHERE container_id = %s AND item_id = \"%s\"
+	""" % [container_id, item_id])
