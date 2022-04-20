@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://src/scripts/game_scripts/game_state.gd" type="Script" id=1]
 [ext_resource path="res://src/tile_sets/Blocks.tres" type="TileSet" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://src/scripts/game_scripts/Blocks.gd" type="Script" id=7]
 [ext_resource path="res://src/scenes/ui_scenes/JoinRequestsList.tscn" type="PackedScene" id=8]
 [ext_resource path="res://src/scenes/ui_scenes/CraftingMenu.tscn" type="PackedScene" id=9]
+[ext_resource path="res://src/scenes/ui_scenes/ContainerMenu.tscn" type="PackedScene" id=10]
 
 [node name="World" type="Node2D"]
 script = ExtResource( 1 )
@@ -23,6 +24,9 @@ script = ExtResource( 6 )
 [node name="JoinRequestsList" parent="HUD" instance=ExtResource( 8 )]
 
 [node name="CraftingMenu" parent="HUD" instance=ExtResource( 9 )]
+visible = false
+
+[node name="ContainerMenu" parent="HUD" instance=ExtResource( 10 )]
 visible = false
 
 [node name="PauseMenu" parent="HUD" instance=ExtResource( 5 )]
