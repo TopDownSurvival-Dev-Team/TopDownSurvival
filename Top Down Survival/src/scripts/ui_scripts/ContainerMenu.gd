@@ -89,8 +89,8 @@ remote func update_container_item(item_id: String, quantity: int):
 
 
 func on_item_move_to_inventory(item_id: String, quantity: int):
-	pass  # TODO
+	rpc_id(1, "move_item_to_inventory_s", item_id, quantity)
 
 
 func on_item_move_to_container(item_id: String, quantity: int):
-	pass  # TODO
+	rpc_id(1, "move_item_to_container_s", item_id, quantity)

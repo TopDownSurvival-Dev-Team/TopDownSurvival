@@ -259,3 +259,30 @@ func get_container_items(container_id: int) -> Array:
 	""" % container_id
 	)
 	return db.query_result.duplicate()
+
+
+func get_container_item_quantity(container_id: int, item_id: String):  # int or null
+	db.query("""
+		SELECT quantity
+		FROM container_items
+		WHERE container_id = %s AND item_id = \"%s\"
+	""" % [container_id, item_id])
+
+	if db.query_result:
+		return db.query_result[0]["quantity"]
+	return null
+
+
+func update_container_item(container_id: int, item_id: String, quantity: int):
+	db.query("""
+		UPDATE container_items
+		SET quantity = %s
+		WHERE container_id = %s AND item_id = \"%s\"
+	""" % [quantity, container_id, item_id])
+
+
+func add_container_item(container_id: int, item_id: String, quantity: int):
+	db.query("""
+		INSERT INTO container_items
+		VALUES (%s, \"%s\", %s)
+	""" % [container_id, item_id, quantity])
