@@ -19,6 +19,12 @@ func get_credentials() -> Dictionary:
 	var file = File.new()
 	file.open_encrypted(CREDS_FILE, File.READ, key)
 	var creds = JSON.parse(file.get_as_text()).get_result()
+
+	if not creds:
+		return {
+			"email": "",
+			"password": "",
+		}
 	return creds
 
 

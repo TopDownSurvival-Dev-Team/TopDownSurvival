@@ -36,8 +36,8 @@ func _ready():
 
 func restore_previous_credentials():
 	var credentials = CredentialsManager.get_credentials()
-	email_field.set_text(credentials["email"])
-	password_field.set_text(credentials["password"])
+	email_field.set_text(credentials.get("email", ""))
+	password_field.set_text(credentials.get("password", ""))
 
 
 func make_fields_editable(value: bool):
